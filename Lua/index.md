@@ -5,7 +5,7 @@ Find Hubs, Libraries, and Scripts made by DraxWare LLC.
 # [Hubs](Hubs)
 Hubs, like Drax Ware, are centralized platforms or tools designed to enhance the gaming experience across multiple games. They typically offer a variety of functions and features to streamline gameplay, improve performance, and provide additional capabilities to players.
 
-# [Ui Libaries](Ui-Libraries)
+# [Ui Libaries](Ui%20Libraries)
 Libraries, particularly UI (User Interface) libraries, are collections of pre-written code, components, and resources that developers can leverage to streamline the process of creating graphical user interfaces for their applications or websites.
 
 # [Roblox Scripts](Scripts)
