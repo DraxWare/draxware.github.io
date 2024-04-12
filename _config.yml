@@ -2,3 +2,15 @@ title: Quality Exploits
 remote_theme: pages-themes/hacker@v0.2.0
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+    <link rel="icon" href="{{ "/favicon.ico" | relative_url }}" type="image/x-icon">
+    <!-- Other meta tags, stylesheets, or scripts may be added here -->
+  </head>
+  <body>
+</html>
