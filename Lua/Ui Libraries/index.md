@@ -27,3 +27,11 @@ Jon's Library it's an awesome library packed with a bunch of features;
 - [x] Universal Save Configs (So that you dont have to!)
 
 Developed for [Any Roblox Experience](https://www.roblox.com/discover#/).
+
+# [Digital's Library](Digitals-Library)
+
+#### What's Digital's Library?
+
+shiii i dont even know, let me look into it.
+
+Developed for [N/A Roblox Experience](https://www.roblox.com/404).
