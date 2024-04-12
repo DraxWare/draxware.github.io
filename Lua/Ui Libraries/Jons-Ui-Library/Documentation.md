@@ -1,11 +1,11 @@
 # Jon's Ui Library Documentation
 
-Take A Look At The [Library Source](source.lua) Here
+Take A Look At The [Library Source](Source.lua) Here
 
-Take A Look At The [Library Rawed-Source](https://raw.githubusercontent.com/DraxWare/github.io/main/Lua/Ui-Libraries/Jons-Ui-Library/source.lua) Here
+Take A Look At The [Library Rawed Source](https://raw.githubusercontent.com/DraxWare/draxware.github.io/main/Lua/Ui%20Libraries/Jons-Ui-Library/Source.lua) Here
 ## Getting My Library
 ```lua
-local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/DraxWare/github.io/main/Lua/Ui-Libraries/Jons-Ui-Library/source.lua'))();
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/DraxWare/draxware.github.io/main/Lua/Ui%20Libraries/Jons-Ui-Library/Source.lua'))();
 ```
 
 ## Creating Window
@@ -429,7 +429,7 @@ end
 # Example Script
 
 ```lua
-local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/DraxWare/github.io/main/Lua/Ui-Libraries/Jons-Ui-Library/source.lua'))();
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/DraxWare/draxware.github.io/main/Lua/Ui%20Libraries/Jons-Ui-Library/Source.lua'))();
 
 local Window = Library:CreateWindow('Hub Name', false)
 
