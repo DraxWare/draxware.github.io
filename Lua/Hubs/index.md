@@ -1,4 +1,4 @@
-# [Drax Ware](Drax Ware)
+# [Drax Ware](DraxWare)
 
 #### What's DraxWare?
 
