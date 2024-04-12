@@ -18,4 +18,4 @@ In conclusion, neither Ro-Ware nor Unnamed esp were able to defeat Drax Ware in 
 of games... In terms of 𝐏𝐞𝐫𝐟𝐨𝐫𝐦𝐚𝐧𝐜𝐞 and 𝗪𝗼𝗿𝗸𝗮𝗯𝗶𝗹𝗶𝘁𝘆 
 (a lot of games failed to pass the test of esp or esp and aimbot) Drax Ware works in all Roblox games.
 
-Developed for [All](https://www.roblox.com/discover#/).
+Developed for [Any Roblox game](https://www.roblox.com/discover#/).
