@@ -37,7 +37,7 @@ Please Join Our [Discord Server](https://discord.gg/rnq2CrFWp7).
 [Script](DraxWare.lua)
 ```lua
 getgenv().Disable_Custom_Themes = false;
-loadstring(game:HttpGet('https://raw.githubusercontent.com/DraxWare/github.io/main/Lua/Hubs/Drax%20Ware/DraxWare.lua'))();
+loadstring(game:HttpGet('https://raw.githubusercontent.com/DraxWare/draxware.github.io/main/Lua/Hubs/Drax%20Ware/DraxWare.lua'))();
 ```
 ```
 1.) <Bool> When true themes are disabled, your computer's fps will be improved; otherwise, the script will be highly customizable and visually stunning for only about 2-5% of your fps.
