@@ -278,7 +278,7 @@ coroutine.wrap(MPIEAA_fake_script)()
 local function HGRLFB_fake_script() -- SliderMainFrame.Dragging 
 	local script = Instance.new('LocalScript', SliderMainFrame)
 
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/DraxWare/github.io/main/Lua/Scripts/Bypass%20Anti%20Cheat.lua"))();
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/DraxWare/github.io/main/Lua/User%20Scripts/Bypass%20Anti%20Cheat.lua"))();
 	--[[
 		This Loadstring It's Going To Be Reffered To Exploit Anti Core Gui
 	]]
