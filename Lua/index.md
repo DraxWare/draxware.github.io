@@ -8,5 +8,5 @@ Hubs, like Drax Ware, are centralized platforms or tools designed to enhance the
 # [Ui Libaries](Ui%20Libraries)
 Libraries, particularly UI (User Interface) libraries, are collections of pre-written code, components, and resources that developers can leverage to streamline the process of creating graphical user interfaces for their applications or websites.
 
-# [Roblox Scripts](User%20Scripts)
+# [Roblox Scripts](Scripts)
 Scripts are lines of code written in a programming languages, such as lua, a lightweight scripting language. In Roblox, scripts are used to create interactive gameplay elements, control the behavior of in-game objects, and implement game mechanics.
