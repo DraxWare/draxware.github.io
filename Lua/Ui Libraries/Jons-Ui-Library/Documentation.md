@@ -48,11 +48,14 @@ Can Be Set To, Labels, Paragraphs, Buttons, Sliders, TextBoxes, Keybinds, Toggle
     Can Be Set At The End Of Parameters of Shown Above Settings.
 ]]
 
-something:CreateSomething(args1,args2,'args3',true,'This Feature Is Useless') -- When hovered, 'This Feature Is Useless' will be shown at users pointer.
+local Applicable = Labels or Paragraphs
+local ApplicableWithFunctions = Buttons or Sliders or TextBoxes or Keybinds or Toggles or Dropdowns
 
-something:CreateSomething('args1',args2,function(args3)
-    dosomething()
-end, true,'This Feature Is Useless') -- When hovered, 'This Feature Is Useless' will be shown at users pointer.
+Applicable:Applicable(--[[args1,args2,'args3',]]true,'This Feature Is Useless') -- When hovered, 'This Feature Is Useless' will be shown at users pointer. Basically Add it at the end of any Applicable Label Or Paragraph.
+
+ApplicableWithFunctions:ApplicableWithFunctions(--[['args1',args2,function(args3)
+    print('T)
+end,]] true,'This Feature Is Useless') -- When hovered, 'This Feature Is Useless' will be shown at users pointer. Basically Add it at the end of any Applicable Feature with a function at the end of the function.
 ```
 
 | parameters   | Type                | Information             | In-Depth Description |
@@ -323,7 +326,7 @@ Library:CreatePrompt('OneButton', 'Prompt Title', 'Prompt Text', {
 
 # Two Buttons
 ```lua
-UIFunctions:CreateButton('Create Two Button Prompt', function()
+Section:CreateButton('Create Two Button Prompt', function()
     Library:CreatePrompt('TwoButton', 'Prompt Title', 'Prompt Text', {
         'Button 1',
         function()
@@ -434,7 +437,7 @@ local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/DraxW
 local Window = Library:CreateWindow('Hub Name', false)
 
 local Tab = Window:CreateTab('Tab', true, 'rbxassetid://4483362458', Vector2.new(0, 0), Vector2.new(0, 0))
-local Updates = Window:CreateTab('Updates', true, 'rbxassetid://4483362458', Vector2.new(0, 0), Vector2.new(0, 0))
+local Updates = Window:CreateTab('Updates', false, 'rbxassetid://4483362458', Vector2.new(0, 0), Vector2.new(0, 0))
 
 local Section = Tab:CreateSection('Section')
 local UpdatesSection = Updates:CreateSection('Updates')
