@@ -41,6 +41,7 @@ local TextService = Services.TextService
 local Players = Services.Players
 local HttpService = Services.HttpService
 local FastWaitValue = Instance.new("BoolValue");
+local Hovering = false;
 local UpdateValue=function()end;
 local CacheUpdateValue=function()end;
 local FastWait=function()end;
@@ -525,6 +526,7 @@ do
 			local Title = Title or 'Title'
 			local Text = Text or 'Text'
 			local Duration = Duration or 5
+			Amount = Amount + 1
 
 			if not CoreGui:FindFirstChild(tostring(LibraryName)) then
 				Utility:Create('ScreenGui', {
@@ -534,7 +536,7 @@ do
 			else
 				Utility:Create('Frame', {
 					Parent = CoreGui:FindFirstChild(''..tostring(LibraryName)..''),
-					Name = 'Notification'..tostring(Amount + 1),
+					Name = 'Notification'..tostring(Amount),
 					BackgroundColor3 = Theme.BackgroundColor,
 					BorderSizePixel = 0,
 					Position = UDim2.new(1, 300, 1, -30),
@@ -588,26 +590,14 @@ do
 					})
 				})
 
-				Amount = Amount + 1
 				local Holder = CoreGui:FindFirstChild(''..tostring(LibraryName)..'')['Notification'..tostring(Amount)]
 				local TitleObj = Holder['NotificationTitle']
 				local TextObj = Holder['NotificationText']
 				local TextSize = TextService:GetTextSize(Text, 14, Enum.Font.Gotham, Vector2.new(300, math.huge))
 				Holder.Size = UDim2.new(0, 300, 0, TextSize.Y + 30)
 				TextObj.Size = UDim2.new(0, 300, 0, TextSize.Y)
-				if Amount > 1 then
-					local PreviousSizes = 0
-					for _, Notification in next, Holder.Parent:GetChildren() do
-						if Notification ~= Holder.Parent['Notification'..tostring(Amount)] then
-							local AbsoluteY = Notification.AbsoluteSize.Y + 5
-							PreviousSizes = PreviousSizes + AbsoluteY
-						end
-					end
-					Holder.Position = UDim2.new(1, 300, 1, -30 - PreviousSizes)
-					Utility:Tween(Holder, {Position = UDim2.new(1, -30, 1, -30 - PreviousSizes)}, 0.5)
-				else
-					Utility:Tween(Holder, {Position = UDim2.new(1, -30, 1, -30)}, 0.5)
-				end
+				local Sequence = 30 + (Amount-1) * 50
+				Utility:Tween(Holder, {Position = UDim2.new(1, -30, 1, -Sequence)}, 0.5);
 				wait(Duration - 1)
 				Utility:Tween(Holder, {BackgroundTransparency = 0.8}, 0.25)
 				Utility:Tween(TitleObj, {TextTransparency = 0.5}, 0.25)
@@ -882,7 +872,7 @@ do
 
             Utility:Tween(PromptHolder, {BackgroundTransparency = 0.1}, 0.25)
             task.wait(0.25)
-            Utility:Tween(PromptFrame, {BackgroundTransparency = NotificationTransparency0}, 0.25)
+            Utility:Tween(PromptFrame, {BackgroundTransparency = NotificationTransparency}, 0.25)
             Utility:Tween(PromptFrame, {Size = UDim2.new(0, 300, 0, 150)}, 0.25)
             Utility:Tween(PromptFrameCorner, {CornerRadius = UDim.new(0, 5)}, 0.25)
             task.wait(0.25)
@@ -1492,7 +1482,6 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 			}),
 			Utility:Create('Frame', {
 				Name = 'Intro DropdownHolder',
-				Parent = Main,
 				BackgroundColor3 = Theme.PrimaryElementColor,
 				Size = UDim2.new(0, 350, 0, 35),
 				Position = UDim2.new(0,12,0,260),
@@ -1604,7 +1593,6 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 			}),
 			Utility:Create('Frame', {
 				Name = 'Intro DropdownFiller',
-				Parent = Main,
 				Visible = false,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, 350, 0, 0)
@@ -1750,17 +1738,17 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 	Utility:Tween(Main['Intro DropdownHolder']['Intro DropdownHolderStroke'], {Transparency = 0}, 0.25)
 	wait()
 	local message = "Welcome, "..Services.Players.LocalPlayer.Name..'!'
-	for i = 0, #message do
+	for i = 1, #message do
 		wait(0.01);
 		Container:FindFirstChild('Main'):FindFirstChild('IntroText').Text = string.sub(message, 1, i)
 	end
 	message = HubName
-	for i = 0, #message do
+	for i = 1, #message do
 		wait(0.01);
 		Container:FindFirstChild('Main'):FindFirstChild('Credits').Text = string.sub(message, 1, i)
 	end
 	message = ('(Powered by '..UIName..')')
-	for i = 0, #message do
+	for i = 1, #message do
 		wait(0.01);
 		Container:FindFirstChild('Main'):FindFirstChild('IntroTextCredits').Text = string.sub(message, 1, i)
 	end
@@ -1788,7 +1776,6 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 		Parent = Main,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
-		Parent = Main,
 		BorderSizePixel = 0,
 		Size = UDim2.new(0, 600, 0, 375),
 		ZIndex = 100,
@@ -2006,7 +1993,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 		end
 	end)
 
-	function UpdateTabButtonHolderSize()
+	local UpdateTabButtonHolderSize = function()
 		local ContentSize = TabButtonHolderListLayout.AbsoluteContentSize.Y
 
         TabButtonHolder.CanvasSize = UDim2.new(0, 170, 0, ContentSize)
@@ -2045,7 +2032,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 		end)
 	end
 
-	function ChangeThemeValue()
+	local ChangeThemeValue = function()
 		spawn(function()
 			ChangeTheme = true
 			wait()
@@ -2341,10 +2328,12 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 			})
 
 			local Section = Tab[Name..'Section']
+
             --[[
                 Init: Search
             ]]
-            function SectionSearch()
+
+            local SectionSearch = function()
                 Section[Name..'SearchTextButton']:GetPropertyChangedSignal("Text"):Connect(function()
                     for i,v in next, Section:GetChildren() do
                         if v.Name ~= (Name..'SearchTextButton') and v.Name ~= 'SectionCorner' and v.Name ~= (Name..'ListLayout') then
@@ -2378,7 +2367,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				end)
 			end
 
-			function UpdateSectionSize()
+			local UpdateSectionSize = function()
 				if Section:FindFirstChild(Name..'ListLayout') then
 					local ContentSize = Section[Name..'ListLayout'].AbsoluteContentSize
 					Utility:Tween(Section, {Size = UDim2.new(0, ContentSize.X, 0, ContentSize.Y)}, 0.25)
@@ -2386,7 +2375,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 			end
 
 			for _, Item in next, Section:GetChildren() do
-				function FrameUpdateSectionSize()
+				local FrameUpdateSectionSize = function()
 					if Item:IsA('Frame') then
 						Item.Changed:Connect(function(Property)
 							if Property == 'Size' then
@@ -2402,7 +2391,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 			Section.ChildAdded:Connect(UpdateSectionSize)
 			Section.ChildRemoved:Connect(UpdateSectionSize)
 
-            function CreateToolTip(GotActualSection,InPutName,IsHolder,IsToolTip,ToolTipLabelText)
+            local CreateToolTip = function(GotActualSection, InPutName, IsHolder, IsToolTip, ToolTipLabelText)
                 spawn(function()
                     local Enabled = IsToolTip or false;
                     local ToolTipText = ToolTipLabelText or 'NoInput';
@@ -2474,11 +2463,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
                         until ActualSection[TTName..Holder][TTName..'TooltipFrame']
                         
                         local MouseIsFocused = false
-                        local PlayersMouse = Services.Players.LocalPlayer:GetMouse();
                         local LastTextBoxLocation = UDim2.new(0,0,0,0);
 
                         local GetMouseUDim2 = function()
-                            local Position = Vector2.new(PlayersMouse.X, PlayersMouse.Y) - ActualSection.AbsolutePosition
+                            local Position = Vector2.new(Services.Players.LocalPlayer:GetMouse().X, Services.Players.LocalPlayer:GetMouse().Y) - ActualSection.AbsolutePosition
 
                             return UDim2.fromOffset(Position.X, 0, Position.Y, 0)
                         end
@@ -2494,7 +2482,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
                                 true
                             )
                         end)
-                        PlayersMouse.Move:Connect(function()
+                        Services.Players.LocalPlayer:GetMouse().Move:Connect(function()
                             if MouseIsFocused == true then
                                 LastTextBoxLocation = GetMouseUDim2();
                                 ActualSection[TTName..Holder][TTName..'TooltipFrame']:TweenPosition(
@@ -2539,7 +2527,6 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 			function Elements:CreateLabel(LabelText, IsToolTip, ToolTipLabelText)
                 local Enabled = IsToolTip or false;
                 local ToolTipText = ToolTipLabelText or 'NoInput';
-                CreateToolTip(Section,LabelText, 'LabelHolder', Enabled, ToolTipText);
 				local LabelText = LabelText or 'Label'
 				local LabelFunctions = {}
 
@@ -2605,6 +2592,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				function LabelFunctions:UpdateLabel(NewText)
 					Section[LabelText..'LabelHolder'][LabelText..'Label'].Text = NewText
 				end
+
+				CreateToolTip(Section,LabelText, 'LabelHolder', Enabled, ToolTipText);
+
 				return LabelFunctions
 			end
 
@@ -2678,7 +2668,8 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					})
 				})
 
-				local Old
+				local Old;
+				local Old2;
 				local ParagraphHolder = Section[Title..'ParagraphHolder']
 				local ParagraphContent = Section[Title..'ParagraphHolder'][Title..'ParagraphContent']
 				local ParagraphTitle = Section[Title..'ParagraphHolder'][Title..'ParagraphTitle']
@@ -2952,7 +2943,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					})
 				})
 
-				local Mouse = Players.LocalPlayer:GetMouse()
+				local Mouse = Services.Players.LocalPlayer:GetMouse()
 				local SliderHolder = Section[Name..'SliderHolder']
 				local SliderButton = SliderHolder[Name..'SliderButton']
 				local SliderNumber = SliderHolder[Name..'SliderNumberText']
@@ -3036,9 +3027,11 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				end)
 
 				SliderButton.MouseButton1Down:Connect(function()
-					local CaughtValue = Mouse.X
+					local CaughtValue = Services.Players.LocalPlayer:GetMouse().X
+					local MoveConnection = Services.Players.LocalPlayer:GetMouse().Move
+					local ReleaseConnection = UserInputService.InputEnded
 
-					MoveConnection = Mouse.Move:Connect(function()
+					MoveConnection = MoveConnection:Connect(function()
 						if IsPrecise == true then
 							CurrentValue = tonumber(tostring(string.sub(((((tonumber(MaximumValue) - tonumber(MinimumValue)) / 395) * SliderTrail.AbsoluteSize.X) + tonumber(MinimumValue)), 1, 4)))
 						else
@@ -3049,10 +3042,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 							Callback(CurrentValue)
 						end)
 						Utility:Tween(SliderNumber, {TextColor3 = Color3.new(255, 255, 255)}, 0.25)
-						Utility:Tween(SliderTrail, {Size = UDim2.new(0, math.clamp(Mouse.X - SliderTrail.AbsolutePosition.X, 0, 395), 0, 10)}, 0.25)
+						Utility:Tween(SliderTrail, {Size = UDim2.new(0, math.clamp(Services.Players.LocalPlayer:GetMouse().X - SliderTrail.AbsolutePosition.X, 0, 395), 0, 10)}, 0.25)
 					end)
 
-					ReleaseConnection = UserInputService.InputEnded:Connect(function(Input)
+					ReleaseConnection = ReleaseConnection:Connect(function(Input)
 						if Input.UserInputType == Enum.UserInputType.MouseButton1 then
 							Utility:Tween(SliderNumber, {TextColor3 = Theme.SecondaryTextColor}, 0.30)
 							Config[Name] = CurrentValue
@@ -3262,8 +3255,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 			function Elements:CreateKeybind(Name, Key, Callback, IsToolTip, ToolTipLabelText)
                 local Enabled = IsToolTip or false;
-                local ToolTipText = ToolTipLabelText or 'NoInput';
-                CreateToolTip(Section,Name, 'KeybindHolder', Enabled, ToolTipText);
+				local ToolTipText = ToolTipLabelText or 'NoInput';
 				local Name = Name or 'Keybind'
 				local Key = Key or 'E'
 				local Callback = Callback or function() end
@@ -3296,7 +3288,6 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					}),
 					Utility:Create('TextLabel', {
 						Name = Name..'KeybindText',
-						Parent = KeybindHolder,
 						BackgroundColor3 = Theme.PrimaryElementColor,
 						BackgroundTransparency = 1,
 						Position = UDim2.new(0, 0, 0, 5),
@@ -3314,9 +3305,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					}), 
 					Utility:Create('TextButton', {
 						Name = Name..'Keybind',
-						Parent = KeybindHolder,
 						BackgroundColor3 = Theme.SecondaryElementColor,
-						Position = UDim2.new(0, 376, 0, 8),
 						Size = UDim2.new(0, 25, 0, 25),
 						Font = Enum.Font.Gotham,
 						Text = Current,
@@ -3342,7 +3331,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				local KeybindHolder = Section[Name..'KeybindHolder']
 				local Keybind = KeybindHolder[Name..'Keybind']
-
+				
+				CreateToolTip(Section,Name,'KeybindHolder', Enabled, ToolTipText);
+				
 				UpdateSectionSize()
 
 				Config[Name] = Current
@@ -3369,7 +3360,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					end)
 				end
 
-				TextSize = TextService:GetTextSize(Current, 14, Enum.Font.Gotham, Vector2.new(410, 40))
+				local TextSize = TextService:GetTextSize(Current, 14, Enum.Font.Gotham, Vector2.new(410, 40))
 				if TextSize.X < 25 then
 					Utility:Tween(Keybind, {Size = UDim2.new(0, 25, 0, 25)}, 0.25)
 				else 
@@ -3924,7 +3915,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					end)
 				end
 				
-				function DropDownSectionSearch()
+				local DropDownSectionSearch = function()
 					if IsSearch == true then
 						DropdownHolder[Name..'DropList'][Name..'DropdownSearchTextButton']:GetPropertyChangedSignal("Text"):Connect(function()
 							for i,v in next, DropList:GetChildren() do
@@ -4084,8 +4075,6 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					Callback(Default)
 				end
 
-				Config[Name] = Item
-
 				DropdownHolder.MouseEnter:Connect(function()
 					Hovering = true
 					Utility:Tween(DropdownHolder, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.5)
@@ -4238,20 +4227,20 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				return DropdownFunctions
 			end
 
-			function Elements:CreateColorpicker(Name, DefaultColor, DebounceAmount, Callback, ...)
+			function Elements:CreateColorpicker(Name, CallingDefaultColor, DebounceAmount, Callback, ...)
 				local Name = Name or 'Colorpicker'
 				local xArgs = ...
 				local Args = xArgs or {}
 				local Callback = Callback or function() end
 				local DebounceAmount = DebounceAmount or 0.25
-				local DefaultColor = DefaultColor or Color3.fromRGB(0, 125, 255)
+				local DefaultColor = CallingDefaultColor or Color3.fromRGB(0, 125, 255)
 				local Debounce = false;
 				local RainbowmodeToggleDebounce = false;
 				local Opened = false
-				local H, S, V = Color3.toHSV(DefaultColor)
+				local H, S, V = DefaultColor:ToHSV()
 				local ColorpickerFunctions = {}
 				local Hovering = false
-				local Default = Default or false
+				local Default = --[[Default or ]]false --I have to add a feature where it checks if last saved config was Raimbowed Mode
 				local RainbowmodeToggled = Default
 				local RainbowmodeToggleColor = Color3.fromRGB(0, 255, 100);
 				local ValueToMix = 0;
@@ -4511,7 +4500,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				UpdateSectionSize()
 
-				if not Args[1] == true then
+				if Args[1] ~= true then
 					Config[Name] = Utility:SplitColor(DefaultColor)
 				end
 
@@ -4543,7 +4532,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				end
 
 				if DefaultColor ~= nil then
-					Color = {H, S, V}
+					local Color = {H, S, V}
 					local FinalColor = Color3.fromHSV(Color[1], Color[2], Color[3])
 					ColorpickerPreview.BackgroundColor3 = FinalColor
 					Callback(FinalColor)
@@ -4600,10 +4589,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				local RGBPicked = false
 				local DarknessPicked = false
 
-				Mouse.Move:Connect(function()
+				Services.Players.LocalPlayer:GetMouse().Move:Connect(function()
 					if RGBPicked then
-						local MouseXPosition = Mouse.X - RGBPicker.AbsolutePosition.X
-						local MouseYPosition = Mouse.Y - RGBPicker.AbsolutePosition.Y
+						local MouseXPosition = Services.Players.LocalPlayer:GetMouse().X - RGBPicker.AbsolutePosition.X
+						local MouseYPosition = Services.Players.LocalPlayer:GetMouse().Y - RGBPicker.AbsolutePosition.Y
 
 						local CircleXSize = RGBPickerCircle.AbsoluteSize.X / 2
 						local CircleYSize = RGBPickerCircle.AbsoluteSize.Y / 2
@@ -4630,11 +4619,11 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 						Callback(HSVColor)
 
-						if not Args[1] == true then
+						if Args[1] ~= true then
 							Config[Name] = Utility:SplitColor(HSVColor)
 						end
 					elseif DarknessPicked then
-						local MouseYPosition = Mouse.Y - DarknessPicker.AbsolutePosition.Y
+						local MouseYPosition = Services.Players.LocalPlayer:GetMouse().Y - DarknessPicker.AbsolutePosition.Y
 
 						local CircleYSize = DarknessPickerCircle.AbsoluteSize.Y / 2
 
@@ -4657,7 +4646,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 						Callback(HSVColor)
 
-						if not Args[1] == true then
+						if Args[1] ~= true then
 							Config[Name] = Utility:SplitColor(HSVColor)
 						end
 					end 
@@ -4920,6 +4909,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				end
 
 				local function UpdateImageCanvas()
+					
 					local ContentSize = ImageDropdownListLayout.AbsoluteContentSize
 
 					ImageDropdown.CanvasSize = UDim2.new(0, ContentSize.X, 0, ContentSize.Y)
@@ -5002,7 +4992,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				function ImageFunctions:UpdateImage(NewURL, NewSize)
 					ImageSize = NewSize
-					URL = NewUrl
+					URL = NewURL
 					Image.Image = NewURL
 					UpdateImageCanvas()
 				end
