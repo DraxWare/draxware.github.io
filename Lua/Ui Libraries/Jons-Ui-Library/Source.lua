@@ -2588,10 +2588,18 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						end
 					end)
 				end
-
+				
 				function LabelFunctions:UpdateLabel(NewText)
-					Section:FindFirstChild(LabelText..'LabelHolder'):FindFirstChild(LabelText..'Label').Text = NewText
+					Section:WaitForChild(LabelText..'LabelHolder');
+					if Section and Section[LabelText..'LabelHolder'] and Section[LabelText..'LabelHolder'][LabelText..'Label'] then
+						Section[LabelText..'LabelHolder'][LabelText..'Label'].Text = NewText
+					else
+						warn("Could not update label. ActualDom or its components not found.")
+					end
 				end
+				--[[function LabelFunctions:UpdateLabel(NewText)
+					ActualDom[LabelText..'LabelHolder'][LabelText..'Label'].Text = NewText
+				end]]
 
 				CreateToolTip(Section,LabelText, 'LabelHolder', Enabled, ToolTipText);
 
