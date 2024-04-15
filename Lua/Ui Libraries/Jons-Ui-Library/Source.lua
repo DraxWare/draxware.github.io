@@ -2590,7 +2590,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				end
 
 				function LabelFunctions:UpdateLabel(NewText)
-					Section[LabelText..'LabelHolder'][LabelText..'Label'].Text = NewText
+					Section:FindFirstChild(LabelText..'LabelHolder'):FindFirstChild(LabelText..'Label').Text = NewText
 				end
 
 				CreateToolTip(Section,LabelText, 'LabelHolder', Enabled, ToolTipText);
@@ -4749,7 +4749,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					Callback(Initial)
 					Color = {Value.R,Value.G,1}
 				end
+				
 				ConfigUpdates[Name] = ColorpickerFunctions
+				
 				return ColorpickerFunctions
 			end
 
@@ -4909,9 +4911,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				end
 
 				local function UpdateImageCanvas()
-					
 					local ContentSize = ImageDropdownListLayout.AbsoluteContentSize
-
 					ImageDropdown.CanvasSize = UDim2.new(0, ContentSize.X, 0, ContentSize.Y)
 				end
 
