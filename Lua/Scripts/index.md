@@ -5,7 +5,7 @@ I get bored and make dope scripts, yeh.
 ### [Bypass Anti Cheat](Bypass%20Anti%20Cheat.lua)
 ### [Dragon Ball Rage](Dragon%20Ball%20Rage.lua)
 ### [Emergency Response](Emergency%20Response.lua)
-- [] Auto ATM
+- [ ] Auto ATM
 - [x] Lockpick
 - [x] Safe
 - [x] Steal Cars
