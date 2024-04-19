@@ -28,6 +28,7 @@ AnimateText = function(a,b)
 	local Animation;
 
 	if Text == 'nil' then Text = 'No Text Provided!' end
+	if Text == nil then Text = 'No Text Provided!' end
 	if Item.Text == Text then return end
 	
 	Item.MaxVisibleGraphemes = 0;
