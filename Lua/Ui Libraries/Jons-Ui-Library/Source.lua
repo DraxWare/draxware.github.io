@@ -24,7 +24,7 @@ if identifyexecutor and type(identifyexecutor) == "function" then
 end
 AnimateText = function(a,b)
 	local Item = a or Instance.new('TextLabel');
-	local Text = b or 'No Text Provided!';
+	local Text = tostring(b) or 'No Text Provided!';
 	local Animation;
 
 	Item.MaxVisibleGraphemes = 0;
