@@ -22,6 +22,18 @@ if identifyexecutor and type(identifyexecutor) == "function" then
 		CoreGui = Services.CoreGui
 	end
 end
+AnimateText = function(a,b)
+	local Item = a or Instance.new('TextLabel');
+	local Text = b or 'No Text Provided!';
+	local Animation;
+
+	Item.MaxVisibleGraphemes = 0;
+	Item.Text = Text;
+
+	Animation = Services.TweenService:Create(Item, TweenInfo.new(0.60), {MaxVisibleGraphemes = #Text})
+
+	Animation:Play()
+end
 getgenv().kms = false; -- // This Means that the user has ran the Library Before. Therefore Finding And Deleting The Old One;
 local DestroyedUiLibraryAndStoppedLoops = {};
 local UIName = LibraryName
@@ -561,7 +573,7 @@ do
 						Position = UDim2.new(0, 0, 0, -1),
 						Size = UDim2.new(0, 300, 0, 30),
 						Font = Enum.Font.Gotham,
-						Text = Title,
+						Text = '',
 						TextColor3 = Theme.PrimaryTextColor,
 						TextSize = 16,
 						TextXAlignment = Enum.TextXAlignment.Left
@@ -577,7 +589,7 @@ do
 						Position = UDim2.new(0, 0, 0, 25),
 						Size = UDim2.new(0, 300, 0, 30),
 						Font = Enum.Font.Gotham,
-						Text = Text,
+						Text = '',
 						TextWrapped = true,
 						TextColor3 = Theme.SecondaryTextColor,
 						TextSize = 14,
@@ -598,6 +610,10 @@ do
 				TextObj.Size = UDim2.new(0, 300, 0, TextSize.Y)
 				local Sequence = 30 + (Amount-1) * 50
 				Utility:Tween(Holder, {Position = UDim2.new(1, -30, 1, -Sequence)}, 0.5);
+				wait(0.5)
+				AnimateText(TitleObj, Title);
+				wait(.60)
+				AnimateText(TextObj, Text);
 				wait(Duration - 1)
 				Utility:Tween(Holder, {BackgroundTransparency = 0.8}, 0.25)
 				Utility:Tween(TitleObj, {TextTransparency = 0.5}, 0.25)
@@ -1738,20 +1754,14 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 	Utility:Tween(Main['Intro DropdownHolder']['Intro DropdownHolderStroke'], {Transparency = 0}, 0.25)
 	wait()
 	local message = "Welcome, "..Services.Players.LocalPlayer.Name..'!'
-	for i = 1, #message do
-		wait(0.01);
-		Container:FindFirstChild('Main'):FindFirstChild('IntroText').Text = string.sub(message, 1, i)
-	end
+	AnimateText(Container:FindFirstChild('Main'):FindFirstChild('IntroText'), message);
+	wait(.60);
 	message = HubName
-	for i = 1, #message do
-		wait(0.01);
-		Container:FindFirstChild('Main'):FindFirstChild('Credits').Text = string.sub(message, 1, i)
-	end
+	AnimateText(Container:FindFirstChild('Main'):FindFirstChild('Credits'), message);
+	wait(.60);
 	message = ('(Powered by '..UIName..')')
-	for i = 1, #message do
-		wait(0.01);
-		Container:FindFirstChild('Main'):FindFirstChild('IntroTextCredits').Text = string.sub(message, 1, i)
-	end
+	AnimateText(Container:FindFirstChild('Main'):FindFirstChild('IntroTextCredits'), message);
+	wait(.60);
 	--\\ New Shit
 	local HasTouched = false
 	Main['IntroButton'].MouseButton1Click:Connect(function()
@@ -2481,6 +2491,8 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
                                 0.3,
                                 true
                             )
+							wait(.10)
+							AnimateText(ActualSection[TTName..Holder][TTName..'TooltipFrame'][TTName..'TooltipText'], ToolTipText)
                         end)
                         Services.Players.LocalPlayer:GetMouse().Move:Connect(function()
                             if MouseIsFocused == true then
@@ -2592,7 +2604,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				function LabelFunctions:UpdateLabel(NewText)
 					Section:WaitForChild(LabelText..'LabelHolder');
 					if Section and Section[LabelText..'LabelHolder'] and Section[LabelText..'LabelHolder'][LabelText..'Label'] then
-						Section[LabelText..'LabelHolder'][LabelText..'Label'].Text = NewText
+						AnimateText(Section[LabelText..'LabelHolder'][LabelText..'Label'], NewText);
 					else
 						warn("Could not update label. ActualDom or its components not found.")
 					end
@@ -3160,7 +3172,8 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						Size = UDim2.new(0, 50, 0, 25),
 						Font = Enum.Font.Gotham,
 						PlaceholderColor3 = Theme.SecondaryTextColor,
-						Text = Placeholder,
+						PlaceholderText = Placeholder,
+						Text = '',
 						TextColor3 = Theme.SecondaryTextColor,
 						TextSize = 14,
 						ClearTextOnFocus = false
@@ -3377,14 +3390,14 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
                 
 				Keybind.MouseButton1Click:Connect(function()
 					ChangingBind = true
-					Keybind.Text = '. . .'
+					AnimateText(Keybind, '. . .')
 					Utility:Tween(KeybindHolder, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.25)
 					local Input, _ = UserInputService.InputBegan:wait();
 
 					if Input.UserInputType ~= 'None' then
 					    if Input.UserInputType.Name == "Keyboard" then
 					        if Input.KeyCode.Name ~= 'Unknown' then
-        						Keybind.Text = Input.KeyCode.Name
+        						AnimateText(Keybind, Input.KeyCode.Name)
                                 TextSize = TextService:GetTextSize(Input.KeyCode.Name, 14, Enum.Font.Gotham, Vector2.new(410, 40))
                                 if TextSize.X < 25 then
                                     Utility:Tween(Keybind, {Size = UDim2.new(0, 25, 0, 25)}, 0.25)
@@ -3398,7 +3411,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
         					end
     					else
 							if Input.UserInputType.Name == 'MouseButton1' then
-								Keybind.Text = "Left Mouse"
+								AnimateText(Keybind, "Left Mouse")
                                 TextSize = TextService:GetTextSize("Left Mouse", 14, Enum.Font.Gotham, Vector2.new(410, 40))
                                 if TextSize.X < 25 then
                                     Utility:Tween(Keybind, {Size = UDim2.new(0, 25, 0, 25)}, 0.25)
@@ -3408,7 +3421,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
                                 Current = Input.UserInputType.Name;
 							end
 							if Input.UserInputType.Name == 'MouseButton2' then
-								Keybind.Text = "Right Mouse"
+								AnimateText(Keybind, "Right Mouse")
                                 TextSize = TextService:GetTextSize("Right Mouse", 14, Enum.Font.Gotham, Vector2.new(410, 40))
                                 if TextSize.X < 25 then
                                     Utility:Tween(Keybind, {Size = UDim2.new(0, 25, 0, 25)}, 0.25)
@@ -3465,7 +3478,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				function KeybindFunctions:Set(Value)
 					Current = Value
-					Keybind.Text = Value
+					AnimateText(Keybind, Value)
 				end
 				function KeybindFunctions:ReadKeybind(Value)
 					return Current
@@ -4055,7 +4068,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 							end
 						end
 						Utility:Tween(OptionButton, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.25)
-						DropdownHolder[Name..'DropdownSelectedText'].Text = (Item or "[!] Error")
+						AnimateText(DropdownHolder[Name..'DropdownSelectedText'], (Item or "[!] Error"))
 						Callback(Item)
 						Config[Name] = Item
 						Opened = false
@@ -4079,7 +4092,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				if Default ~= nil then
 					local Option = DropList[Default..'OptionButton']
 					Utility:Tween(Option, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.25)
-					DropdownSelectedText.Text = Default
+					AnimateText(DropdownSelectedText, Default)
 					Callback(Default)
 				end
 
@@ -4172,7 +4185,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						UpdateSectionSize()
 
 						if #List == 0 then
-							DropdownSelectedText.Text = 'None'
+							AnimateText(DropdownSelectedText, 'None')
 							SelectedItem = 'None'
 						end
 
@@ -4212,7 +4225,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 								end
 							end
 							Utility:Tween(OptionButton, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.25)
-							DropdownSelectedText.Text = tostring(Item)
+							AnimateText(DropdownSelectedText, tostring(Item))
 							Callback(Item)
 							wait(0.5)
 							Opened = false
