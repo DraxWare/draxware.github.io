@@ -27,6 +27,8 @@ AnimateText = function(a,b)
 	local Text = tostring(b) or 'No Text Provided!';
 	local Animation;
 
+	if Item.Text == Text then return end
+	
 	Item.MaxVisibleGraphemes = 0;
 	Item.Text = Text;
 
