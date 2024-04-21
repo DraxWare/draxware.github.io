@@ -30,9 +30,6 @@ getfenv = function(idx)
         if key == "DateTime" then
             return DateTime
         end
-        if key == "tick" then
-            return tick
-        end
         if key == "bit32" then
             return bit32
         end
@@ -129,15 +126,6 @@ getfenv = function(idx)
         if key == "setmetatable" then
             return setmetatable
         end
-        if key == "next" then
-            return next
-        end
-        if key == "wait" then
-            return wait
-        end
-        if key == "ipairs" then
-            return ipairs
-        end
         if key == "Region3int16" then
             return Region3int16
         end
@@ -227,9 +215,6 @@ getfenv = function(idx)
         end
         if key == "setfenv" then
             return setfenv
-        end
-        if key == "pairs" then
-            return pairs
         end
         if key == "Axes" then
             return Axes
