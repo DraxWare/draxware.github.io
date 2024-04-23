@@ -3015,22 +3015,37 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						Old_Value = tonumber(CurrentValue)
 						SliderHolder[Name..'SliderNumberText'].FocusLost:Connect(function()
 							New_Value = tonumber(SliderHolder[Name..'SliderNumberText'].Text)
+							wait();
 							if not New_Value then
 								SliderHolder[Name..'SliderNumberText'].Text = "Numbers Only!"
 								wait(.80)
 								SliderHolder[Name..'SliderNumberText'].Text = Old_Value;
 								CurrentValue = Old_Value;
 							end
-							if New_Value and New_Value > MaximumValue then 
-								SliderHolder[Name..'SliderNumberText'].Text = "[!] Max"..MaximumValue
-								wait(.80)
-								SliderHolder[Name..'SliderNumberText'].Text = Old_Value;
+							if MaximumValue < MinimumValue then
+								if New_Value < MaximumValue then 
+									SliderHolder[Name..'SliderNumberText'].Text = "[!] Max " .. MaximumValue
+									wait(0.80)
+									SliderHolder[Name..'SliderNumberText'].Text = Old_Value
+								end
+								if New_Value > MinimumValue then
+									SliderHolder[Name..'SliderNumberText'].Text = "[!] Min " .. MinimumValue
+									wait(0.80)
+									SliderHolder[Name..'SliderNumberText'].Text = Old_Value
+								end
+							else
+								if New_Value > MaximumValue then 
+									SliderHolder[Name..'SliderNumberText'].Text = "[!] Max " .. MaximumValue
+									wait(0.80)
+									SliderHolder[Name..'SliderNumberText'].Text = Old_Value
+								end
+								if New_Value < MinimumValue then
+									SliderHolder[Name..'SliderNumberText'].Text = "[!] Min " .. MinimumValue
+									wait(0.80)
+									SliderHolder[Name..'SliderNumberText'].Text = Old_Value
+								end
 							end
-							if New_Value and New_Value < MinimumValue then
-								SliderHolder[Name..'SliderNumberText'].Text = "[!] Min"..MinimumValue
-								wait(.80)
-								SliderHolder[Name..'SliderNumberText'].Text = Old_Value;
-							end
+
 							if New_Value and New_Value <= MaximumValue and New_Value >= MinimumValue then
 								if IsPrecise then
 									CurrentValue = tonumber(tostring(string.sub((tostring(New_Value)),1,4)))
@@ -3044,8 +3059,20 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 								end)
 								Config[Name] = CurrentValue
 								Utility:Tween(SliderNumber, {TextColor3 = Theme.SecondaryTextColor}, 1.1)
+							elseif New_Value and New_Value >= MaximumValue and New_Value <= MinimumValue then
+								if IsPrecise then
+									CurrentValue = tonumber(tostring(string.sub((tostring(New_Value)),1,4)))
+								else
+									CurrentValue = math.floor(New_Value)
+								end
+								SliderNumber.Text = CurrentValue			
+								Utility:Tween(SliderTrail, {Size = UDim2.new((1 - (CurrentValue - MaximumValue) / (MinimumValue - MaximumValue)), 0, 0, 10)}, 0.25)
+								spawn(function()
+									Callback(CurrentValue)
+								end)
+								Config[Name] = CurrentValue
+								Utility:Tween(SliderNumber, {TextColor3 = Theme.SecondaryTextColor}, 1.1)
 							end
-
 						end)
 					end)
 				end)
