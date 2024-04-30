@@ -1175,13 +1175,10 @@ function Library:SetTransparency(Transparency, NotificationBool)
 		'UICorner',
 		'UIStroke',
 		'UIListLayout',
-		'Folder'
+		'Folder',
+		'UiGradient',
 	}
 
-	repeat
-		wait()
-	until Ui:FindFirstChild('Main');
-	
 	for _, Item in next, UI:GetDescendants() do
 		if not table.find(Blacklist, Item.ClassName) then
 			if Item and Item.BackgroundTransparency ~= nil and Item.BackgroundTransparency ~= 1 and Transparency < 0.95 then
