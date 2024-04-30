@@ -1179,7 +1179,7 @@ function Library:SetTransparency(Transparency, NotificationBool)
 	
 	repeat
 		wait()
-	until UI:WaitForChild('BackgroundTransparency')
+	until UI:FindFirstChild('BackgroundTransparency')
 	
 	for _, Item in next, UI:GetDescendants() do
 		if not table.find(Blacklist, Item.ClassName) then
