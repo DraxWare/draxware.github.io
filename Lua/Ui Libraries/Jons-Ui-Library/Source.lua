@@ -1176,7 +1176,7 @@ function Library:SetTransparency(Transparency, NotificationBool)
 		'UIStroke',
 		'UIListLayout',
 		'Folder',
-		'UiGradient',
+		'UIGradient',
 	}
 
 	for _, Item in next, UI:GetDescendants() do
