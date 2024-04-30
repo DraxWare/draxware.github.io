@@ -1168,7 +1168,8 @@ function Library:ToggleUI()
 end
 
 function Library:SetTransparency(Transparency, NotificationBool)
-	local UI = CoreGui:WaitForChild(''..tostring(LibraryName)..'')
+	local UI = CoreGui:WaitForChild(''..tostring(LibraryName)..'');
+	
 	local Blacklist = {
 		'UIPadding',
 		'UICorner',
@@ -1177,13 +1178,9 @@ function Library:SetTransparency(Transparency, NotificationBool)
 		'Folder'
 	}
 	
-	repeat
-		wait()
-	until UI:FindFirstChild('BackgroundTransparency')
-	
 	for _, Item in next, UI:GetDescendants() do
 		if not table.find(Blacklist, Item.ClassName) then
-			if Item.BackgroundTransparency ~= 1 and Transparency < 0.95 then
+			if Item and Item.BackgroundTransparency ~= nil and Item.BackgroundTransparency ~= 1 and Transparency < 0.95 then
 				Utility:Tween(Item, {BackgroundTransparency = Transparency}, 0.25)
 			end
 		end
