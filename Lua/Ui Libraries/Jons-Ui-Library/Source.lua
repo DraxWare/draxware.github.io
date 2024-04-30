@@ -1176,7 +1176,11 @@ function Library:SetTransparency(Transparency, NotificationBool)
 		'UIListLayout',
 		'Folder'
 	}
-
+	
+	repeat
+		wait()
+	until UI:WaitForChild('BackgroundTransparency')
+	
 	for _, Item in next, UI:GetDescendants() do
 		if not table.find(Blacklist, Item.ClassName) then
 			if Item.BackgroundTransparency ~= 1 and Transparency < 0.95 then
