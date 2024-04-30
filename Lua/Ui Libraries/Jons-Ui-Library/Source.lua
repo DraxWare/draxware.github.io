@@ -1177,6 +1177,10 @@ function Library:SetTransparency(Transparency, NotificationBool)
 		'UIListLayout',
 		'Folder'
 	}
+
+	repeat
+		wait()
+	until Ui:FindFirstChild('Main');
 	
 	for _, Item in next, UI:GetDescendants() do
 		if not table.find(Blacklist, Item.ClassName) then
