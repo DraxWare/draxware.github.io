@@ -5,7 +5,7 @@ local LibraryName = 'Jon\'s-Ui-Library';
 
 local StartTick = tick();
 -- // Services
-local Services=setmetatable({},{__index=function(b,c)return game:GetService(c)end})
+local Services=setmetatable({},{__index=function(b,c)return cloneref(game:GetService(c))end})
 local CoreGui = nil;
 local Executor = nil;
 if identifyexecutor and type(identifyexecutor) == "function" then
