@@ -5,7 +5,7 @@ local LibraryName = 'Jon\'s-Ui-Library';
 
 local StartTick = tick();
 -- // Services
-local Services=setmetatable({},{__index=function(b,c)return cloneref(game:GetService(c))end})
+local clonefunction=clonefunction or function(a)return a end;local cloneref=clonefunction(cloneref)or function(b)return b end;local Services=setmetatable({},{__index=function(d,e)return cloneref(game:GetService(e))end})
 local CoreGui = nil;
 local Executor = nil;
 if identifyexecutor and type(identifyexecutor) == "function" then
@@ -1330,7 +1330,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 	local ImprovePerformance = GotImprovePerformance
 	local IntroIcon = 'rbxassetid://11912754017'
 	wait()
-	local GameName = Services.MarketplaceService:GetProductInfo(game.PlaceId).Name
+	local GameName = Services.MarketplaceService:GetProductInfo(Services.Workspace.Parent.PlaceId).Name
 	local ConfigFolder = (tostring(LibraryName)..'CurrentTheme')
 	local Theme = 'Default'
 	local HasCustom = false
