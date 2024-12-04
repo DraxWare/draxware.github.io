@@ -11,22 +11,17 @@ local Executor = nil;
 if identifyexecutor and type(identifyexecutor) == "function" then
 	Executor = tostring(identifyexecutor())
 	if string.match(Executor, "ScriptWare") then
-		print(Executor,'Detected! Hidding Ui, Safe Exploiting :)')
 		CoreGui = gethui()
 	elseif Executor == 'ScriptWare Mac' then
-		print(Executor,'Detected! Hidding Ui, Safe Exploiting :)')
 		CoreGui = gethui()
 	elseif Executor == 'ScriptWare Windows' then
-		print(Executor,'Detected! Hidding Ui, Safe Exploiting :)')
 		CoreGui = gethui()
 	elseif Executor == 'ScriptWare' then
-		print(Executor,'Detected! Hidding Ui, Safe Exploiting :)')
 		CoreGui = gethui()
 	elseif Executor == 'AWP' then
-		print(Executor,'Detected! Hidding Ui, Safe Exploiting :)')
 		CoreGui = gethui()
 	else		
-		print(Executor,'It\'s not on the supported list! Contact me ASAP, WARNING: Unsafe Exploiting :(')
+		warn(Executor,'It\'s not on the supported list! Contact me ASAP, WARNING: Unsafe Exploiting :(')
 		CoreGui = Services.CoreGui
 	end
 end
