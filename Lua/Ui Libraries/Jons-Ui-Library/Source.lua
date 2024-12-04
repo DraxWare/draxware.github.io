@@ -18,6 +18,8 @@ if identifyexecutor and type(identifyexecutor) == "function" then
 		CoreGui = gethui()	
 	elseif Executor == 'ScriptWare' then
 		CoreGui = gethui()	
+	elseif Executor == 'AWP' then
+		CoreGui = gethui()	
 	else			
 		CoreGui = Services.CoreGui
 	end
