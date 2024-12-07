@@ -179,14 +179,14 @@ local Window = Library:NewWindow('Hub', 'Name')
 local Section = Window:NewSection('Section')
 local UpdatesSection = Window:NewSection('Updates')
 
-local Label = Section:CreateLabel('Label','');
-local Hover = Section:CreateLabel('Label With Icon', 'rbxassetid://11924548499');
+local Label = Section:Text('Label','');
+local Hover = Section:Text('Label With Icon', 'rbxassetid://11924548499');
 
 local Drop = UpdatesSection:Drop('Dropdown', {'PlayerUndefined1', 'PlayerUndefined2', 'PlayerUndefined3', 'PlayerUndefined4', 'PlayerUndefined5'}, function(Value)
     print(Value)
 end)
 
-Section:h1('The Button Below This Wont Work Lmao', false)
+UpdatesSection:h1('The Button Below This Wont Work Lmao', false)
 
 UpdatesSection:Button('Update Players', function()
     print('Button Clicked')
@@ -204,7 +204,7 @@ Section:Box('Textbox', function(Value)
     print(Value)
 end)
 
-Section:CreateKeybind('Keybind', Enum.KeyCode.A, false, function()
+Section:Bind('Keybind', Enum.KeyCode.A, false, function()
     print('Key Pressed')
 end)
 
@@ -217,7 +217,6 @@ Section:Drop('Dropdown', {'Bread', 'Kitten', 'ROBLOX', 'JohnDoe', '5'}, function
 end)
 
 Section:h1('', true)
-Section:CreateLabel('Wow Look At Me!','');
+Section:Text('Wow Look At Me!','');
 Section:h1('', true)
-
 ```
