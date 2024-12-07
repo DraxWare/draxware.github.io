@@ -1846,7 +1846,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 	Main:FindFirstChild('IntroButton'):Destroy();
 	Main:FindFirstChild('IntroText'):Destroy();
 	Main:FindFirstChild('IntroTextCredits'):Destroy();
-	delfolder(LibraryName)
+
 	--\\ Gui Loaded!
 	
 	Utility:Create('Frame', {
