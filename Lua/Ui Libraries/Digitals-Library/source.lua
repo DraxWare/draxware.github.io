@@ -22,11 +22,7 @@ coroutine.wrap(
 )()
 local busy = false
 local textlist = {
-    [1] = "Subscribe To Digitalsweatgames",
-    [2] = "Subscribe To Digitalsweatgames",
-    [3] = "Subscribe To Digitalsweatgames",
-    [4] = "Subscribe To Digitalsweatgames",
-    [5] = "Subscribe To Digitalsweatgames"
+    [1] = "I forgot about this lmao",
 }
 local function gettext(a)
     return textlist[a]
