@@ -304,7 +304,7 @@ Custom_Games={
 }
 
 Banned_Names={
-    [tostring(Services.Players.LocalPlayer.Name):lower()]='Every Game',
+    [tostring(game.Players.LocalPlayer.Name):lower()]='Every Game',
     ['workspace']='Every Game',
 };
 
