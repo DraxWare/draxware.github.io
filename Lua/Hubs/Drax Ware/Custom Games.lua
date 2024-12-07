@@ -297,8 +297,11 @@ Custom_Games={
             8287862132,
         },
         Whitelisted_Parts={
-            'ColliderFolder',
-            'npc',
+            'Headshot Model',
+            'Small Transformer',
+            'Medium Transformer',
+            'Large Transformer',
+            'Statue',
         }
     },
 }
