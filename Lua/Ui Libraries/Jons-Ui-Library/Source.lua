@@ -48,7 +48,9 @@ local Download = function(Name)
     end
     local Callback = http.request({Url = Images..Name..'.png', Method = 'GET'})
     writefile(LibraryName .. '/' .. Name .. '.png', Callback.Body)
-    wait()
+    repeat
+	wait()
+    until isfile(LibraryName .. '/' .. Name .. '.png')
     return getcustomasset(LibraryName .. '/' .. Name .. '.png');
 end
 
