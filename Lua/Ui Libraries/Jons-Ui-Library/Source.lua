@@ -3039,7 +3039,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 									SliderHolder[Name..'SliderNumberText'].Text = Old_Value
 								end
 							else
-								if New_Value > MaximumValue then 
+								if tonumber(New_Value) ~= nil and tonumber(New_Value) > MaximumValue then 
 									SliderHolder[Name..'SliderNumberText'].Text = "[!] Max " .. MaximumValue
 									wait(0.80)
 									SliderHolder[Name..'SliderNumberText'].Text = Old_Value
@@ -3120,7 +3120,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						Callback(CurrentValue)
 					end)
 					spawn(function()
-						if CurrentValue > tonumber(SliderNumber.Text) then
+						if tonumber(SliderNumber.Text) ~= nil and CurrentValue > tonumber(SliderNumber.Text) then
 							repeat
 								wait()
 								if IsPrecise==true then SliderNumber.Text=tonumber(tostring(string.sub((tonumber(MaximumValue)-tonumber(MinimumValue))/395*SliderTrail.AbsoluteSize.X+tonumber(MinimumValue),1,4)))else SliderNumber.Text=math.floor((tonumber(MaximumValue)-tonumber(MinimumValue))/395*SliderTrail.AbsoluteSize.X+tonumber(MinimumValue))end
