@@ -145,6 +145,19 @@ end)
 | 2            | `<Table>`         | Dropdown List. | None |
 | 3            | `<Function>`      | Function / Callback. | When the item is selected, It will fire the function, or Callback |
 
+## Creating Colorpickers
+```lua
+Colorpicker = Section:ColorPick('Colorpicker', Color3.fromRGB(0, 146, 214), function(Value)
+    print(Value)
+end)
+```
+
+| parameters   | Type              | Information    | In-Depth Description |
+|:-------------|:------------------|:---------------|:---------------------|
+| 1            | `<String>`        | Name of the Colorpicker. | None |
+| 2            | `<Color3>`        | Default Color. | Colorpicker will be loaded and firing the Function / Callback with the given Color |
+| 3            | `<Function>`        | Function / Callback. | When Color is slided, It will fire the function, or Callback |
+
 ## Changing Ui Toggle Keybind
 ```lua
 Library:SetBind(Enum.KeyCode.LeftControl)
@@ -192,6 +205,10 @@ UpdatesSection:Button('Update Players', function()
     print('Button Clicked')
 end)
 
+UpdatesSection:ColorPick('Player Color', Color3.fromRGB(0, 146, 214), function(Value)
+    print(Value)
+end)
+
 Section:Button('Button', function()
     print('Button Pressed')
 end)
@@ -213,6 +230,10 @@ Section:Toggle('Toggle', function(Value)
 end)
 
 Section:Drop('Dropdown', {'Bread', 'Kitten', 'ROBLOX', 'JohnDoe', '5'}, function(Value)
+    print(Value)
+end)
+
+Section:ColorPick('Colorpicker', Color3.fromRGB(0, 146, 214), function(Value)
     print(Value)
 end)
 
