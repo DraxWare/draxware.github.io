@@ -174,7 +174,7 @@ Library:Destroy()
 ```lua
 local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/DraxWare/draxware.github.io/refs/heads/main/Lua/Ui%20Libraries/Digitals-Library/Source.lua'))();
 
-local Window = Library:NewWindow('Hub Name', false)
+local Window = Library:NewWindow('Hub', 'Name')
 
 local Section = Window:NewSection('Section')
 local UpdatesSection = Window:NewSection('Updates')
