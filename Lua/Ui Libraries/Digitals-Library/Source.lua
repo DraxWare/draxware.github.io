@@ -481,8 +481,7 @@ function library:NewWindow(porn, hub)
                         ):Play()
                         Searchbar.Text = ""
                         library.currenttab = tostring(name)
-                        local a = math.random(1, 5)
-                        Searchbar.PlaceholderText = gettext(a)
+                        Searchbar.PlaceholderText = gettext(1)
                     end
                 end
                 tween:Create(Underline, TweenInfo.new(0.2, Enum.EasingStyle.Sine), {Size = UDim2.new(0, 49, 0, 1)}):Play(
