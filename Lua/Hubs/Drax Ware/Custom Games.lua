@@ -1,3 +1,17 @@
+local clonefunction = clonefunction or function(func)
+    return func
+end
+
+local cloneref = clonefunction(cloneref) or function(instance)
+    return instance
+end
+
+local Services = setmetatable({}, {
+    __index = function(_, v)
+        return cloneref(game:GetService(v))
+    end
+})
+
 local Custom_Games={};
 local Banned_Names={};
 local Known_Names={};
@@ -307,7 +321,7 @@ Custom_Games={
 }
 
 Banned_Names={
-    [tostring(game.Players.LocalPlayer.Name):lower()]='Every Game',
+    [tostring(Services.Players.LocalPlayer.Name):lower()]='Every Game',
     ['workspace']='Every Game',
 };
 
