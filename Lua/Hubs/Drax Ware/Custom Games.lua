@@ -359,3 +359,9 @@ Known_Names={
         },
     }
 };
+
+return {
+    Custom_Games = Custom_Games,
+    Banned_Names = Banned_Names,
+    Known_Names = Known_Names
+}
