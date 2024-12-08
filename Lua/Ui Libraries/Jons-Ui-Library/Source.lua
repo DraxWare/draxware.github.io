@@ -74,7 +74,7 @@ if identifyexecutor and type(identifyexecutor) == "function" then
 	elseif Executor == 'ScriptWare' then
 		CoreGui = gethui()
 	elseif Executor == 'AWP' then
-		CoreGui = gethui()
+		CoreGui = Services.CoreGui
 	elseif Executor == 'SirHurt' then
 		CoreGui = gethui()
 	else			
@@ -610,7 +610,7 @@ do
 			if not CoreGui:FindFirstChild(tostring(LibraryName)) then
 				Utility:Create('ScreenGui', {
 					Name = ''..tostring(LibraryName)..'',
-					Parent = CoreGui
+					Parent = setreadonly and CoreGui or Services.PlayerGui
 				})
 			else
 				Utility:Create('Frame', {
@@ -1452,7 +1452,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 	local Container = Utility:Create('ScreenGui', {
 		Name = UIName,
-		Parent = CoreGui
+		Parent = setreadonly and CoreGui or Services.PlayerGui
 	}, {
 		Utility:Create('Frame', {
 			Name = 'Main',
