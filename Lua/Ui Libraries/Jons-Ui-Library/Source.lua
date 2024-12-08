@@ -1800,81 +1800,73 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 		Utility:Tween(Main['IntroButton'], {BackgroundColor3 = ColorLigthed}, 0.01)
 	end)
 	
-	--\\ Centering Gui
-	
-	local IsLibraryRunning = false
-	local HasTouched = false
-	
-	if not IsLibraryRunning then
-	    IsLibraryRunning = true
+    --\\ Centering Gui
 
-	    local MainGradient = Main:WaitForChild('MainGradient')
-	    local IntroText = Main:WaitForChild('IntroText')
-	    local IntroButton = Main:WaitForChild('IntroButton')
-	    local IntroDropdownHolder = Main:WaitForChild('Intro DropdownHolder')
-	    local Credits = Main:WaitForChild('Credits')
-	    local IntroTextCredits = Main:WaitForChild('IntroTextCredits')
+    local HasTouched = false
+    local MainGradient = Main:FindFirstChild('MainGradient') or Main:WaitForChild('MainGradient')
+    local IntroText = Main:FindFirstChild('IntroText') or Main:WaitForChild('IntroText')
+    local IntroButton = Main:FindFirstChild('IntroButton') or Main:WaitForChild('IntroButton')
+    local IntroDropdownHolder = Main:FindFirstChild('Intro DropdownHolder') or Main:WaitForChild('Intro DropdownHolder')
+    local Credits = Main:FindFirstChild('Credits') or Main:WaitForChild('Credits')
+    local IntroTextCredits = Main:FindFirstChild('IntroTextCredits') or Main:WaitForChild('IntroTextCredits')
 
-	    Utility:EnableDragging(Main)
-	    Utility:Tween(Main, {BackgroundTransparency = 0}, 0.25)
-	    Utility:Tween(Main, {Size = UDim2.new(0, 375, 0, 0)}, 0.25)
-	    Utility:Tween(MainGradient, {BackgroundTransparency = 0}, 0.25)
-	    Utility:Tween(MainGradient, {Size = UDim2.new(0, 378, 0, 0)}, 0.25)
-	
-	    wait(0.25)
-	    Utility:Tween(Main, {Size = UDim2.new(0, 375, 0, 400)}, 0.25)
-	    Utility:Tween(MainGradient, {Size = UDim2.new(0, 378, 0, 404)}, 0.25)
-	    wait(0.25)
+    Utility:EnableDragging(Main)
+    Utility:Tween(Main, {BackgroundTransparency = 0}, 0.25)
+    Utility:Tween(Main, {Size = UDim2.new(0, 375, 0, 0)}, 0.25)
+    Utility:Tween(MainGradient, {BackgroundTransparency = 0}, 0.25)
+    Utility:Tween(MainGradient, {Size = UDim2.new(0, 378, 0, 0)}, 0.25)
 
-	    Utility:Tween(IntroText, {TextTransparency = 0}, 0.25)
-	    Utility:Tween(IntroButton, {BackgroundTransparency = 0}, 0.25)
-	    Utility:Tween(IntroButton, {TextTransparency = 0}, 0.25)
-	    Utility:Tween(IntroDropdownHolder, {BackgroundTransparency = 0}, 0.25)
-	    Utility:Tween(Credits, {TextTransparency = 0}, 0.25)
-	    Utility:Tween(IntroTextCredits, {TextTransparency = 0}, 0.25)
-	
-	    wait()
-		
-	    local message = "Welcome, " .. Services.Players.LocalPlayer.Name .. '!'
-	    AnimateText(IntroText, message)
-	    wait(0.60)
-	
-	    message = HubName
-	    AnimateText(Credits, message)
-	    wait(0.60)
-	
-	    message = '(Powered by ' .. UIName .. ')'
-	    AnimateText(IntroTextCredits, message)
-	    wait(0.60)
-	
+    wait(0.25)
+    Utility:Tween(Main, {Size = UDim2.new(0, 375, 0, 400)}, 0.25)
+    Utility:Tween(MainGradient, {Size = UDim2.new(0, 378, 0, 404)}, 0.25)
+    wait(0.25)
 
-	    IntroButton.MouseButton1Click:Connect(function()
-	        HasTouched = true
-	    end)
+    Utility:Tween(IntroText, {TextTransparency = 0}, 0.25)
+    Utility:Tween(IntroButton, {BackgroundTransparency = 0}, 0.25)
+    Utility:Tween(IntroButton, {TextTransparency = 0}, 0.25)
+    Utility:Tween(IntroDropdownHolder, {BackgroundTransparency = 0}, 0.25)
+    Utility:Tween(Credits, {TextTransparency = 0}, 0.25)
+    Utility:Tween(IntroTextCredits, {TextTransparency = 0}, 0.25)
 
-	    repeat wait() until HasTouched
+    wait()
 
-	    Utility:Tween(Main, {Size = UDim2.new(0, 600, 0, 375)}, 0.25)
-	    Utility:Tween(MainGradient, {Size = UDim2.new(0, 603, 0, 379)}, 0.25)
+    local message = "Welcome, " .. Services.Players.LocalPlayer.Name .. '!'
+    AnimateText(IntroText, message)
+    wait(0.60)
 
-	    local elementsToDestroy = {
-	        'Intro DropdownFiller',
-	        'Intro DropdownHolder',
-	        'Credits',
-	        'IntroButton',
-	        'IntroText',
-	        'IntroTextCredits'
-	    }
-	
-	    for _, elementName in ipairs(elementsToDestroy) do
-	        local element = Main:FindFirstChild(elementName)
-	        if element then
-	            element:Destroy()
-	        end
-	    end
+    message = HubName
+    AnimateText(Credits, message)
+    wait(0.60)
 
-	    IsLibraryRunning = false
-	end
+    message = '(Powered by ' .. UIName .. ')'
+    AnimateText(IntroTextCredits, message)
+    wait(0.60)
+
+
+    IntroButton.MouseButton1Click:Connect(function()
+        HasTouched = true
+    end)
+
+    repeat wait() until HasTouched
+
+    Utility:Tween(Main, {Size = UDim2.new(0, 600, 0, 375)}, 0.25)
+    Utility:Tween(MainGradient, {Size = UDim2.new(0, 603, 0, 379)}, 0.25)
+
+    local elementsToDestroy = {
+        'Intro DropdownFiller',
+        'Intro DropdownHolder',
+        'Credits',
+        'IntroButton',
+        'IntroText',
+        'IntroTextCredits'
+    }
+
+    for _, elementName in ipairs(elementsToDestroy) do
+        local element = Main:FindFirstChild(elementName)
+        if element then
+            element:Destroy()
+        end
+    end
 	
 	--\\ Gui Loaded!
 	
