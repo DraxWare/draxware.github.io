@@ -6,55 +6,55 @@ local LibraryName = 'Jon\'s-Ui-Library';
 local GetImage=function()end;
 
 function GetImage(Link)
-    return tostring(Link)
+
+    local UseCustomImages = false
+
+    if UseCustomImages then
 	
-    if not Link then
-        warn("GetImage: Invalid link provided.")
-        return nil
-    end
+        if not Link then
+            warn("GetImage: Invalid link provided.")
+            return ''
+        end
 
-    local AssetId = tostring(string.match(Link, "rbxassetid://(%d+)"))
-	
-    if not AssetId then
-        warn("GetImage: Unable to extract AssetId from the link.")
-        return nil
-    end
+        local AssetId = tostring(string.match(Link, "rbxassetid://(%d+)"))
+        
+        if not AssetId then
+            warn("GetImage: Unable to extract AssetId from the link.")
+            return ''
+        end
 
-    if not isfolder(LibraryName) then
-        makefolder(tostring(LibraryName))
-    end
+        if not isfolder(LibraryName) then
+            makefolder(tostring(LibraryName))
+        end
 
-    local FilePath = LibraryName..'/'..AssetId..'.png'
+        repeat
+            wait()
+        until isfolder(LibraryName);
 
-    if not isfile(FilePath) then
-        local Success, Request = pcall(function()
-            return http.request({
+        local FilePath = LibraryName..'/'..AssetId..'.png'
+
+        if not isfile(FilePath) then
+            local Request =  http.request({
                 Url = 'https://assetdelivery.roblox.com/v1/asset?id=' .. AssetId,
                 Method = 'GET'
             })
-        end)
 
-        if not Success or not Request or Request.StatusCode ~= 200 then
-            warn("GetImage: Failed to fetch the image. HTTP request error.")
-            return nil
-        end
+            if Request.StatusCode ~= 200 then
+                warn("GetImage: Failed to fetch the image. HTTP request error.")
+                return ''
+            end
 
-        local SuccessWrite = pcall(function()
             writefile(FilePath, Request.Body)
-        end)
-
-        if not SuccessWrite then
-            warn("GetImage: Failed to save the image to file.")
-            return nil
         end
-    end
 
-    if not isfile(FilePath) then
-        warn("GetImage: File was not created successfully.")
-        return nil
-    end
+        repeat
+            wait()
+        until isfile(FilePath)
 
-    return getcustomasset(FilePath)
+        return getcustomasset(FilePath)
+    else
+        return tostring(Link)
+    end
 end
 
 local StartTick = tick();
