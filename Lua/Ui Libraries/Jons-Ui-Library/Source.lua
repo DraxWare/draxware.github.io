@@ -59,7 +59,7 @@ end
 
 local StartTick = tick();
 -- // Services
-local clonefunction=clonefunction or function(a)return a end;local cloneref=clonefunction(cloneref)or function(b)return b end;local c=setmetatable({},{__index=function(self,d)local e=cloneref(game:GetService(d))self[d]=e;return e end})
+local clonefunction=clonefunction or function(a)return a end;local cloneref=clonefunction(cloneref)or function(b)return b end;local Services=setmetatable({},{__index=function(self,d)local e=cloneref(game:GetService(d))self[d]=e;return e end})
 local CoreGui = nil;
 local Executor, Version = nil, nil;
 
