@@ -22,7 +22,7 @@ function GetImage(Link)
     })
 
     if not isfile(LibraryName..'/'..AssetId..'.png') then
-        writefile(AssetId..'.png', Request.Body)
+        writefile(LibraryName..'/'..AssetId..'.png', Request.Body)
     end
     
     repeat
