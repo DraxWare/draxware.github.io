@@ -4,11 +4,10 @@
 
 local LibraryName = 'Jon\'s-Ui-Library';
 local GetImage=function()end;
+local UseCustomImages = false
 
 function GetImage(Link)
-
-    local UseCustomImages = false
-
+	
     if UseCustomImages then
 	
         if not Link then
@@ -77,7 +76,10 @@ if identifyexecutor and type(identifyexecutor) == "function" then
 		CoreGui = Services.CoreGui
 	elseif Executor == 'SirHurt' then
 		CoreGui = gethui()
-	else			
+	elseif Executor == 'Wave' then
+		CoreGui = Services.CoreGui
+		UseCustomImages = true
+	else
 		warn(Executor,'It\'s not on the supported list! Contact me ASAP, WARNING: Unsafe Exploiting :(')
 		CoreGui = Services.CoreGui
 	end
@@ -100,7 +102,8 @@ AnimateText = function(a,b)
 	Animation:Play()
 end
 
-getgenv().kms = false; -- // This Means that the user has ran the Library Before. Therefore Finding And Deleting The Old One;
+getgenv().kms = true;
+
 local DestroyedUiLibraryAndStoppedLoops = {};
 local UIName = LibraryName
 local Amount = 0;
@@ -493,9 +496,11 @@ local Themes = {
 -- // Utility Functions
 do
 	function Utility:Tween(Instance, Properties, Duration, ...)
-		local TweenInfo = TweenInfo.new(Duration, ...)
-		TweenService:Create(Instance, TweenInfo, Properties):Play()
-	end
+        if Instance ~= nil and Instance.Parent ~= nil  then
+            local TweenInfo = TweenInfo.new(Duration, ...)
+            TweenService:Create(Instance, TweenInfo, Properties):Play()
+        end
+    end
 
 	function Utility:DestroyUI()
 		ChangeTheme = true
@@ -504,8 +509,12 @@ do
 		for Index, Value in next, DestroyedUiLibraryAndStoppedLoops do
 			DestroyedUiLibraryAndStoppedLoops[Index]:Break()
 		end
-		if CoreGui:FindFirstChild(UIName) ~= nil then
-			CoreGui:FindFirstChild(UIName):Destroy()
+		if getgenv().kms and getgenv().kms == true and CoreGui:FindFirstChild(UIName) then
+            for i,v in next, CoreGui:GetChildren() do
+                if v.Name == UIName then
+                    v:Destroy()
+                end
+            end
 		end
 	end
 
@@ -1686,9 +1695,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 	})
 
 	repeat
-		wait()
-	until Container:FindFirstChild('Main') and Container:FindFirstChild('Main'):FindFirstChild('MainGradient') and Container:FindFirstChild('Main'):FindFirstChild('MainCorner') and Container:FindFirstChild('Main'):FindFirstChild('IntroText') and Container:FindFirstChild('Main'):FindFirstChild('IntroTextCredits') and Container:FindFirstChild('Main'):FindFirstChild('IntroButton');
-	local SelectedSetting = 'Skip';
+        wait()
+    until Container and Container.Parent and Container:FindFirstChild('Main') and Container.Main:FindFirstChild('MainGradient') and Container.Main:FindFirstChild('MainCorner') and Container.Main:FindFirstChild('IntroText') and Container.Main:FindFirstChild('IntroTextCredits') and Container.Main:FindFirstChild('IntroButton') and Container.Main:FindFirstChild('Intro DropdownHolder') and Container.Main:FindFirstChild('Intro DropdownHolder'):FindFirstChild('Intro DropdownText') and Container.Main:FindFirstChild('Intro DropdownHolder'):FindFirstChild('Intro DropdownIcon') and Container.Main:FindFirstChild('Intro DropdownHolder'):FindFirstChild('Intro DropdownSelectedText') and Container.Main:FindFirstChild('Credits') and Container.Main:FindFirstChild('Intro DropdownFiller')
+
+    local SelectedSetting = 'Skip';
 	local Main = Container:FindFirstChild("Main");
 	local IntroductionText = Main:FindFirstChild("IntroText");
 	local IntroductionTextCredits = Main:FindFirstChild("IntroTextCredits")
@@ -1801,72 +1811,124 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 	end)
 	
     --\\ Centering Gui
-
-    local HasTouched = false
-    local MainGradient = Main:FindFirstChild('MainGradient') or Main:WaitForChild('MainGradient')
-    local IntroText = Main:FindFirstChild('IntroText') or Main:WaitForChild('IntroText')
-    local IntroButton = Main:FindFirstChild('IntroButton') or Main:WaitForChild('IntroButton')
-    local IntroDropdownHolder = Main:FindFirstChild('Intro DropdownHolder') or Main:WaitForChild('Intro DropdownHolder')
-    local Credits = Main:FindFirstChild('Credits') or Main:WaitForChild('Credits')
-    local IntroTextCredits = Main:FindFirstChild('IntroTextCredits') or Main:WaitForChild('IntroTextCredits')
-
+    
     Utility:EnableDragging(Main)
-    Utility:Tween(Main, {BackgroundTransparency = 0}, 0.25)
-    Utility:Tween(Main, {Size = UDim2.new(0, 375, 0, 0)}, 0.25)
-    Utility:Tween(MainGradient, {BackgroundTransparency = 0}, 0.25)
-    Utility:Tween(MainGradient, {Size = UDim2.new(0, 378, 0, 0)}, 0.25)
 
-    wait(0.25)
-    Utility:Tween(Main, {Size = UDim2.new(0, 375, 0, 400)}, 0.25)
-    Utility:Tween(MainGradient, {Size = UDim2.new(0, 378, 0, 404)}, 0.25)
-    wait(0.25)
+	Utility:Tween(Main, {BackgroundTransparency = 0}, 0.25)
+	Utility:Tween(Main, {Size = UDim2.new(0, 375, 0, 0)}, 0.25)
+	Utility:Tween(Main['MainGradient'], {BackgroundTransparency = 0}, 0.25)
+	Utility:Tween(Main['MainGradient'], {Size = UDim2.new(0, 378, 0, 0)}, 0.25)
+    
+	wait(0.25)
 
-    Utility:Tween(IntroText, {TextTransparency = 0}, 0.25)
-    Utility:Tween(IntroButton, {BackgroundTransparency = 0}, 0.25)
-    Utility:Tween(IntroButton, {TextTransparency = 0}, 0.25)
-    Utility:Tween(IntroDropdownHolder, {BackgroundTransparency = 0}, 0.25)
-    Utility:Tween(Credits, {TextTransparency = 0}, 0.25)
-    Utility:Tween(IntroTextCredits, {TextTransparency = 0}, 0.25)
+	Utility:Tween(Main, {Size = UDim2.new(0, 375, 0, 400)}, 0.25)
+    local MainGradient = Main:FindFirstChild('MainGradient')
 
-    wait()
+    if MainGradient then
+	    Utility:Tween(MainGradient, {Size = UDim2.new(0, 378, 0, 404)}, 0.25)
+    end
 
-    local message = "Welcome, " .. Services.Players.LocalPlayer.Name .. '!'
-    AnimateText(IntroText, message)
-    wait(0.60)
+	wait(0.25)
 
-    message = HubName
-    AnimateText(Credits, message)
-    wait(0.60)
+	--\\ Gui Has Been Centered!
 
-    message = '(Powered by ' .. UIName .. ')'
-    AnimateText(IntroTextCredits, message)
-    wait(0.60)
+    local IntroText = Main:FindFirstChild('IntroText')
+    if IntroText then
+        Utility:Tween(IntroText, {TextTransparency = 0}, 0.25)
+    end
 
+    local IntroButton = Main:FindFirstChild('IntroButton')
+    if IntroButton then
+        Utility:Tween(IntroButton, {BackgroundTransparency = 0}, 0.25)
+        Utility:Tween(IntroButton, {TextTransparency = 0}, 0.25)
+    end
 
-    IntroButton.MouseButton1Click:Connect(function()
-        HasTouched = true
-    end)
+    local Intro_DropdownHolder = Main:FindFirstChild('Intro DropdownHolder')
+    if Intro_DropdownHolder then
+        Utility:Tween(Intro_DropdownHolder, {BackgroundTransparency = 0}, 0.25)
+    end
 
-    repeat wait() until HasTouched
+    local Credits = Main:FindFirstChild('Credits')
+    if Credits then
+        Utility:Tween(Credits, {TextTransparency = 0}, 0.25)
+    end
 
-    Utility:Tween(Main, {Size = UDim2.new(0, 600, 0, 375)}, 0.25)
-    Utility:Tween(MainGradient, {Size = UDim2.new(0, 603, 0, 379)}, 0.25)
+    local IntroTextCredits = Main:FindFirstChild('IntroTextCredits')
+    if IntroTextCredits then
+        Utility:Tween(IntroTextCredits, {TextTransparency = 0}, 0.25)
+    end
 
-    local elementsToDestroy = {
-        'Intro DropdownFiller',
-        'Intro DropdownHolder',
-        'Credits',
-        'IntroButton',
-        'IntroText',
-        'IntroTextCredits'
-    }
+    if Intro_DropdownHolder then
+        local IntroDropdownSelectedText = Intro_DropdownHolder:FindFirstChild('Intro DropdownSelectedText')
+        if IntroDropdownSelectedText then
+            Utility:Tween(IntroDropdownSelectedText, {TextTransparency = 0}, 0.25)
+        end
 
-    for _, elementName in ipairs(elementsToDestroy) do
-        local element = Main:FindFirstChild(elementName)
-        if element then
-            element:Destroy()
+        local IntroDropdownText = Intro_DropdownHolder:FindFirstChild('Intro DropdownText')
+        if IntroDropdownText then
+            Utility:Tween(IntroDropdownText, {TextTransparency = 0}, 0.25)
+        end
+
+        local IntroDropdownIcon = Intro_DropdownHolder:FindFirstChild('Intro DropdownIcon')
+        if IntroDropdownIcon then
+            Utility:Tween(IntroDropdownIcon, {ImageTransparency = 0}, 0.25)
+        end
+
+        local IntroDropdownHolderStroke = Intro_DropdownHolder:FindFirstChild('Intro DropdownHolderStroke')
+        if IntroDropdownHolderStroke then
+            Utility:Tween(IntroDropdownHolderStroke, {Color = Theme.UIStrokeColor}, 0.25)
+            Utility:Tween(IntroDropdownHolderStroke, {Transparency = 0}, 0.25)
         end
     end
+
+	wait()
+
+	local message = "Welcome, "..Services.Players.LocalPlayer.Name..'!'
+	local IntroText = Main:FindFirstChild('IntroText')
+    if IntroText then
+	    AnimateText(IntroText, message);
+    end
+
+	wait(.60);
+
+	message = HubName
+	local Credits = Main:FindFirstChild('Credits')
+    if Credits then
+	    AnimateText(Credits, message);
+    end
+
+	wait(.60);
+
+	message = ('(Powered by '..UIName..')')
+	local IntroTextCredits = Main:FindFirstChild('IntroTextCredits')
+    if IntroTextCredits then
+	    AnimateText(IntroTextCredits, message);
+    end
+
+	wait(.60);
+
+	--\\ New Shit
+
+	local HasTouched = false
+	local IntroButton = Main:FindFirstChild('IntroButton')
+    if IntroButton then
+        IntroButton.MouseButton1Click:Connect(function()
+            HasTouched = true
+        end)
+    end
+
+	repeat
+		wait()
+	until HasTouched == true
+
+	Utility:Tween(Main, {Size = UDim2.new(0, 600, 0, 375)}, 0.25)
+	Utility:Tween(Main['MainGradient'], {Size = UDim2.new(0, 603, 0, 379)}, 0.25)
+	Main:FindFirstChild('Intro DropdownFiller'):Destroy();
+	Main:FindFirstChild('Intro DropdownHolder'):Destroy();
+	Main:FindFirstChild('Credits'):Destroy();
+	Main:FindFirstChild('IntroButton'):Destroy();
+	Main:FindFirstChild('IntroText'):Destroy();
+	Main:FindFirstChild('IntroTextCredits'):Destroy();
 	
 	--\\ Gui Loaded!
 	
@@ -2102,9 +2164,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 	if not ImprovePerformance then
 		spawn(function()
-			while wait() do
-				if ChangeTheme and Container:FindFirstChild("Main") then
-					if not BreakAllLoops then
+			while true do wait()
+                if not BreakAllLoops then
+                    if ChangeTheme and Container:FindFirstChild("Main") then
 						repeat
 							wait()
 						until Container:FindFirstChild("Main");
@@ -2123,10 +2185,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						Utility:Tween(Container.Main.Sidebar.SidebarLine2, {BackgroundColor3 = Theme.UIStrokeColor}, 0.25)
 						Utility:Tween(Container.Main.Sidebar.TabButtonHolder, {BackgroundColor3 = Theme.SidebarColor}, 0.25)
 						Utility:Tween(Container.Main.TabContainer, {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
-					else 
-						break
-					end
-				end
+                    end
+                else 
+                    break
+                end
 			end
 		end)
 	end
@@ -2272,9 +2334,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 		
 		if not ImprovePerformance then
 			spawn(function()
-				while wait() do
-					if ChangeTheme and TabButtonHolder:FindFirstChild(TabName..'ButtonFrame') then
-						if not BreakAllLoops then
+				while true do wait()
+                    if not BreakAllLoops then
+                        if ChangeTheme and TabButtonHolder:FindFirstChild(TabName..'ButtonFrame') then
 							if Tab.Visible then
 								Utility:Tween(TabButtonHolder[TabName..'ButtonFrame'][TabName..'ButtonText'], {TextColor3 = Theme.PrimaryTextColor}, 0.25)
 								Utility:Tween(TabButtonHolder[TabName..'ButtonFrame'][TabName..'ButtonImage'], {ImageColor3 = Theme.PrimaryTextColor}, 0.25)
@@ -2288,9 +2350,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 							Utility:Tween(TabButton, {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
 							Utility:Tween(TabButtonHolder[TabName..'ButtonFrame'][TabName..'ButtonImage'], {BackgroundColor3 = Theme.SidebarColor}, 0.25)
 							Utility:Tween(TabButtonHolder[TabName..'ButtonFrame'][TabName..'ButtonText'], {BackgroundColor3 = Theme.SidebarColor}, 0.25)
-						else
-							break
-						end
+                        end
+                    else
+                        break
 					end
 				end
 			end)
@@ -2452,15 +2514,15 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
             SectionSearch()
 			if not ImprovePerformance then
 				spawn(function()
-					while wait() do
-						if ChangeTheme and Section and Section:FindFirstChild(Name..'SectionLabel') then
-							if not BreakAllLoops then
-								Utility:Tween(Section, {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
-								Utility:Tween(Section[Name..'SectionLabel'], {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
-								Utility:Tween(Section[Name..'SectionLabel'], {TextColor3 = Theme.SecondaryTextColor}, 0.25)
-							else
-								break
-							end
+					while true do wait()
+                        if not BreakAllLoops then
+                            if ChangeTheme and Section and Section:FindFirstChild(Name..'SectionLabel') then
+                                Utility:Tween(Section, {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
+                                Utility:Tween(Section[Name..'SectionLabel'], {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
+                                Utility:Tween(Section[Name..'SectionLabel'], {TextColor3 = Theme.SecondaryTextColor}, 0.25)
+                            end
+                        else
+                            break
 						end
 					end
 				end)
@@ -2609,14 +2671,20 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
                         end)
 						if not ImprovePerformance then
 							spawn(function()
-								while wait() do
-									if ChangeTheme and ActualSection[TTName..Holder] then
-										if not BreakAllLoops then
-											Utility:Tween(ActualSection[TTName..Holder][TTName..'TooltipFrame'][TTName..'TooltipText'], {TextColor3 = Theme.SecondaryTextColor}, 0.25)
-											Utility:Tween(ActualSection[TTName..Holder][TTName..'TooltipFrame'][TTName..'TooltipText'], {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
-										else
-											break
-										end
+								while true do wait()
+                                    if not BreakAllLoops then
+                                        if ChangeTheme and ActualSection:FindFirstChild(TTName..Holder) then
+                                            local TooltipFrame = ActualSection[TTName..Holder]:FindFirstChild(TTName..'TooltipFrame')
+                                            if TooltipFrame then
+                                                local TooltipText = TooltipFrame:FindFirstChild(TTName..'TooltipText')
+                                                if TooltipText then
+                                                    Utility:Tween(TooltipText, {TextColor3 = Theme.SecondaryTextColor}, 0.25)
+                                                    Utility:Tween(TooltipText, {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
+                                                end
+                                            end
+                                        end
+                                    else
+                                        break
 									end
 								end
 							end)
@@ -2675,17 +2743,17 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
                 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and Section:FindFirstChild(LabelText..'LabelHolder') then
-								if not BreakAllLoops then
-									Utility:Tween(Section[LabelText..'LabelHolder'], {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
-									Utility:Tween(Section[LabelText..'LabelHolder'][LabelText..'LabelStroke'], {Color = Theme.UIStrokeColor}, 0.25)
-									Utility:Tween(Section[LabelText..'LabelHolder'][LabelText..'Label'], {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
-									Utility:Tween(Section[LabelText..'LabelHolder'][LabelText..'Label'], {TextColor3 = Theme.SecondaryTextColor}, 0.25)
-								else
-									break
-								end
-							end
+						while true do wait()
+                            if not BreakAllLoops then
+                                if ChangeTheme and Section:FindFirstChild(LabelText..'LabelHolder') then
+                                    Utility:Tween(Section[LabelText..'LabelHolder'], {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
+                                    Utility:Tween(Section[LabelText..'LabelHolder'][LabelText..'LabelStroke'], {Color = Theme.UIStrokeColor}, 0.25)
+                                    Utility:Tween(Section[LabelText..'LabelHolder'][LabelText..'Label'], {BackgroundColor3 = Theme.BackgroundColor}, 0.25)
+                                    Utility:Tween(Section[LabelText..'LabelHolder'][LabelText..'Label'], {TextColor3 = Theme.SecondaryTextColor}, 0.25)
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
@@ -2792,19 +2860,19 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and ParagraphHolder:FindFirstChild(Title..'ParagraphStroke') then
-								if not BreakAllLoops then
+						while true do wait()
+							if not BreakAllLoops then
+                                if ChangeTheme and ParagraphHolder:FindFirstChild(Title..'ParagraphStroke') then
 									Utility:Tween(ParagraphHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									Utility:Tween(ParagraphHolder[Title..'ParagraphStroke'], {Color = Theme.UIStrokeColor}, 0.25)
 									Utility:Tween(ParagraphTitle, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									Utility:Tween(ParagraphTitle, {TextColor3 = Theme.PrimaryTextColor}, 0.25)
 									Utility:Tween(ParagraphContent, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									Utility:Tween(ParagraphContent, {TextColor3 = Theme.SecondaryTextColor}, 0.25)
-								else
-									break
-								end
-							end
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
@@ -2904,9 +2972,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and ButtonHolder:FindFirstChild(Name..'ButtonHolderStroke') then
-								if not BreakAllLoops then
+						while true do wait()
+							if not BreakAllLoops then
+                                if ChangeTheme and ButtonHolder:FindFirstChild(Name..'ButtonHolderStroke') then
 									if not Hovering then
 										Utility:Tween(ButtonHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									end
@@ -2915,10 +2983,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 									Utility:Tween(Button, {TextColor3 = Theme.PrimaryTextColor}, 0.25)
 									Utility:Tween(Button['ButtonImage'], {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									Utility:Tween(Button['ButtonImage'], {ImageColor3 = Theme.SecondaryTextColor}, 0.25)
-								else
-									break
-								end
-							end
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
@@ -3064,9 +3132,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and SliderHolder:FindFirstChild(Name..'SliderHolderStroke') then
-								if not BreakAllLoops then
+						while true do wait()
+                            if not BreakAllLoops then
+                                if ChangeTheme and SliderHolder:FindFirstChild(Name..'SliderHolderStroke') then
 									if not Hovering then
 										Utility:Tween(SliderHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									end
@@ -3077,10 +3145,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 									Utility:Tween(SliderButton[Name..'SliderButtonStroke'], {Color = Theme.UIStrokeColor}, 0.25)
 									Utility:Tween(SliderNumber, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									Utility:Tween(SliderNumber, {TextColor3 = Theme.SecondaryTextColor}, 0.25)
-								else
-									break
-								end
-							end
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
@@ -3315,9 +3383,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and TextboxHolder:FindFirstChild(Name..'TextboxHolderStroke') then
-								if not BreakAllLoops then
+						while true do wait()
+							if not BreakAllLoops then
+                                if ChangeTheme and TextboxHolder:FindFirstChild(Name..'TextboxHolderStroke') then
 									if not Hovering then
 										Utility:Tween(TextboxHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									end
@@ -3328,10 +3396,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 									Utility:Tween(Textbox, {PlaceholderColor3 = Theme.SecondaryTextColor}, 0.25)
 									Utility:Tween(Textbox, {TextColor3 = Theme.SecondaryTextColor}, 0.25)
 									Utility:Tween(Textbox[Name..'TextboxStroke'], {Color = Theme.UIStrokeColor}, 0.25)
-								else
-									break
-								end
-							end
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
@@ -3477,9 +3545,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and KeybindHolder:FindFirstChild(Name..'KeybindHolderStroke') then
-								if not BreakAllLoops then
+						while true do wait()
+							if not BreakAllLoops then
+                                if ChangeTheme and KeybindHolder:FindFirstChild(Name..'KeybindHolderStroke') then
 									if not Hovering then
 										Utility:Tween(KeybindHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									end
@@ -3489,10 +3557,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 									Utility:Tween(KeybindHolder[Name..'Keybind'], {BackgroundColor3 = Theme.SecondaryElementColor}, 0.25)
 									Utility:Tween(KeybindHolder[Name..'Keybind'], {TextColor3 = Theme.SecondaryTextColor}, 0.25)
 									Utility:Tween(KeybindHolder[Name..'Keybind'][Name..'KeybindStroke'], {Color = Theme.UIStrokeColor}, 0.25)
-								else
-									break
-								end
-							end
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
@@ -3732,9 +3800,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and ToggleHolder and ToggleHolder:FindFirstChild(Name..'ToggleHolderStroke') then
-								if not BreakAllLoops then
+						while true do wait()
+							if not BreakAllLoops then
+                                if ChangeTheme and ToggleHolder and ToggleHolder:FindFirstChild(Name..'ToggleHolderStroke') then
 									if not Hovering then
 										Utility:Tween(ToggleHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									end
@@ -3744,28 +3812,28 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 									Utility:Tween(ToggleHolder[Name..'Toggle'][Name..'ToggleCircle'], {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									Utility:Tween(ToggleHolder[Name..'Toggle'][Name..'ToggleStroke'], {Color = Theme.UIStrokeColor}, 0.25)
 									Utility:Tween(ToggleHolder[Name..'ToggleButton'], {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
-								else
-									break
-								end
-							end
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and ToggleHolder and ToggleHolder:FindFirstChild(Name..'ToggleHolderStroke') then
-								if not BreakAllLoops then
+						while true do wait()
+							if not BreakAllLoops then
+                                if ChangeTheme and ToggleHolder and ToggleHolder:FindFirstChild(Name..'ToggleHolderStroke') then
 									if Toggled == true then
 										Utility:Tween(Toggle, {BackgroundColor3 = ToggleColor}, 0.25)
 									else
 										Utility:Tween(ToggleHolder[Name..'Toggle'], {BackgroundColor3 = Theme.SecondaryElementColor}, 0.25)
 									end
-								else
-									break
-								end
-							end
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
@@ -4027,9 +4095,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and DropdownHolder:FindFirstChild(Name..'DropdownHolderStroke') then
-								if not BreakAllLoops then
+						while true do wait()
+							if not BreakAllLoops then
+                                if ChangeTheme and DropdownHolder:FindFirstChild(Name..'DropdownHolderStroke') then
 									if not Hovering then
 										Utility:Tween(DropdownHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									end
@@ -4044,10 +4112,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 									Utility:Tween(DropList, {ScrollBarImageColor3 = Theme.ScrollBarColor}, 0.25)
 									Utility:Tween(DropList[Name..'DropListStroke'], {Color = Theme.UIStrokeColor}, 0.25)
 									Utility:Tween(DropdownButton, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
-								else
-									break
-								end
-							end
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
@@ -4150,7 +4218,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 					if not ImprovePerformance then
 						spawn(function()
-							while wait() do
+							while true do wait()
 								if ChangeTheme then
 									if not BreakAllLoops then
 										if not Hovering then
@@ -4309,7 +4377,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 						if not ImprovePerformance then
 							spawn(function()
-								while wait() do
+								while true do wait()
 									if ChangeTheme then
 										if not BreakAllLoops then
 											if not Hovering then
@@ -4643,9 +4711,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and ColorpickerHolder:FindFirstChild(Name..'ColorpickerHolderStroke')then
-								if not BreakAllLoops then
+						while true do wait()
+							if not BreakAllLoops then
+                                if ChangeTheme and ColorpickerHolder:FindFirstChild(Name..'ColorpickerHolderStroke')then
 									if not Hovering then
 										Utility:Tween(ColorpickerHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									end
@@ -4660,10 +4728,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 									Utility:Tween(RGBPicker[Name..'RGBPickerStroke'], {Color = Theme.UIStrokeColor}, 0.25)
 									Utility:Tween(DarknessPicker, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									Utility:Tween(DarknessPicker[Name..'DarknessPickerStroke'], {Color = Theme.UIStrokeColor}, 0.25)
-								else
-									break
-								end
-							end
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
@@ -4831,7 +4899,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				end)
 				
 				spawn(function()
-					while wait() do
+					while true do wait()
 						if RainbowmodeToggled then
 							if not BreakAllLoops then
 								local ValueToMix = 0;
@@ -5023,9 +5091,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 				if not ImprovePerformance then
 					spawn(function()
-						while wait() do
-							if ChangeTheme and ImageHolder:FindFirstChild(Name..'ImageStroke') then
-								if not BreakAllLoops then
+						while true do wait()
+							if not BreakAllLoops then
+                                if ChangeTheme and ImageHolder:FindFirstChild(Name..'ImageStroke') then
 									if not Hovering then
 										Utility:Tween(ImageHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									end
@@ -5039,10 +5107,10 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 									Utility:Tween(ImageDropdown[Name..'ImageDropdownStroke'], {Color = Theme.UIStrokeColor}, 0.25)
 									Utility:Tween(Image, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 									Utility:Tween(Button, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
-								else
-									break
-								end
-							end
+                                end
+                            else
+                                break
+                            end
 						end
 					end)
 				end
@@ -5107,7 +5175,6 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						end
 					end
 				end)
-
 				Image.Changed:Connect(function(Property)
 					if Property == 'Size' then
 						if Image.Size == ImageSize then
@@ -5115,24 +5182,22 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						end 
 					end
 				end)
-
 				ImageHolder.MouseEnter:Connect(function()
 					Hovering = true
 					Utility:Tween(ImageHolder, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.5)
 				end)
-
 				ImageHolder.MouseLeave:Connect(function()
 					Hovering = false
 					Utility:Tween(ImageHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.5)
 
 				end)
-
 				function ImageFunctions:UpdateImage(NewURL, NewSize)
 					ImageSize = NewSize
 					URL = NewURL
 					Image.Image = GetImage(NewURL)
 					UpdateImageCanvas()
 				end
+				
 				return ImageFunctions
 			end
 			return Elements
