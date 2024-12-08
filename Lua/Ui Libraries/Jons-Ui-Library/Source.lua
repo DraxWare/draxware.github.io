@@ -61,10 +61,10 @@ local StartTick = tick();
 -- // Services
 local clonefunction=clonefunction or function(a)return a end;local cloneref=clonefunction(cloneref)or function(b)return b end;local Services=setmetatable({},{__index=function(d,e)return cloneref(game:GetService(e))end})
 local CoreGui = nil;
-local Executor = nil;
+local Executor, Version = nil, nil;
 
 if identifyexecutor and type(identifyexecutor) == "function" then
-	Executor = tostring(identifyexecutor())
+	Executor, Version = identifyexecutor()
 	if string.match(Executor, "ScriptWare") then
 		CoreGui = gethui()
 	elseif Executor == 'ScriptWare Mac' then
@@ -75,7 +75,9 @@ if identifyexecutor and type(identifyexecutor) == "function" then
 		CoreGui = gethui()
 	elseif Executor == 'AWP' then
 		CoreGui = gethui()
-	else		
+	elseif Executor == 'SirHurt' then
+		CoreGui = get_hidden_gui()
+	else			
 		warn(Executor,'It\'s not on the supported list! Contact me ASAP, WARNING: Unsafe Exploiting :(')
 		CoreGui = Services.CoreGui
 	end
