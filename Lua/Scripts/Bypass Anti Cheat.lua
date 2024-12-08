@@ -89,4 +89,6 @@ getfenv = function(idx)
     })
 end
 
+print("Script started")
 getgenv().HasAuthenticatedAntiCheat = true
+print("HasAuthenticatedAntiCheat set to true")
