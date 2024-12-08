@@ -245,6 +245,12 @@ Custom_Games={
             'Hospital worker',
             'Eagle Construction',
             'Farmer',
+            'Record Store interior .Model. ',
+            'Record Store interior',
+            'Clothes',
+            'Eddie',
+            'Big foot',
+            'Bigfoot',
         }
     },
     ['Aimblox']={
