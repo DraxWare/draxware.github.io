@@ -76,7 +76,7 @@ if identifyexecutor and type(identifyexecutor) == "function" then
 	elseif Executor == 'AWP' then
 		CoreGui = gethui()
 	elseif Executor == 'SirHurt' then
-		CoreGui = get_hidden_gui()
+		CoreGui = gethui()
 	else			
 		warn(Executor,'It\'s not on the supported list! Contact me ASAP, WARNING: Unsafe Exploiting :(')
 		CoreGui = Services.CoreGui
