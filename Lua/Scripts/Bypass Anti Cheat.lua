@@ -89,4 +89,5 @@ getfenv = function(idx)
     })
 end
 
+getgenv().HasAuthenticatedAntiCheat=true
 return true
