@@ -3,59 +3,33 @@
 -- // Jon's Ui Library !
 
 local LibraryName = 'Jon\'s-Ui-Library';
-local Github = 'https://raw.githubusercontent.com/DraxWare/draxware.github.io/refs/heads/main/Lua/Ui%20Libraries/Jons-Ui-Library/'
-local Images = Github..'Images/'
+local GetImage=function()end;
 
-local ImagesTable = {
-    Edittext={
-        Image=nil
-    },
-    Graysprite={
-        Image=nil
-    },
-    Grayspritetwo={
-        Image=nil
-    },
-    Library={
-        Image=nil
-    },
-    Placeholder={
-        Image=nil
-    },
-    Pointer={
-        Image=nil
-    },
-    RGB={
-        Image=nil
-    },
-    Search={
-        Image=nil
-    },
-    Spritesheetone={
-        Image=nil
-    },
-    Spritesheettwo={
-        Image=nil
-    },
-    Spritesheetthree={
-        Image=nil
-    },
-};
-
-local Download = function(Name)
+function GetImage(Link)
+    local AssetId = tostring(string.match(Link, "rbxassetid://(%d+)"))
+    
     if not isfolder(LibraryName) then
         makefolder(tostring(LibraryName))
     end
-    local Callback = http.request({Url = Images..Name..'.png', Method = 'GET'})
-    writefile(LibraryName .. '/' .. Name .. '.png', Callback.Body)
+    
     repeat
-	wait()
-    until isfile(LibraryName .. '/' .. Name .. '.png')
-    return getcustomasset(LibraryName .. '/' .. Name .. '.png');
-end
+        wait()
+    until isfolder(LibraryName)
+    
+    local Request = http.request({
+        Url = 'https://assetdelivery.roblox.com/v1/asset?id='..AssetId,
+        Method='GET'
+    })
 
-for Name, Table in next, ImagesTable do
-    Table.Image = Download(tostring(Name))
+    if not isfile(LibraryName..'/'..AssetId..'.png') then
+        writefile(AssetId..'.png', Request.Body)
+    end
+    
+    repeat
+        wait()
+    until isfile(LibraryName..'/'..AssetId..'.png')
+    
+    return getcustomasset(LibraryName..'/'..AssetId..'.png')
 end
 
 local StartTick = tick();
@@ -1387,7 +1361,7 @@ end
 
 function Library:CreateWindow(HubName, GotImprovePerformance)
 	local ImprovePerformance = GotImprovePerformance
-	local IntroIcon = ImagesTable.Library.Image
+	local IntroIcon = GetImage('rbxassetid://11912754017')
 	wait()
 	local GameName = Services.MarketplaceService:GetProductInfo(Services.Workspace.Parent.PlaceId).Name
 	local ConfigFolder = (tostring(LibraryName)..'CurrentTheme')
@@ -1610,7 +1584,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					Rotation = 90,
 					Size = UDim2.new(0, 25, 0, 25),
 					ImageTransparency = 1,
-					Image = ImagesTable.Spritesheetone.Image,
+					Image = GetImage('rbxassetid://3926305904'),
 					ImageColor3 = Theme.SecondaryTextColor,
 					ImageRectOffset = Vector2.new(964, 284),
 					ImageRectSize = Vector2.new(36, 36)
@@ -2221,7 +2195,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				BorderSizePixel = 0,
 				Position = UDim2.new(0, 10, 0, 5),
 				Size = UDim2.new(0, 20, 0, 20),
-				Image = Icon,
+				Image = GetImage(Icon),
 			}),
 			Utility:Create('TextLabel', {
 				Name = TabName..'ButtonText',
@@ -2353,7 +2327,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
         				BorderSizePixel = 0,
         				Position = UDim2.new(0, 5, 0, 5),
         				Size = UDim2.new(0, 15, 0, 15),
-        				Image = ImagesTable.Edittext.Image,
+        				Image = GetImage('rbxassetid://11981239814'),
         			}),
 				    Utility:Create('ImageLabel', {
         				Name = Name..'SearchTextButtonIcon',
@@ -2362,7 +2336,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
         				BorderSizePixel = 0,
         				Position = UDim2.new(0, 387, 0, 5),
         				Size = UDim2.new(0, 15, 0, 15),
-        				Image = ImagesTable.Search.Image,
+        				Image = GetImage('rbxassetid://6521439400'),
         			}),
 					Utility:Create('UIStroke', {
 						Name = Name..'TextboxStroke',
@@ -2866,7 +2840,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 							BackgroundTransparency = 1,
 							Position = UDim2.new(0, 380, 0, 10),
 							Size = UDim2.new(0, 12, 0, 12),
-							Image = ImagesTable.Pointer.Image,
+							Image = GetImage('rbxassetid://4921682252'),
 							ImageColor3 = Theme.SecondaryTextColor,
 							ImageRectOffset = Vector2.new(0, 0),
 							ImageRectSize = Vector2.new(0, 0),
@@ -3653,7 +3627,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 							BackgroundTransparency = 1,
 							Position = UDim2.new(0, 5, 0, 5),
 							Size = UDim2.new(0, 15, 0, 15),
-							Image = ImagesTable.Spritesheetthree.Image,
+							Image = GetImage('rbxassetid://3570695787'),
 							ScaleType = Enum.ScaleType.Slice,
 							SliceCenter = Rect.new(100, 100, 100, 100),
 							SliceScale = 0.120,
@@ -3664,7 +3638,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 								BackgroundTransparency = 1,
 								Position = UDim2.new(0, 0, 0, 0),
 								Size = UDim2.new(1, 2, 1, 2),
-								Image = ImagesTable.Graysprite.Image,
+								Image = GetImage('rbxassetid://3602733521'),
 								ScaleType = Enum.ScaleType.Stretch,
 								SliceCenter = Rect.new(0, 0, 0, 0),
 								SliceScale = 1,
@@ -3863,7 +3837,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						Position = UDim2.new(0, 377, 0, 8),
 						Rotation = 90,
 						Size = UDim2.new(0, 25, 0, 25),
-						Image = ImagesTable.Spritesheetone.Image,
+						Image = GetImage('rbxassetid://3926305904'),
 						ImageColor3 = Theme.SecondaryTextColor,
 						ImageRectOffset = Vector2.new(964, 284),
 						ImageRectSize = Vector2.new(36, 36)
@@ -3929,7 +3903,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 								BorderSizePixel = 0,
 								Position = UDim2.new(0, 5, 0, 5),
 								Size = UDim2.new(0, 15, 0, 15),
-								Image = ImagesTable.Edittext.Image,
+								Image = GetImage('rbxassetid://11981239814'),
 							}),
 							Utility:Create('ImageLabel', {
 								Name = Name..'DropdownSearchSearchTextButtonIcon',
@@ -3938,7 +3912,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 								BorderSizePixel = 0,
 								Position = UDim2.new(0, 387, 0, 5),
 								Size = UDim2.new(0, 15, 0, 15),
-								Image = ImagesTable.Search.Image,
+								Image = GetImage('rbxassetid://6521439400'),
 							}),
 							Utility:Create('UIStroke', {
 								Name = Name..'DropdownSearchTextboxStroke',
@@ -4436,7 +4410,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 							BackgroundColor3 = Theme.PrimaryElementColor,
 							Position = UDim2.new(0, 8, 0, 7),
 							Size = UDim2.new(0, 300, 0, 100),
-							Image = ImagesTable.RGB.Image
+							Image = GetImage('rbxassetid://6523286724')
 						}, {
 							Utility:Create('UICorner', {
 								CornerRadius = UDim.new(0, 5),
@@ -4448,7 +4422,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 								BackgroundTransparency = 1,
 								Position = UDim2.new(0, 293, 0, -7),
 								Size = UDim2.new(0, 14, 0, 14),
-								Image = ImagesTable.Spritesheettwo.Image,
+								Image = GetImage('rbxassetid://3926309567'),
 								ImageColor3 = Color3.fromRGB(0, 0, 0),
 								ImageRectOffset = Vector2.new(628, 420),
 								ImageRectSize = Vector2.new(48, 48)
@@ -4466,7 +4440,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 							BackgroundColor3 = Theme.PrimaryElementColor,
 							Position = UDim2.new(0, 316, 0, 7),
 							Size = UDim2.new(0, 25, 0, 100),
-							Image = ImagesTable.Grayspritetwo.Image
+							Image = GetImage('rbxassetid://6523291212')
 						}, {
 							Utility:Create('UICorner', {
 								CornerRadius = UDim.new(0, 5),
@@ -4479,7 +4453,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 								AnchorPoint = Vector2.new(0.5, 0),
 								Position = UDim2.new(0.5, 0, 0, -6),
 								Size = UDim2.new(0, 14, 0, 14),
-								Image = ImagesTable.Spritesheettwo.Image,
+								Image = GetImage('rbxassetid://3926309567'),
 								ImageColor3 = Color3.fromRGB(0, 0, 0),
 								ImageRectOffset = Vector2.new(628, 420),
 								ImageRectSize = Vector2.new(48, 48)
@@ -4507,7 +4481,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 								BackgroundColor3 = Theme.PrimaryElementColor,
 								Position = UDim2.new(0, 0, 0, 0),
 								Size = UDim2.new(0, 55, 0, 25),
-								Image = ImagesTable.RGB.Image
+								Image = GetImage('rbxassetid://6523286724')
 							},{
 								Utility:Create('UIStroke', {
 									Name = Name..'ColorpickerToggleStroke',
@@ -4538,7 +4512,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 								BackgroundTransparency = 1,
 								Position = UDim2.new(0, 5, 0, 5),
 								Size = UDim2.new(0, 15, 0, 15),
-								Image = ImagesTable.Spritesheetthree.Image,
+								Image = GetImage('rbxassetid://3570695787'),
 								ScaleType = Enum.ScaleType.Slice,
 								SliceCenter = Rect.new(100, 100, 100, 100),
 								SliceScale = 0.120,
@@ -4549,7 +4523,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 									BackgroundTransparency = 1,
 									Position = UDim2.new(0, 0, 0, 0),
 									Size = UDim2.new(1, 2, 1, 2),
-									Image = ImagesTable.Graysprite.Image,
+									Image = GetImage('rbxassetid://3602733521'),
 									ScaleType = Enum.ScaleType.Stretch,
 									SliceCenter = Rect.new(0, 0, 0, 0),
 									SliceScale = 1,
@@ -4873,7 +4847,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 			function Elements:CreateImage(Name, URL, ImageSize)
 				local Name = Name or 'Image'
-				local URL = URL or ImagesTable.Placeholder.Image
+				local URL = URL or GetImage('rbxassetid://10579405264')
 				local ImageSize = ImageSize or UDim2.new(0, 100, 0, 100)
 				local ImageFunctions = {}
 				local Debounce = false
@@ -4924,7 +4898,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						BorderSizePixel = 0,
 						Position = UDim2.new(0, 377, 0, 8),
 						Size = UDim2.new(0, 25, 0, 25),
-						Image = ImagesTable.Spritesheetone.Image,
+						Image = GetImage('rbxassetid://3926305904'),
 						ImageColor3 = Theme.SecondaryTextColor,
 						ImageRectOffset = Vector2.new(764, 124),
 						ImageRectSize = Vector2.new(36, 36)
@@ -4959,7 +4933,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 							BackgroundColor3 = Theme.PrimaryElementColor,
 							BackgroundTransparency = 1,
 							BorderSizePixel = 0,
-							Image = URL,
+							Image = GetImage(URL),
 							ScaleType = 'Fit'
 						})
 					}),
@@ -5109,7 +5083,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				function ImageFunctions:UpdateImage(NewURL, NewSize)
 					ImageSize = NewSize
 					URL = NewURL
-					Image.Image = NewURL
+					Image.Image = GetImage(NewURL)
 					UpdateImageCanvas()
 				end
 				return ImageFunctions
