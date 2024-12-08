@@ -7,8 +7,12 @@ local cloneref = clonefunction(cloneref) or function(instance)
 end
 
 local Services = setmetatable({}, {
-    __index = function(_, v)
-        return cloneref(game:GetService(v))
+    __index = function(self, serviceName)
+
+        local serviceInstance = cloneref(game:GetService(serviceName))
+        self[serviceName] = serviceInstance
+
+        return serviceInstance
     end
 })
 
