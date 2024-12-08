@@ -1,3 +1,5 @@
+print('Yes')
+
 local origGetfenv = getfenv
 local origPrint = print
 
