@@ -318,6 +318,15 @@ Custom_Games={
             'Statue',
         }
     },
+    ['RE:Infected Main Game']={
+        Place_Ids={
+            15697416464,
+        },
+        Whitelisted_Parts={
+            'SupplyCrate',
+            'Commonmesh',
+        }
+    },
 }
 
 Banned_Names={
