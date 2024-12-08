@@ -1,13 +1,13 @@
 --[[
     Welcome To Emergency Response AUTO ATM (At the Momment. This is a coding guide so I'll quote it as much as i want to.), Next: Lockpick, Cars, Safe, e.t.c.
 ]]
-spawn(loadstring(game:HttpGet("https://raw.githubusercontent.com/DraxWare/draxware.github.io/main/Lua/Scripts/Bypass%20Anti%20Cheat.lua"))); -- Bypass Anti Cheat
+local Callback = loadstring(http.request({Url="https://raw.githubusercontent.com/DraxWare/draxware.github.io/main/Lua/Scripts/Bypass%20Anti%20Cheat.lua", Method='GET'}).Body)
+
+local Value = Callback();
 
 repeat
     wait()
-until getgenv().HasAuthenticatedAntiCheat == true
-wait()
-getgenv().HasAuthenticatedAntiCheat = false
+until Value == true
 
 --[[
     Init
