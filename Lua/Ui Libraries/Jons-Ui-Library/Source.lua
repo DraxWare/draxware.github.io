@@ -7,7 +7,7 @@ local GetImage=function()end;
 
 function GetImage(Link)
 
-    local UseCustomImages = false
+    local UseCustomImages = true
 
     if UseCustomImages then
 	
