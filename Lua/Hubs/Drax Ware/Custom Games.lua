@@ -234,6 +234,17 @@ Custom_Games={
             'EMSNPC',
             'DOTXP',
             'Impounds',
+            'workersandrobbersonly',
+            'clothinggiver',
+            'clothing',
+            'news station workers',
+            'Fast Food Restaurant worker',
+            'Main',
+            'Valley Traffic Worker',
+            'Gadget Shack Worker',
+            'Hospital worker',
+            'Eagle Construction',
+            'Farmer',
         }
     },
     ['Aimblox']={
