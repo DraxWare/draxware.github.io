@@ -7,18 +7,16 @@ local GetImage=function()end;
 local UseCustomImages = false
 
 function GetImage(Link)
-	
+
     if UseCustomImages then
 	
         if not Link then
-            warn("GetImage: Invalid link provided.")
             return ''
         end
 
         local AssetId = tostring(string.match(Link, "rbxassetid://(%d+)"))
         
         if not AssetId then
-            warn("GetImage: Unable to extract AssetId from the link.")
             return ''
         end
 
@@ -39,7 +37,6 @@ function GetImage(Link)
             })
 
             if Request.StatusCode ~= 200 then
-                warn("GetImage: Failed to fetch the image. HTTP request error.")
                 return ''
             end
 
@@ -76,10 +73,10 @@ if identifyexecutor and type(identifyexecutor) == "function" then
 		CoreGui = Services.CoreGui
 	elseif Executor == 'SirHurt' then
 		CoreGui = gethui()
-	elseif Executor == 'Wave' then
-		CoreGui = Services.CoreGui
-		UseCustomImages = true
-	else
+    elseif Executor == 'Wave' then
+        CoreGui = Services.CoreGui
+        UseCustomImages = true
+    else		
 		warn(Executor,'It\'s not on the supported list! Contact me ASAP, WARNING: Unsafe Exploiting :(')
 		CoreGui = Services.CoreGui
 	end
@@ -1818,7 +1815,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 	Utility:Tween(Main, {Size = UDim2.new(0, 375, 0, 0)}, 0.25)
 	Utility:Tween(Main['MainGradient'], {BackgroundTransparency = 0}, 0.25)
 	Utility:Tween(Main['MainGradient'], {Size = UDim2.new(0, 378, 0, 0)}, 0.25)
-    
+
 	wait(0.25)
 
 	Utility:Tween(Main, {Size = UDim2.new(0, 375, 0, 400)}, 0.25)
@@ -2762,8 +2759,6 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					Section:WaitForChild(LabelText..'LabelHolder');
 					if Section and Section[LabelText..'LabelHolder'] and Section[LabelText..'LabelHolder'][LabelText..'Label'] then
 						AnimateText(Section[LabelText..'LabelHolder'][LabelText..'Label'], NewText);
-					else
-						warn("Could not update label. ActualDom or its components not found.")
 					end
 				end
 				--[[function LabelFunctions:UpdateLabel(NewText)
@@ -5175,6 +5170,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						end
 					end
 				end)
+
 				Image.Changed:Connect(function(Property)
 					if Property == 'Size' then
 						if Image.Size == ImageSize then
@@ -5182,22 +5178,24 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 						end 
 					end
 				end)
+
 				ImageHolder.MouseEnter:Connect(function()
 					Hovering = true
 					Utility:Tween(ImageHolder, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.5)
 				end)
+
 				ImageHolder.MouseLeave:Connect(function()
 					Hovering = false
 					Utility:Tween(ImageHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.5)
 
 				end)
+
 				function ImageFunctions:UpdateImage(NewURL, NewSize)
 					ImageSize = NewSize
 					URL = NewURL
 					Image.Image = GetImage(NewURL)
 					UpdateImageCanvas()
 				end
-				
 				return ImageFunctions
 			end
 			return Elements
