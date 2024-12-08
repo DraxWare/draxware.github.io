@@ -75,7 +75,6 @@ if identifyexecutor and type(identifyexecutor) == "function" then
 		CoreGui = gethui()
     elseif Executor == 'Wave' then
         CoreGui = Services.CoreGui
-        UseCustomImages = true
     else		
 		warn(Executor,'It\'s not on the supported list! Contact me ASAP, WARNING: Unsafe Exploiting :(')
 		CoreGui = Services.CoreGui
