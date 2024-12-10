@@ -253,6 +253,8 @@ Custom_Games={
             'Bigfoot',
             'shirtmodel',
             'npc',
+            ' ',
+            '',
         }
     },
     ['Aimblox']={
