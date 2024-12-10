@@ -74,8 +74,12 @@ if identifyexecutor and type(identifyexecutor) == "function" then
 	elseif Executor == 'SirHurt' then
 		CoreGui = gethui()
     elseif Executor == 'Wave' then
-        CoreGui = Services.CoreGui
-    else		
+        	CoreGui = Services.CoreGui
+    elseif Executor == 'Solara' then
+		Services=setmetatable({},{__index=function(b,c)return game:GetService(c)end})
+		CoreGui = Services.CoreGui
+		warn('Solara Detected, You\'re running with a *Fixed* version of draxware to run on solara, may be detectable! consider switching to a different executor that supports more functions!')
+    else
 		warn(Executor,'It\'s not on the supported list! Contact me ASAP, WARNING: Unsafe Exploiting :(')
 		CoreGui = Services.CoreGui
 	end
