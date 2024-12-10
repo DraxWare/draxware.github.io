@@ -251,6 +251,8 @@ Custom_Games={
             'Eddie',
             'Big foot',
             'Bigfoot',
+            'shirtmodel',
+            'npc',
         }
     },
     ['Aimblox']={
