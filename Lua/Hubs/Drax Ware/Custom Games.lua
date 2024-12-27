@@ -386,6 +386,26 @@ Known_Names={
             GameLink='https://www.roblox.com/games/5286116071/Hunting-Season-BETA',
             CharacteristicType='Head',
         },
+        ['key']={
+            Game='Doors',
+            GameLink='https://www.roblox.com/games/6516141723/DOORS',
+            CharacteristicType='Head',
+        },
+        ['goldvisualholder']={
+            Game='Doors',
+            GameLink='https://www.roblox.com/games/6516141723/DOORS',
+            CharacteristicType='Head',
+        },
+        ['rushnew']={
+            Game='Doors',
+            GameLink='https://www.roblox.com/games/6516141723/DOORS',
+            CharacteristicType='Head',
+        },
+        ['rush']={
+            Game='Doors',
+            GameLink='https://www.roblox.com/games/6516141723/DOORS',
+            CharacteristicType='Head',
+        },
     },
     Torso={
         ['exampletorsoname']={
@@ -406,6 +426,21 @@ Known_Names={
         ['shark']={ --[[head_only]]
             Game='Sharkbite 2',
             GameLink='https://www.roblox.com/games/8908228901/SharkBite-2',
+            CharacteristicType='Torso / HumanoidRootPart',
+        },
+        ['keyhitbox']={
+            Game='Doors',
+            GameLink='https://www.roblox.com/games/6516141723/DOORS',
+            CharacteristicType='Torso / HumanoidRootPart',
+        },
+        ['rushnew']={
+            Game='Doors',
+            GameLink='https://www.roblox.com/games/6516141723/DOORS',
+            CharacteristicType='Torso / HumanoidRootPart',
+        },
+        ['rush']={
+            Game='Doors',
+            GameLink='https://www.roblox.com/games/6516141723/DOORS',
             CharacteristicType='Torso / HumanoidRootPart',
         },
     }
