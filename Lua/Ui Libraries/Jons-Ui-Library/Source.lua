@@ -3021,6 +3021,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				local SliderColor = SliderColor or Color3.fromRGB(0, 125, 255)
 				local Callback = Callback or function() end
 				local CurrentValue = DefaultValue
+				Config[Name] = CurrentValue
 				local IsPrecise = Boolean or false;
 				local SliderFunctions = {}
 				local Hovering = false
@@ -3675,6 +3676,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
                 CreateToolTip(Section,Name, 'ToggleHolder', Enabled, ToolTipText);
 				local Name = Name or 'Toggle'
 				local Default = Default or false
+				Config[Name] = Default
 				local Callback = Callback or function() end
 				local Toggled = Default
 				local ToggleColor = ToggleColor or Color3.fromRGB(0, 255, 100)
@@ -3901,6 +3903,9 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				local Callback = Callback or function() end
 				local DebounceAmount = DebounceAmount or 0.25
 				local Default = Default or nil
+				if Default ~= nil then
+					Config[Name] = Default
+				end
 				local SelectedItem = 'None'
 				local Opened = false
 				local Debounce = false
@@ -4437,6 +4442,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				local Callback = Callback or function() end
 				local DebounceAmount = DebounceAmount or 0.25
 				local DefaultColor = CallingDefaultColor or Color3.fromRGB(0, 125, 255)
+				Config[Name] = DefaultColor
 				local Debounce = false;
 				local RainbowmodeToggleDebounce = false;
 				local Opened = false
