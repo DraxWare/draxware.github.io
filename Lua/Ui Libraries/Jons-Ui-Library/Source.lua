@@ -3158,6 +3158,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					spawn(function()
 						Callback(CurrentValue)
 					end)
+					Config[Name]=CurrentValue
 				end
 
 				SliderHolder[Name..'SliderNumberText'].MouseEnter:Connect(function()
@@ -3421,6 +3422,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					Utility:Tween(Textbox, {BackgroundColor3 = Theme.SecondaryElementColor}, 0.25)
 					Utility:Tween(TextboxHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 					spawn(function()
+						Config[Name]=Textbox.Text
 						Callback(Textbox.Text)
 					end)
 					Hovering = false
@@ -3627,7 +3629,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
         						if Input.KeyCode.Name == Current then
             						if ChangingBind == false then
             							spawn(function()
-            								 Callback()
+            								Callback()
             							end)
             							Config[Name] = Current 
         							end
@@ -3841,6 +3843,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				if Default then
 					spawn(function()                    
 						pcall(Callback, Default)
+						Config[Name] = Default
 					end)
 					Utility:Tween(Toggle, {BackgroundColor3 = ToggleColor}, 0.25)
 					Utility:Tween(Circle, {Position = UDim2.new(0, 30, 0, 5)}, 0.25)
@@ -4281,6 +4284,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					Utility:Tween(Option, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.25)
 					AnimateText(DropdownSelectedText, Default)
 					Callback(Default)
+					Config[Name] = Default
 				end
 
 				DropdownHolder.MouseEnter:Connect(function()
@@ -4745,6 +4749,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					local FinalColor = Color3.fromHSV(Color[1], Color[2], Color[3])
 					ColorpickerPreview.BackgroundColor3 = FinalColor
 					Callback(FinalColor)
+					Config[Name]=FinalColor
 				end
 
 				ColorpickerButton.MouseButton1Click:Connect(function()
