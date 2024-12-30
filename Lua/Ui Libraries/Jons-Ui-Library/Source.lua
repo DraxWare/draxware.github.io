@@ -3422,7 +3422,6 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 					Utility:Tween(Textbox, {BackgroundColor3 = Theme.SecondaryElementColor}, 0.25)
 					Utility:Tween(TextboxHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
 					spawn(function()
-						Config[Name]=Textbox.Text
 						Callback(Textbox.Text)
 					end)
 					Hovering = false
