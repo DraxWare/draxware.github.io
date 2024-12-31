@@ -360,6 +360,15 @@ Library:ToggleUI()
 |:-------------|:------------------|:---------------|:---------------------|
 | 1            | `<Optional>`        | Editable. | Can be triggered through a dropdown, button, keybind, and or slider ? xd |
 
+## Destroy Ui
+```lua
+Library:DestroyUI()
+```
+
+| parameters   | Type              | Information    | In-Depth Description |
+|:-------------|:------------------|:---------------|:---------------------|
+| 1            | `<Optional>`        | Editable. | Can be triggered through a dropdown, button, keybind, and or slider ? xd |
+
 ## Update UI Transparency
 ```lua
 Library:SetTransparency(0.5, true)
