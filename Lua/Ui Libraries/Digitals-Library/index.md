@@ -13,7 +13,7 @@ Our Library Provides;
 - [ ] ~~Bannable Risk's~~
 - [ ] ~~Detectable~~
 
-Please Join Our [Discord Server](https://discord.gg/VHyGNV72ey).
+Please Join Our [Discord Server](https://discord.gg/rEajMcPKuy).
 
 # Documentation
 [Documentation](Documentation.md)
