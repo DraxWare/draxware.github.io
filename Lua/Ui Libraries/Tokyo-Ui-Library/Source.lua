@@ -58,7 +58,7 @@ local library = {
         ['colortrans'] = 'https://raw.githubusercontent.com/DraxWare/draxware.github.io/refs/heads/main/Lua/Ui%20Libraries/Tokyo-Ui-Library/Ui-Stuff/Images/ColorTransparency.png';
     };
     numberStrings = {['Zero'] = 0, ['One'] = 1, ['Two'] = 2, ['Three'] = 3, ['Four'] = 4, ['Five'] = 5, ['Six'] = 6, ['Seven'] = 7, ['Eight'] = 8, ['Nine'] = 9};
-    signal = loadstring(http.request({Url="https://raw.githubusercontent.com/DraxWare/draxware.github.io/refs/heads/main/Lua/Ui%20Libraries/Tokyo-Ui-Library/Ui-Stuff/Scripts/Signal.lua", Method='GET'}).Body)
+    signal = loadstring(http.request({Url="https://raw.githubusercontent.com/DraxWare/draxware.github.io/refs/heads/main/Lua/Ui%20Libraries/Tokyo-Ui-Library/Ui-Stuff/Scripts/Signal.lua", Method='GET'}).Body);
     open = false;
     opening = false;
     hasInit = false;
