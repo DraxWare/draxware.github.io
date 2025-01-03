@@ -62,7 +62,7 @@ local library = {
     open = false;
     opening = false;
     hasInit = false;
-    cheatname = startupArgs.cheatname or 'Clanware';
+    cheatname = startupArgs.cheatname or 'Untitledcheat';
     gamename = startupArgs.gamename or 'Universal';
     fileext = startupArgs.fileext or '.txt';
 }
@@ -2462,7 +2462,7 @@ function library:init()
                                 Current = 'MouseButton2'
                             end
                             
-                            if Enum.KeyCode[Current] then
+                            if Enum.KeyCode[Current] ~= nil then
                                 data.bind = Enum.KeyCode[Current] 
                             else
                                 data.bind = Enum.UserInputType[Current]
@@ -4263,7 +4263,7 @@ function library:init()
                             Current = 'MouseButton2'
                         end
                         
-                        if Enum.KeyCode[Current] then
+                        if Enum.KeyCode[Current] ~= nil then
                             data.bind = Enum.KeyCode[Current] 
                         else
                             data.bind = Enum.UserInputType[Current]
