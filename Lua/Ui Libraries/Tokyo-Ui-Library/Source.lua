@@ -2444,7 +2444,7 @@ function library:init()
                             data = {
                                 enabled = true,
                                 text = Name,
-                                mode = 'hold',
+                                mode = 'toggle',
                                 state = false,
                                 nomouse = false,
                                 risky = false,
@@ -4270,7 +4270,7 @@ function library:init()
                         data = {
                             enabled = true,
                             text = Name,
-                            mode = 'hold',
+                            mode = 'toggle',
                             state = false,
                             nomouse = false,
                             risky = false,
