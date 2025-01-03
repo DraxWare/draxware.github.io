@@ -3083,7 +3083,10 @@ function library:init()
                         
                         function list:UpdateDropdown(NewList)
                             for i,v in next, NewList do
-                                list:AddValue(v)
+                                table.insert(list.values, tostring(v));
+                                if window.dropdown.selected == list then
+                                    window.dropdown:Refresh()
+                                end
                             end
                         end
 
