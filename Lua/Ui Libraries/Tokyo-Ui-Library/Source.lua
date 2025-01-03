@@ -3082,9 +3082,7 @@ function library:init()
                         end
                         
                         function list:UpdateDropdown(NewList)
-                            for i,v in next, list.values do
-                                table.remove(list.values, i);
-                            end
+                            list.values = {};
 
                             for i,v in next, NewList do
                                 table.insert(list.values, tostring(v));
