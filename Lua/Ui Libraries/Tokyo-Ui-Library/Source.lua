@@ -13,7 +13,7 @@ local function gs(a)
 end
 
 -- // Variables
-local players, http, runservice, inputservice, tweenService, stats, actionservice = gs('Players'), gs('HttpService'), gs('RunService'), gs('UserInputService'), gs('TweenService'), gs('Stats'), gs('ContextActionService')
+local players, https, runservice, inputservice, tweenService, stats, actionservice = gs('Players'), gs('HttpService'), gs('RunService'), gs('UserInputService'), gs('TweenService'), gs('Stats'), gs('ContextActionService')
 local localplayer = players.LocalPlayer
 local setByConfig = false
 local floor, ceil, huge, pi, clamp = math.floor, math.ceil, math.huge, math.pi, math.clamp
@@ -624,7 +624,7 @@ function library:init()
 
         local s,e = pcall(function()
             setByConfig = true
-            for flag,value in next, http:JSONDecode(cfg) do
+            for flag,value in next, https:JSONDecode(cfg) do
                 local option = library.options[flag]
                 if option ~= nil then
                     if option.class == 'toggle' then
@@ -681,7 +681,7 @@ function library:init()
                     cfg[flag] = option.input
                 end
             end
-            writefile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext, http:JSONEncode(cfg));
+            writefile(self.cheatname..'/'..self.gamename..'/configs/'..name..self.fileext, https:JSONEncode(cfg));
         end)
 
         if s then
@@ -5054,7 +5054,7 @@ function library:CreateSettingsTab(menu)
             library:CreateNotification('Config \''..library.flags.configinput..'\' already exists.', 5, c3new(1,0,0));
             return
         end
-        writefile(self.cheatname..'/'..self.gamename..'/configs/'..library.flags.configinput.. self.fileext, http:JSONEncode({}));
+        writefile(self.cheatname..'/'..self.gamename..'/configs/'..library.flags.configinput.. self.fileext, https:JSONEncode({}));
         refreshConfigs()
     end}):CreateButton({text = 'Delete', confirm = true, callback = function()
         if library:GetConfig(library.flags.selectedconfig) then
