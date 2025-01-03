@@ -3085,6 +3085,7 @@ function library:init()
                             list.values = {};
 
                             for i,v in next, NewList do
+                                print('Added',tostring(v),'to',list.text)
                                 table.insert(list.values, tostring(v));
                             end
                             
