@@ -700,7 +700,7 @@ function library:init()
     end
 
     self.cursor1 = utility:Draw('Triangle', {Filled = true, Color = fromrgb(255,255,255), ZIndex = self.zindexOrder.cursor});
-    self.cursor2 = utility:Draw('Triangle', {Filled = true, Color = fromrgb(85,85,85), self.zindexOrder.cursor-1});
+    self.cursor2 = utility:Draw('Triangle', {Filled = true, Color = fromrgb(85,85,85), ZIndex = self.zindexOrder.cursor+1});
     local function updateCursor()
         self.cursor1.Visible = self.open
         self.cursor2.Visible = self.open
