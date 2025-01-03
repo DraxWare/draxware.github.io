@@ -15,7 +15,6 @@ end
 -- // Variables
 local players, http, runservice, inputservice, tweenService, stats, actionservice = gs('Players'), gs('HttpService'), gs('RunService'), gs('UserInputService'), gs('TweenService'), gs('Stats'), gs('ContextActionService')
 local localplayer = players.LocalPlayer
-
 local setByConfig = false
 local floor, ceil, huge, pi, clamp = math.floor, math.ceil, math.huge, math.pi, math.clamp
 local c3new, fromrgb, fromhsv = Color3.new, Color3.fromRGB, Color3.fromHSV
@@ -619,7 +618,7 @@ function library:init()
     function self:LoadConfig(name)
         local cfg = self:GetConfig(name)
         if not cfg then
-            self:SendNotification('Error loading config: Config does not exist. ('..tostring(name)..')', 5, c3new(1,0,0));
+            self:CreateNotification('Error loading config: Config does not exist. ('..tostring(name)..')', 5, c3new(1,0,0));
             return
         end
 
@@ -648,15 +647,15 @@ function library:init()
         end)
 
         if s then
-            self:SendNotification('Successfully loaded config: '..name, 5, c3new(0,1,0));
+            self:CreateNotification('Successfully loaded config: '..name, 5, c3new(0,1,0));
         else
-            self:SendNotification('Error loading config: '..tostring(e)..'. ('..tostring(name)..')', 5, c3new(1,0,0));
+            self:CreateNotification('Error loading config: '..tostring(e)..'. ('..tostring(name)..')', 5, c3new(1,0,0));
         end
     end
 
     function self:SaveConfig(name)
         if not self:GetConfig(name) then
-            self:SendNotification('Error saving config: Config does not exist. ('..tostring(name)..')', 5, c3new(1,0,0));
+            self:CreateNotification('Error saving config: Config does not exist. ('..tostring(name)..')', 5, c3new(1,0,0));
             return
         end
 
@@ -686,9 +685,9 @@ function library:init()
         end)
 
         if s then
-            self:SendNotification('Successfully saved config: '..name, 5, c3new(0,1,0));
+            self:CreateNotification('Successfully saved config: '..name, 5, c3new(0,1,0));
         else
-            self:SendNotification('Error saving config: '..tostring(e)..'. ('..tostring(name)..')', 5, c3new(1,0,0));
+            self:CreateNotification('Error saving config: '..tostring(e)..'. ('..tostring(name)..')', 5, c3new(1,0,0));
         end
     end
 
@@ -862,7 +861,7 @@ function library:init()
         end
     end
 
-    function self:SendNotification(message, time, color)
+    function self:CreateNotification(message, time, color)
         time = time or 5
         if typeof(message) ~= 'string' then
             return error(string.format('invalid message type, got %s, expected string', typeof(message)))
@@ -1917,7 +1916,7 @@ function library:init()
             end
         end
 
-        function window:AddTab(text, order)
+        function window:CreateTab(text, order)
             local tab = {
                 text = text;
                 order = order or #self.tabs+1;
@@ -1981,7 +1980,7 @@ function library:init()
             end
             ----------------------
 
-            function tab:AddSection(text, side, order)
+            function tab:CreateSection(text, side, order)
                 local section = {
                     text = tostring(text);
                     side = side == nil and 1 or clamp(side,1,2);
@@ -2090,7 +2089,26 @@ function library:init()
                 ------- Options -------
 
                 -- // Toggle
-                function section:AddToggle(data)
+                function section:CreateToggle(Name, Default, ToggleColor, DebounceAmount, Callback, IsToolTip, ToolTipLabelText)
+                    local data = nil;
+    
+                    if type(Name) == 'string' then
+                        data = {
+                            enabled = true,
+                            text = Name,
+                            state = Default,
+                            risky = false,
+                            callback = Callback,
+                            flag = tostring(Name:gsub(" ", "_")..'_Toggle'),
+                        }
+
+                        if IsToolTip and IsToolTip == true then
+                            data.tooltip = ToolTipLabelText
+                        end
+                    else
+                        data = Name 
+                    end
+
                     local toggle = {
                         class = 'toggle';
                         flag = data.flag;
@@ -2207,6 +2225,25 @@ function library:init()
                         end
                     end
 
+                    function toggle:Set(Value)
+                        if typeof(bool) == 'boolean' then
+                            self.state = bool;
+                            if self.flag then
+                                library.flags[self.flag] = bool;
+                            end
+
+                            self.objects.border1.ThemeColor = bool and 'Accent' or (self.objects.holder.Hover and 'Accent' or 'Option Border 1');
+                            self.objects.text.ThemeColor = bool and (self.risky and 'Risky Text Enabled' or 'Option Text 1') or (self.risky and 'Risky Text' or 'Option Text 3');
+                            self.objects.background.ThemeColor = bool and 'Accent' or 'Option Background';
+                            self.objects.background.ThemeColorOffset = bool and -55 or 0
+
+                            if not nocallback then
+                                self.callback(bool);
+                            end
+
+                        end
+                    end
+
                     function toggle:SetText(str)
                         if typeof(str) == 'string' then
                             self.text = str;
@@ -2239,7 +2276,26 @@ function library:init()
                     end
 
                     -- // Toggle Addons
-                    function toggle:AddColor(data)
+                    function toggle:CreateColorpicker(Name, CallingDefaultColor, DebounceAmount, Callback)
+
+                        local data = nil;
+    
+                        if type(Name) == 'string' then
+                            data = {
+                                enabled = true,
+                                text = Name,
+                                color = CallingDefaultColor,
+                                callback = Callback,
+                                flag = tostring(Name:gsub(" ", "_")..'_Toggle_Colorpicker'),
+                            }
+
+                            if IsToolTip and IsToolTip == true then
+                                data.tooltip = ToolTipLabelText
+                            end
+                        else
+                            data = Name 
+                        end
+
                         local color = {
                             class = 'color';
                             flag = data.flag;
@@ -2382,7 +2438,39 @@ function library:init()
                         return color
                     end
 
-                    function toggle:AddBind(data)
+                    function toggle:CreateKeybind(Name, Key, Callback, IsToolTip, ToolTipLabelText)
+                        local data = nil
+                        if type(Name) == 'string' then
+                            data = {
+                                enabled = true,
+                                text = Name,
+                                mode = 'hold',
+                                state = false,
+                                nomouse = false,
+                                risky = false,
+                                callback = Callback,
+                                keycallback = function() end,
+                                flag = tostring(Name:gsub(" ", "_")..'_Toggle_Keybind'),
+                            }
+
+                            local Key = Key or 'E'
+                            local Current = Key
+                            if Key == "Left Mouse" then
+                                Current = 'MouseButton1'
+                            end
+                            if Key == "Right Mouse" then
+                                Current = 'MouseButton2'
+                            end
+                            
+                            data.bind = Enum.KeyCode[Current] or Enum.UserInputType[Current]
+
+                            if IsToolTip and IsToolTip == true then
+                                data.tooltip = ToolTipLabelText
+                            end
+                        else
+                            data = Name 
+                        end
+                        
                         local bind = {
                             class = 'bind';
                             flag = data.flag;
@@ -2515,7 +2603,11 @@ function library:init()
                             self.objects.holder.Size = newUDim2(0,self.objects.keyText.TextBounds.X+2,0,17)
                             toggle:UpdateOptions();
                         end
-    
+                        
+                        function bind:ReadKeybind()
+                            return self.bind.Name
+                        end
+
                         utility:Connection(inputservice.InputBegan, function(inp)
                             if inputservice:GetFocusedTextBox() then
                                 return
@@ -2574,7 +2666,34 @@ function library:init()
                         return bind
                     end
 
-                    function toggle:AddSlider(data)
+                    function toggle:CreateSlider(Name, MinimumValue, MaximumValue, DefaultValue, Boolean, SliderColor, Callback, IsToolTip, ToolTipLabelText)
+
+                        local data = nil;
+    
+                        if type(Name) == 'string' then
+                            data = {
+                                enabled = true,
+                                text = Name,
+                                value = DefaultValue,
+                                min = MinimumValue,
+                                max = MaximumValue,
+                                callback = Callback,
+                                flag = tostring(Name:gsub(" ", "_")..'_Toggle_Slider'),
+                            }
+
+                            if Boolean == true then
+                                data.increment = 0.10
+                            else
+                                data.increment = 1
+                            end
+
+                            if IsToolTip and IsToolTip == true then
+                                data.tooltip = ToolTipLabelText
+                            end
+                        else
+                            data = Name 
+                        end
+
                         local slider = {
                             class = 'slider';
                             flag = data.flag;
@@ -2754,7 +2873,30 @@ function library:init()
                         return slider
                     end
 
-                    function toggle:AddList(data)
+                    function toggle:CreateDropdown(Name, List, Default, EnableSearchTool, DebounceAmount, Callback, IsToolTip, ToolTipLabelText)
+                        local data = nil;
+    
+                        if type(Name) == 'string' then
+                            data = {
+                                enabled = true,
+                                text = Name,
+                                selected = Default,
+                                multi = false,
+                                open = false,
+                                max = 9999,
+                                values = List,
+                                risky = false,
+                                callback = Callback,
+                                flag = tostring(Name:gsub(" ", "_")..'_Toggle_Dropdown'),
+                            }
+    
+                            if IsToolTip and IsToolTip == true then
+                                data.tooltip = ToolTipLabelText
+                            end
+                        else
+                            data = Name 
+                        end
+
                         local list = {
                             class = 'list';
                             flag = data.flag;
@@ -2915,7 +3057,13 @@ function library:init()
                                 window.dropdown:Refresh()
                             end
                         end
-    
+                        
+                        function list:UpdateDropdown(NewList)
+                            for i,v in next, NewList do
+                                list:AddValue(v)
+                            end
+                        end
+
                         function list:RemoveValue(value)
                             if table.find(list.values, value) then
                                 table.remove(list.values, table.find(list.values, value));
@@ -2946,7 +3094,34 @@ function library:init()
                 end
 
                 -- // Slider
-                function section:AddSlider(data)
+                function section:CreateSlider(Name, MinimumValue, MaximumValue, DefaultValue, Boolean, SliderColor, Callback, IsToolTip, ToolTipLabelText)
+
+                    local data = nil;
+
+                    if type(Name) == 'string' then
+                        data = {
+                            enabled = true,
+                            text = Name,
+                            value = DefaultValue,
+                            min = MinimumValue,
+                            max = MaximumValue,
+                            callback = Callback,
+                            flag = tostring(Name:gsub(" ", "_")..'_Slider'),
+                        }
+
+                        if Boolean == true then
+                            data.increment = 0.10
+                        else
+                            data.increment = 1
+                        end
+
+                        if IsToolTip and IsToolTip == true then
+                            data.tooltip = ToolTipLabelText
+                        end
+                    else
+                        data = Name 
+                    end
+
                     local slider = {
                         class = 'slider';
                         flag = data.flag;
@@ -3188,7 +3363,26 @@ function library:init()
                 end
 
                 -- // Button
-                function section:AddButton(data)
+                function section:CreateButton(Name, Callback, IsToolTip, ToolTipLabelText)
+                    local data = nil
+                    if type(Name) == 'string' then
+                        data = {
+                            enabled = true,
+                            text = Name,
+                            confirm = false,
+                            risky = false,
+                            callback = Callback,
+                            flag = tostring(Name:gsub(" ", "_")..'_Button')
+                        }
+
+                        if IsToolTip and IsToolTip == true then
+                            data.tooltip = ToolTipLabelText
+                        end
+
+                    else
+                        data = Name
+                    end
+
                     local button = {
                         class = 'button';
                         flag = data.flag;
@@ -3325,7 +3519,26 @@ function library:init()
 
                     end
                     ----------------------
-                    function button:AddButton(data)
+                    function button:CreateButton(Name, Callback, IsToolTip, ToolTipLabelText)
+                        local data = nil
+                        if type(Name) == 'string' then
+                            data = {
+                                enabled = true,
+                                text = Name,
+                                confirm = false,
+                                risky = false,
+                                callback = Callback,
+                                flag = tostring(Name:gsub(" ", "_")..'_Button')
+                            }
+    
+                            if IsToolTip and IsToolTip == true then
+                                data.tooltip = ToolTipLabelText
+                            end
+    
+                        else
+                            data = Name
+                        end
+
                         local button = {
                             class = 'button';
                             flag = data.flag;
@@ -3499,7 +3712,14 @@ function library:init()
                 end
 
                 -- // Separator
-                function section:AddSeparator(data)
+                function section:CreateLabel(Text)
+
+                    local data = {
+                        enabled = true,
+                        text = Text,
+                        flag = (tostring(Text:gsub(" ", "_"))..'_Label')
+                    }
+
                     local separator = {
                         class = 'separator';
                         flag = data.flag;
@@ -3592,7 +3812,26 @@ function library:init()
                 end
 
                 -- // Color Picker
-                function section:AddColor(data)
+                function section:CreateColorpicker(Name, CallingDefaultColor, DebounceAmount, Callback)
+
+                    local data = nil;
+
+                    if type(Name) == 'string' then
+                        data = {
+                            enabled = true,
+                            text = Name,
+                            color = CallingDefaultColor,
+                            callback = Callback,
+                            flag = tostring(Name:gsub(" ", "_")..'_Colorpicker'),
+                        }
+
+                        if IsToolTip and IsToolTip == true then
+                            data.tooltip = ToolTipLabelText
+                        end
+                    else
+                        data = Name 
+                    end
+
                     local color = {
                         class = 'color';
                         flag = data.flag;
@@ -3754,7 +3993,27 @@ function library:init()
                 end
 
                 -- // Text Box
-                function section:AddBox(data)
+                function section:CreateTextbox(Name, Placeholder, Callback, IsToolTip, ToolTipLabelText)
+
+                    local data = nil
+                    if type(Name) == 'string' then
+                        data = {
+                            enabled = true,
+                            name = Name,
+                            flag = tostring(Name:gsub(" ", "_")..'_Textbox'),
+                            input = Placeholder,
+                            focused = false,
+                            risky = false,
+                            callback = Callback
+                        }
+
+                        if IsToolTip and IsToolTip == true then
+                            data.tooltip = ToolTipLabelText
+                        end
+                    else
+                        data = Name
+                    end
+
                     local box = {
                         class = 'box';
                         flag = data.flag;
@@ -3976,7 +4235,39 @@ function library:init()
                 end
 
                 -- // Keybind
-                function section:AddBind(data)
+                function section:CreateKeybind(Name, Key, Callback, IsToolTip, ToolTipLabelText)
+                    local data = nil
+                    if type(Name) == 'string' then
+                        data = {
+                            enabled = true,
+                            text = Name,
+                            mode = 'hold',
+                            state = false,
+                            nomouse = false,
+                            risky = false,
+                            callback = Callback,
+                            keycallback = function() end,
+                            flag = tostring(Name:gsub(" ", "_")..'_Keybind'),
+                        }
+                        
+                        local Key = Key or 'E'
+                        local Current = Key
+                        if Key == "Left Mouse" then
+                            Current = 'MouseButton1'
+                        end
+                        if Key == "Right Mouse" then
+                            Current = 'MouseButton2'
+                        end
+                        
+                        data.bind = Enum.KeyCode[Current] or Enum.UserInputType[Current]
+
+                        if IsToolTip and IsToolTip == true then
+                            data.tooltip = ToolTipLabelText
+                        end
+                    else
+                        data = Name 
+                    end
+
                     local bind = {
                         class = 'bind';
                         flag = data.flag;
@@ -4096,6 +4387,10 @@ function library:init()
                         self.objects.keyText.Position = newUDim2(1,-self.objects.keyText.TextBounds.X, 0, 2);
                     end
 
+                    function bind:ReadKeybind()
+                        return self.bind.Name
+                    end
+
                     utility:Connection(inputservice.InputBegan, function(inp)
                         if inputservice:GetFocusedTextBox() then
                             return
@@ -4149,7 +4444,30 @@ function library:init()
                 end
 
                 -- // Dropdown
-                function section:AddList(data)
+                function section:CreateDropdown(Name, List, Default, EnableSearchTool, DebounceAmount, Callback, IsToolTip, ToolTipLabelText)
+                    local data = nil;
+
+                    if type(Name) == 'string' then
+                        data = {
+                            enabled = true,
+                            text = Name,
+                            selected = Default,
+                            multi = false,
+                            open = false,
+                            max = 9999,
+                            values = List,
+                            risky = false,
+                            callback = Callback,
+                            flag = tostring(Name:gsub(" ", "_")..'_Dropdown'),
+                        }
+
+                        if IsToolTip and IsToolTip == true then
+                            data.tooltip = ToolTipLabelText
+                        end
+                    else
+                        data = Name 
+                    end
+
                     local list = {
                         class = 'list';
                         flag = data.flag;
@@ -4700,12 +5018,12 @@ function library:init()
 end
 
 function library:CreateSettingsTab(menu)
-    local settingsTab = menu:AddTab('  Settings  ', 999);
-    local configSection = settingsTab:AddSection('Config', 1);
-    local mainSection = settingsTab:AddSection('Main', 1);
+    local settingsTab = menu:CreateTab('  Settings  ', 999);
+    local configSection = settingsTab:CreateSection('Config', 1);
+    local mainSection = settingsTab:CreateSection('Main', 1);
 
-    configSection:AddBox({text = 'Config Name', flag = 'configinput'})
-    configSection:AddList({text = 'Config', flag = 'selectedconfig'})
+    configSection:CreateTextbox({text = 'Config Name', flag = 'configinput'})
+    configSection:CreateDropdown({text = 'Config', flag = 'selectedconfig'})
 
     local function refreshConfigs()
         library.options.selectedconfig:ClearValues();
@@ -4717,20 +5035,20 @@ function library:CreateSettingsTab(menu)
         end
     end
 
-    configSection:AddButton({text = 'Load', confirm = true, callback = function()
+    configSection:CreateButton({text = 'Load', confirm = true, callback = function()
         library:LoadConfig(library.flags.selectedconfig);
-    end}):AddButton({text = 'Save', confirm = true, callback = function()
+    end}):CreateButton({text = 'Save', confirm = true, callback = function()
         library:SaveConfig(library.flags.selectedconfig);
     end})
 
-    configSection:AddButton({text = 'Create', confirm = true, callback = function()
+    configSection:CreateButton({text = 'Create', confirm = true, callback = function()
         if library:GetConfig(library.flags.configinput) then
-            library:SendNotification('Config \''..library.flags.configinput..'\' already exists.', 5, c3new(1,0,0));
+            library:CreateNotification('Config \''..library.flags.configinput..'\' already exists.', 5, c3new(1,0,0));
             return
         end
         writefile(self.cheatname..'/'..self.gamename..'/configs/'..library.flags.configinput.. self.fileext, http:JSONEncode({}));
         refreshConfigs()
-    end}):AddButton({text = 'Delete', confirm = true, callback = function()
+    end}):CreateButton({text = 'Delete', confirm = true, callback = function()
         if library:GetConfig(library.flags.selectedconfig) then
             delfile(self.cheatname..'/'..self.gamename..'/configs/'..library.flags.selectedconfig.. self.fileext);
             refreshConfigs()
@@ -4739,42 +5057,27 @@ function library:CreateSettingsTab(menu)
 
     refreshConfigs()
 
-    mainSection:AddBind({text = 'Open / Close', flag = 'togglebind', nomouse = true, noindicator = true, bind = Enum.KeyCode.End, callback = function()
+    mainSection:CreateKeybind({text = 'Open / Close', flag = 'togglebind', nomouse = true, noindicator = true, bind = Enum.KeyCode.RightControl, callback = function()
         library:SetOpen(not library.open)
     end});
 
-    mainSection:AddButton({text = 'Join Discord', flag = 'joindiscord', confirm = true, callback = function()
-        local res = syn.request({
-            Url = 'https://discord.gg/rkRW5VrbWu',
-            Method = 'POST',
-            Headers = {
-                ['Content-Type'] = 'application/json',
-                Origin = 'https://discord.com'
-            },
-            Body = game:GetService('HttpService'):JSONEncode({
-                cmd = 'INVITE_BROWSER',
-                nonce = game:GetService('HttpService'):GenerateGUID(false),
-                args = {code = 'rkRW5VrbWu'}
-            })
-        })
-        if res.Success then
-            library:SendNotification(library.cheatname..' | Joined Discord', 3);
-        end
+    mainSection:CreateButton({text = 'Copy Discord', flag = 'joindiscord', confirm = true, callback = function()
+        setclipboard('https://discord.gg/rEajMcPKuy')
     end})
 
-    mainSection:AddButton({text = 'Rejoin Server', confirm = true, callback = function()
+    mainSection:CreateButton({text = 'Rejoin Server', confirm = true, callback = function()
         game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId);
     end})
 
-    mainSection:AddButton({text = 'Rejoin Game', confirm = true, callback = function()
+    mainSection:CreateButton({text = 'Rejoin Game', confirm = true, callback = function()
         game:GetService("TeleportService"):Teleport(game.PlaceId);
     end})
 
-    mainSection:AddButton({text = 'Copy Join Script', callback = function()
+    mainSection:CreateButton({text = 'Copy Join Script', callback = function()
         setclipboard(([[game:GetService("TeleportService"):TeleportToPlaceInstance(%s, "%s")]]):format(game.PlaceId, game.JobId))
     end})
 
-    mainSection:AddButton({text = "Unload", confirm = true,
+    mainSection:CreateButton({text = "Unload", confirm = true,
        callback = function(bool)
            if bool then
                library:Unload() 
@@ -4783,20 +5086,20 @@ function library:CreateSettingsTab(menu)
            end
        end})
 
-    mainSection:AddSeparator({text = 'Indicators'});
+    mainSection:CreateLabel('Indicators');
 
-    mainSection:AddToggle({text = 'Watermark', flag = 'watermark_enabled', state = true,});
+    mainSection:CreateToggle({text = 'Watermark', flag = 'watermark_enabled', state = false,});
 
-    mainSection:AddSlider({text = 'Custom X', flag = 'watermark_x', suffix = '%', min = 0, max = 100, increment = .1, value = 6});
-    mainSection:AddSlider({text = 'Custom Y', flag = 'watermark_y', suffix = '%', min = 0, max = 100, increment = .1, value = 1});
+    mainSection:CreateSlider({text = 'Custom X', flag = 'watermark_x', suffix = '%', min = 0, max = 100, increment = .1, value = 6});
+    mainSection:CreateSlider({text = 'Custom Y', flag = 'watermark_y', suffix = '%', min = 0, max = 100, increment = .1, value = 1});
 
-    mainSection:AddToggle({text = 'Keybinds', flag = 'keybind_indicator', state = true, callback = function(bool)
+    mainSection:CreateToggle({text = 'Keybinds', flag = 'keybind_indicator', state = false, callback = function(bool)
         library.keyIndicator:SetEnabled(bool);
     end})
-    mainSection:AddSlider({text = 'Position X', flag = 'keybind_indicator_x', min = 0, max = 100, increment = .1, value = .5, callback = function()
+    mainSection:CreateSlider({text = 'Position X', flag = 'keybind_indicator_x', min = 0, max = 100, increment = .1, value = .5, callback = function()
         library.keyIndicator:SetPosition(newUDim2(library.flags.keybind_indicator_x / 100, 0, library.flags.keybind_indicator_y / 100, 0));    
     end});
-    mainSection:AddSlider({text = 'Position Y', flag = 'keybind_indicator_y', min = 0, max = 100, increment = .1, value = 30, callback = function()
+    mainSection:CreateSlider({text = 'Position Y', flag = 'keybind_indicator_y', min = 0, max = 100, increment = .1, value = 30, callback = function()
         library.keyIndicator:SetPosition(newUDim2(library.flags.keybind_indicator_x / 100, 0, library.flags.keybind_indicator_y / 100, 0));    
     end});
 
@@ -4806,9 +5109,9 @@ function library:CreateSettingsTab(menu)
     for _,v in next, library.themes do
         table.insert(themeStrings, v.name)
     end
-    local themeSection = settingsTab:AddSection('Custom Theme', 2);
+    local themeSection = settingsTab:CreateSection('Custom Theme', 2);
     local setByPreset = false
-themeSection:AddList({text = 'Presets', flag = 'preset_theme', values = themeStrings, callback = function(newTheme)
+themeSection:CreateDropdown({text = 'Presets', flag = 'preset_theme', values = themeStrings, callback = function(newTheme)
         if newTheme == "Custom" then return end
         setByPreset = true
         for _,v in next, library.themes do
@@ -4826,7 +5129,7 @@ themeSection:AddList({text = 'Presets', flag = 'preset_theme', values = themeStr
     end}):Select('Default');
 
     for i, v in pairs(library.theme) do
-        themeSection:AddColor({text = i, flag = i, color = library.theme[i], callback = function(c3)
+        themeSection:CreateColorpicker({text = i, flag = i, color = library.theme[i], callback = function(c3)
             library.theme[i] = c3
             library:SetTheme(library.theme)
             if not setByPreset and not setByConfig then 
@@ -4839,4 +5142,6 @@ themeSection:AddList({text = 'Presets', flag = 'preset_theme', values = themeStr
 end
 
 getgenv().library = library
+
+
 return library
