@@ -2225,7 +2225,7 @@ function library:init()
                         end
                     end
 
-                    function toggle:Set(Value)
+                    function toggle:Set(bool)
                         if typeof(bool) == 'boolean' then
                             self.state = bool;
                             if self.flag then
