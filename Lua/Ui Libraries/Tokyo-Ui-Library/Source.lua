@@ -2462,7 +2462,11 @@ function library:init()
                                 Current = 'MouseButton2'
                             end
                             
-                            data.bind = Enum.KeyCode[Current] or Enum.UserInputType[Current]
+                            if Enum.KeyCode[Current] then
+                                data.bind = Enum.KeyCode[Current] 
+                            else
+                                data.bind = Enum.UserInputType[Current]
+                            end
 
                             if IsToolTip and IsToolTip == true then
                                 data.tooltip = ToolTipLabelText
@@ -4259,7 +4263,11 @@ function library:init()
                             Current = 'MouseButton2'
                         end
                         
-                        data.bind = Enum.KeyCode[Current] or Enum.UserInputType[Current]
+                        if Enum.KeyCode[Current] then
+                            data.bind = Enum.KeyCode[Current] 
+                        else
+                            data.bind = Enum.UserInputType[Current]
+                        end
 
                         if IsToolTip and IsToolTip == true then
                             data.tooltip = ToolTipLabelText
@@ -5095,7 +5103,8 @@ function library:CreateSettingsTab(menu)
 
     mainSection:CreateToggle({text = 'Keybinds', flag = 'keybind_indicator', state = false, callback = function(bool)
         library.keyIndicator:SetEnabled(bool);
-    end})
+    end}):SetState(false);
+    
     mainSection:CreateSlider({text = 'Position X', flag = 'keybind_indicator_x', min = 0, max = 100, increment = .1, value = .5, callback = function()
         library.keyIndicator:SetPosition(newUDim2(library.flags.keybind_indicator_x / 100, 0, library.flags.keybind_indicator_y / 100, 0));    
     end});
