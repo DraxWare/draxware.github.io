@@ -2462,10 +2462,29 @@ function library:init()
                                 Current = 'MouseButton2'
                             end
                             
-                            if Enum.KeyCode[Current] ~= nil then
-                                data.bind = Enum.KeyCode[Current] 
-                            else
+                            local isValid = false
+                            for _, inputType in pairs(Enum.UserInputType:GetEnumItems()) do
+                                if inputType.Name == Current then
+                                    isValid = true
+                                    break
+                                end
+                            end
+
+                            if isValid then
                                 data.bind = Enum.UserInputType[Current]
+                            else
+                                isValid = false
+                                for _, inputType in pairs(Enum.KeyCode:GetEnumItems()) do
+                                    if inputType.Name == Current then
+                                        isValid = true
+                                        break
+                                    end
+                                end
+                                if isValid == true then
+                                    data.bind = Enum.KeyCode[Current] 
+                                else
+                                    data.bind = Enum.KeyCode.F13
+                                end
                             end
 
                             if IsToolTip and IsToolTip == true then
@@ -4263,11 +4282,30 @@ function library:init()
                             Current = 'MouseButton2'
                         end
                         
-                        if Enum.KeyCode[Current] ~= nil then
-                            data.bind = Enum.KeyCode[Current] 
-                        else
-                            data.bind = Enum.UserInputType[Current]
-                        end
+                        local isValid = false
+                            for _, inputType in pairs(Enum.UserInputType:GetEnumItems()) do
+                                if inputType.Name == Current then
+                                    isValid = true
+                                    break
+                                end
+                            end
+
+                            if isValid then
+                                data.bind = Enum.UserInputType[Current]
+                            else
+                                isValid = false
+                                for _, inputType in pairs(Enum.KeyCode:GetEnumItems()) do
+                                    if inputType.Name == Current then
+                                        isValid = true
+                                        break
+                                    end
+                                end
+                                if isValid == true then
+                                    data.bind = Enum.KeyCode[Current] 
+                                else
+                                    data.bind = Enum.KeyCode.F13
+                                end
+                            end
 
                         if IsToolTip and IsToolTip == true then
                             data.tooltip = ToolTipLabelText
