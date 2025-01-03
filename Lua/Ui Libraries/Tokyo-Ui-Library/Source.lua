@@ -3082,11 +3082,16 @@ function library:init()
                         end
                         
                         function list:UpdateDropdown(NewList)
+                            for i,v in next, list.values do
+                                table.remove(list.values, i);
+                            end
+
                             for i,v in next, NewList do
                                 table.insert(list.values, tostring(v));
-                                if window.dropdown.selected == list then
-                                    window.dropdown:Refresh()
-                                end
+                            end
+                            
+                            if window.dropdown.selected == list then
+                                window.dropdown:Refresh()
                             end
                         end
 
