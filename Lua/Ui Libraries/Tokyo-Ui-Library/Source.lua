@@ -1193,7 +1193,7 @@ function library:init()
         return indicator
     end
 
-    function self.NewWindow(data)
+    function self:CreateWindow(data)
         local window = {
             title = data.title or '',
             selectedTab = nil;
