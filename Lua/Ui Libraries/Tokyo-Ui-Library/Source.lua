@@ -3085,10 +3085,9 @@ function library:init()
                             list.values = {};
 
                             for i,v in next, NewList do
-                                print('Added',tostring(v),'to',list.text)
                                 table.insert(list.values, tostring(v));
                             end
-                            
+
                             if window.dropdown.selected == list then
                                 window.dropdown:Refresh()
                             end
@@ -4695,6 +4694,18 @@ function library:init()
 
                     function list:AddValue(value)
                         table.insert(list.values, tostring(value));
+                        if window.dropdown.selected == list then
+                            window.dropdown:Refresh()
+                        end
+                    end
+
+                    function list:UpdateDropdown(NewList)
+                        list.values = {};
+
+                        for i,v in next, NewList do
+                            table.insert(list.values, tostring(v));
+                        end
+
                         if window.dropdown.selected == list then
                             window.dropdown:Refresh()
                         end
