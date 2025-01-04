@@ -4694,9 +4694,7 @@ function library:init()
 
                     function list:AddValue(value)
                         table.insert(list.values, tostring(value));
-                        if window.dropdown.selected == list then
-                            window.dropdown:Refresh()
-                        end
+                        window.dropdown:Refresh()
                     end
 
                     function list:UpdateDropdown(NewList)
@@ -4705,26 +4703,19 @@ function library:init()
                         for i,v in next, NewList do
                             table.insert(list.values, tostring(v));
                         end
-
-                        if window.dropdown.selected == list then
-                            window.dropdown:Refresh()
-                        end
+                        window.dropdown:Refresh()
                     end
 
                     function list:RemoveValue(value)
                         if table.find(list.values, value) then
                             table.remove(list.values, table.find(list.values, value));
-                            if window.dropdown.selected == list then
-                                window.dropdown:Refresh()
-                            end
+                            window.dropdown:Refresh()
                         end
                     end
 
                     function list:ClearValues()
                         table.clear(list.values);
-                        if window.dropdown.selected == list then
-                            window.dropdown:Refresh()
-                        end
+                        window.dropdown:Refresh()
                     end
 
                     tooltip(list);
