@@ -2490,6 +2490,10 @@ function library:init()
                             if IsToolTip and IsToolTip == true then
                                 data.tooltip = ToolTipLabelText
                             end
+
+                            if Key:lower() == 'none' then
+                                data.bind = 'none';
+                            end
                         else
                             data = Name 
                         end
@@ -4289,32 +4293,36 @@ function library:init()
                         end
                         
                         local isValid = false
-                            for _, inputType in pairs(Enum.UserInputType:GetEnumItems()) do
+                        for _, inputType in pairs(Enum.UserInputType:GetEnumItems()) do
+                            if inputType.Name == Current then
+                                isValid = true
+                                break
+                            end
+                        end
+
+                        if isValid then
+                            data.bind = Enum.UserInputType[Current]
+                        else
+                            isValid = false
+                            for _, inputType in pairs(Enum.KeyCode:GetEnumItems()) do
                                 if inputType.Name == Current then
                                     isValid = true
                                     break
                                 end
                             end
-
-                            if isValid then
-                                data.bind = Enum.UserInputType[Current]
+                            if isValid == true then
+                                data.bind = Enum.KeyCode[Current] 
                             else
-                                isValid = false
-                                for _, inputType in pairs(Enum.KeyCode:GetEnumItems()) do
-                                    if inputType.Name == Current then
-                                        isValid = true
-                                        break
-                                    end
-                                end
-                                if isValid == true then
-                                    data.bind = Enum.KeyCode[Current] 
-                                else
-                                    data.bind = Enum.KeyCode.F13
-                                end
+                                data.bind = Enum.KeyCode.F13
                             end
+                        end
 
                         if IsToolTip and IsToolTip == true then
                             data.tooltip = ToolTipLabelText
+                        end
+
+                        if Key:lower() == 'none' then
+                            data.bind = 'none';
                         end
                     else
                         data = Name 
