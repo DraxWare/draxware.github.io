@@ -3231,58 +3231,46 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				end)
 
 				SliderButton.MouseButton1Down:Connect(function()
-					local CaughtValue = Services.Players.LocalPlayer:GetMouse().X
-					local MoveConnection = Services.Players.LocalPlayer:GetMouse().Move
-					local ReleaseConnection = UserInputService.InputEnded
-
-					MoveConnection = MoveConnection:Connect(function()
-						if IsPrecise == true then
-							CurrentValue = tonumber(tostring(string.sub(((((tonumber(MaximumValue) - tonumber(MinimumValue)) / 395) * SliderTrail.AbsoluteSize.X) + tonumber(MinimumValue)), 1, 4)))
-						else
-							CurrentValue = math.floor((((tonumber(MaximumValue) - tonumber(MinimumValue)) / 395) * SliderTrail.AbsoluteSize.X) + tonumber(MinimumValue))        
-						end
-						SliderNumber.Text = CurrentValue
-						spawn(function()
-							Callback(CurrentValue)
-						end)
-						Utility:Tween(SliderNumber, {TextColor3 = Color3.new(255, 255, 255)}, 0.25)
-						Utility:Tween(SliderTrail, {Size = UDim2.new(0, math.clamp(Services.Players.LocalPlayer:GetMouse().X - SliderTrail.AbsolutePosition.X, 0, 395), 0, 10)}, 0.25)
-					end)
-
-					ReleaseConnection = ReleaseConnection:Connect(function(Input)
-						if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-							Utility:Tween(SliderNumber, {TextColor3 = Theme.SecondaryTextColor}, 0.30)
-							Config[Name] = CurrentValue
-							MoveConnection:Disconnect()
-							ReleaseConnection:Disconnect()
-						end
-					end)
-					Utility:Tween(SliderNumber, {TextColor3 = Color3.new(255, 255, 255)}, 0.25)
-					Utility:Tween(SliderTrail, {Size = UDim2.new(0, math.clamp(CaughtValue - SliderTrail.AbsolutePosition.X, 0, 395), 0, 10)}, 0.25)
-					if IsPrecise == true then
-						CurrentValue = tonumber(tostring(string.sub(((((tonumber(MaximumValue) - tonumber(MinimumValue)) / 395) * (SliderButton.AbsoluteSize.X * 0 + math.clamp(CaughtValue - SliderTrail.AbsolutePosition.X, 0, 395))) + tonumber(MinimumValue)), 1, 4)))
-					else
-						CurrentValue = math.floor((((tonumber(MaximumValue) - tonumber(MinimumValue)) / 395) * (SliderButton.AbsoluteSize.X * 0 + math.clamp(CaughtValue - SliderTrail.AbsolutePosition.X, 0, 395))) + tonumber(MinimumValue))        
-					end
-					spawn(function()
-						Callback(CurrentValue)
-					end)
-					spawn(function()
-						if tonumber(SliderNumber.Text) ~= nil and CurrentValue > tonumber(SliderNumber.Text) then
-							repeat
-								wait()
-								if IsPrecise==true then SliderNumber.Text=tonumber(tostring(string.sub((tonumber(MaximumValue)-tonumber(MinimumValue))/395*SliderTrail.AbsoluteSize.X+tonumber(MinimumValue),1,4)))else SliderNumber.Text=math.floor((tonumber(MaximumValue)-tonumber(MinimumValue))/395*SliderTrail.AbsoluteSize.X+tonumber(MinimumValue))end
-								if tonumber(SliderNumber.Text)==CurrentValue then break end
-							until SliderNumber.Text == CurrentValue
-						else
-							repeat
-								wait()
-								if IsPrecise==true then SliderNumber.Text=tonumber(tostring(string.sub((tonumber(MaximumValue)-tonumber(MinimumValue))/395*SliderTrail.AbsoluteSize.X+tonumber(MinimumValue),1,4)))else SliderNumber.Text=math.floor((tonumber(MaximumValue)-tonumber(MinimumValue))/395*SliderTrail.AbsoluteSize.X+tonumber(MinimumValue))end
-								if tonumber(SliderNumber.Text)==CurrentValue then break end
-							until SliderNumber.Text == CurrentValue
-						end
-					end)
-				end)
+		                    local Move, Release
+		
+		                    local function updateSlider()
+		                        local sliderSize = math.clamp(Services.UserInputService:GetMouseLocation().X - SliderTrail.AbsolutePosition.X, 0, 395)
+		                        local preciseValue = (((MaximumValue - MinimumValue) / 395) * sliderSize) + MinimumValue
+		
+		                        if IsPrecise then
+		                            CurrentValue = tonumber(string.sub(tostring(preciseValue), 1, 4))
+		                        else
+		                            CurrentValue = math.floor(preciseValue)
+		                        end
+		
+		                        SliderNumber.Text = tostring(CurrentValue)
+		
+		                        Utility:Tween(SliderTrail, { Size = UDim2.new(0, sliderSize, 0, 10) }, 0.1)
+		                        Utility:Tween(SliderNumber, { TextColor3 = Color3.new(255, 255, 255) }, 0.1)
+		
+		                        spawn(function()
+		                            Callback(CurrentValue)
+		                        end)
+		                    end
+		
+		                    Move = Services.UserInputService.InputChanged:Connect(function(input)
+		                        if input.UserInputType == Enum.UserInputType.MouseMovement then
+		                            updateSlider()
+		                        end
+		                    end)
+		
+		                    Release = UserInputService.InputEnded:Connect(function(input)
+		                        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		                            Utility:Tween(SliderNumber, { TextColor3 = Theme.SecondaryTextColor }, 0.30)
+		                            Config[Name] = CurrentValue
+		
+		                            Move:Disconnect()
+		                            Release:Disconnect()
+		                        end
+		                    end)
+		
+		                    updateSlider()
+		                end)
 
 				SliderHolder.MouseEnter:Connect(function()
 					Hovering = true
