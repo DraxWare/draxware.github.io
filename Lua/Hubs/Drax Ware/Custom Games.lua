@@ -27,8 +27,12 @@ Custom_Games={
             9999
         },
         CustomParts={
-            Head={},
-            Torso={},
+            Head={
+                'FrogHeadExample',
+            },
+            Torso={
+                'FrogChestExample',
+            },
         },
         Whitelisted_Parts={
             'PartName',
