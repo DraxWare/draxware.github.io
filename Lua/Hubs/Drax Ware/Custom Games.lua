@@ -16,6 +16,7 @@ local Services = setmetatable({}, {
 
 local Custom_Games={};
 local Banned_Names={};
+local Known_Names={};
 
 -- \\ Custom Games Library
 
@@ -499,7 +500,14 @@ Banned_Names={
     ['workspace']='Every Game',
 };
 
+Known_Names={
+    Head={},
+    Torso={},
+};
+
 return {
     Custom_Games = Custom_Games,
     Banned_Names = Banned_Names,
+    Known_Names = Known_Names
 }
+
