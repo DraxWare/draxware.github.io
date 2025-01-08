@@ -18,7 +18,6 @@ local Services = setmetatable({}, {
 
 local Custom_Games={};
 local Banned_Names={};
-local Known_Names={};
 
 -- \\ Custom Games Library
 
@@ -27,6 +26,10 @@ Custom_Games={
         Place_Ids={
             1234,
             9999
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'PartName',
@@ -39,6 +42,10 @@ Custom_Games={
             636649648,
             73210641948512
         },
+        CustomParts={
+            Head={},
+            Torso={},
+        },
         Whitelisted_Parts={
             'Raggy',
             'Santa',
@@ -49,6 +56,10 @@ Custom_Games={
     ['Phantom Forces']={
         Place_Ids={
             292439477,
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'CharStage',
@@ -65,6 +76,10 @@ Custom_Games={
     ['The Wild West']={
         Place_Ids={
             2317712696,
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'Bear',
@@ -99,6 +114,10 @@ Custom_Games={
         Place_Ids={
             1167791961,
         },
+        CustomParts={
+            Head={},
+            Torso={},
+        },
         Whitelisted_Parts={
             "OOF!",
         }
@@ -107,6 +126,10 @@ Custom_Games={
         Place_Ids={
             621129760,
         },
+        CustomParts={
+            Head={},
+            Torso={},
+        },
         Whitelisted_Parts={
             "CollisionParts",
         }
@@ -114,6 +137,10 @@ Custom_Games={
     ['Apocalypse Rising 2']={
         Place_Ids={
             863266079,
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'Camera',
@@ -146,6 +173,10 @@ Custom_Games={
         Place_Ids={
             901793731,
         },
+        CustomParts={
+            Head={},
+            Torso={},
+        },
         Whitelisted_Parts={
             'Barricade',
             'Dummy',
@@ -154,6 +185,10 @@ Custom_Games={
     ['Jailbreak']={
         Place_Ids={
             606849621,
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'PassengerSick',
@@ -169,6 +204,10 @@ Custom_Games={
         Place_Ids={
             1224212277,
         },
+        CustomParts={
+            Head={},
+            Torso={},
+        },
         Whitelisted_Parts={
             'NPC',
             'Dog',
@@ -178,6 +217,10 @@ Custom_Games={
     ['Da Hood']={
         Place_Ids={
             2788229376
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'Special Parts',
@@ -194,6 +237,10 @@ Custom_Games={
         Place_Ids={
             137885680,
         },
+        CustomParts={
+            Head={},
+            Torso={},
+        },
         Whitelisted_Parts={
             'Staff',
             'FracturedBogo',
@@ -209,6 +256,10 @@ Custom_Games={
         Place_Ids={
             1204176775,
         },
+        CustomParts={
+            Head={},
+            Torso={},
+        },
         Whitelisted_Parts={
             'Bar'
         }
@@ -216,6 +267,10 @@ Custom_Games={
     ['Bad Business']={
         Place_Ids={
             3233893879,
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'HitBox',
@@ -228,6 +283,10 @@ Custom_Games={
     ['Emergency Response']={
         Place_Ids={
             2534724415
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'Water tower',
@@ -262,6 +321,10 @@ Custom_Games={
             6808416928,
             8255927517
         },
+        CustomParts={
+            Head={},
+            Torso={},
+        },
         Whitelisted_Parts={
             'Arrowmain',
             'Arrow Main',
@@ -273,14 +336,26 @@ Custom_Games={
         Place_Ids={
             5938036553
         },
+        CustomParts={
+            Head={
+                'tpvbodyvanillahead',
+            },
+            Torso={
+                'tpvbodyvanillatorsofront',
+            },
+        },
         Whitelisted_Parts={
             'Frag',
             'Model',
-        }
+        },
     },
     ['ArmsOfSolitaire']={
         Place_Ids={
             2555870920,
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'Appearance',
@@ -293,6 +368,10 @@ Custom_Games={
             2377868063,
             3606833500,
         },
+        CustomParts={
+            Head={},
+            Torso={},
+        },
         Whitelisted_Parts={
             'MenuItems',
         }
@@ -300,6 +379,14 @@ Custom_Games={
     ['Sharkbite']={
         Place_Ids={
             8908228901,
+        },
+        CustomParts={
+            Head={
+                'engine'
+            },
+            Torso={
+                'shark'
+            },
         },
         Whitelisted_Parts={
             'Engines',
@@ -318,6 +405,12 @@ Custom_Games={
         Place_Ids={
             5286116071,
         },
+        CustomParts={
+            Head={
+                'eyes'
+            },
+            Torso={},
+        },
         Whitelisted_Parts={
             'Cashier',
         }
@@ -325,6 +418,10 @@ Custom_Games={
     ['Special Forces Simulator']={
         Place_Ids={
             3733418612,
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'ColliderFolder',
@@ -334,6 +431,10 @@ Custom_Games={
     ['Those Who Remain']={
         Place_Ids={
             8287862132,
+        },
+        CustomParts={
+            Head={},
+            Torso={},
         },
         Whitelisted_Parts={
             'Headshot Model',
@@ -347,10 +448,51 @@ Custom_Games={
         Place_Ids={
             15697416464,
         },
+        CustomParts={
+            Head={},
+            Torso={},
+        },
         Whitelisted_Parts={
             'SupplyCrate',
             'Commonmesh',
         }
+    },
+    ['RIOTFALL [Beta]']={
+        Place_Ids={
+            7796842481,
+            12106443560,
+            12615683183,
+            12615685299,
+        },
+        CustomParts={
+            Head={
+                'top'
+            },
+            Torso={
+                'bottom'
+            },
+        },
+        Whitelisted_Parts={},
+    },
+    ['DOORS (GAME)']={
+        Place_Ids={
+            6516141723,
+            6839171747,
+        },
+        CustomParts={
+            Head = {
+                'key'
+                'goldvisualholder'
+                'rushnew'
+                'rush'
+            },
+            Torso = {
+                'keyhitbox',
+                'rushnew',
+                'rush',
+            },
+        },
+        Whitelisted_Parts={},
     },
 }
 
@@ -359,95 +501,7 @@ Banned_Names={
     ['workspace']='Every Game',
 };
 
-Known_Names={
-    Head={ -- All Lowercase
-        ['exampleheadname']={
-            Game='Just An Example',
-            GameLink='https://www.roblox.com/games/123456789/Just An Example',
-            CharacteristicType='Head',
-        },
-        ['tpvbodyvanillahead']={
-            Game='FRONTLINES',
-            GameLink='https://www.roblox.com/games/5938036553/FRONTLINES',
-            CharacteristicType='Head',
-        },
-        ['top']={ --[[head_only]]
-            Game='Riot Fall BETA',
-            GameLink='https://www.roblox.com/games/7796842481/RIOTFALL-Beta#!/about',
-            CharacteristicType='Head',
-        },
-        ['engine']={ --[[head_only]]
-            Game='Sharkbite 2',
-            GameLink='https://www.roblox.com/games/8908228901/SharkBite-2',
-            CharacteristicType='Head',
-        },
-        ['eyes']={
-            Game='Hunting Season [BETA]',
-            GameLink='https://www.roblox.com/games/5286116071/Hunting-Season-BETA',
-            CharacteristicType='Head',
-        },
-        ['key']={
-            Game='Doors',
-            GameLink='https://www.roblox.com/games/6516141723/DOORS',
-            CharacteristicType='Head',
-        },
-        ['goldvisualholder']={
-            Game='Doors',
-            GameLink='https://www.roblox.com/games/6516141723/DOORS',
-            CharacteristicType='Head',
-        },
-        ['rushnew']={
-            Game='Doors',
-            GameLink='https://www.roblox.com/games/6516141723/DOORS',
-            CharacteristicType='Head',
-        },
-        ['rush']={
-            Game='Doors',
-            GameLink='https://www.roblox.com/games/6516141723/DOORS',
-            CharacteristicType='Head',
-        },
-    },
-    Torso={
-        ['exampletorsoname']={
-            Game='Just An Example',
-            GameLink='https://www.roblox.com/games/123456789/Just An Example',
-            CharacteristicType='Torso / HumanoidRootPart',
-        },
-        ['tpvbodyvanillatorsofront']={
-            Game='FRONTLINES',
-            GameLink='https://www.roblox.com/games/5938036553/FRONTLINES',
-            CharacteristicType='Torso / HumanoidRootPart',
-        },
-        ['bottom']={
-            Game='Riot Fall BETA',
-            GameLink='https://www.roblox.com/games/7796842481/RIOTFALL-Beta#!/about',
-            CharacteristicType='Torso / HumanoidRootPart',
-        },
-        ['shark']={ --[[head_only]]
-            Game='Sharkbite 2',
-            GameLink='https://www.roblox.com/games/8908228901/SharkBite-2',
-            CharacteristicType='Torso / HumanoidRootPart',
-        },
-        ['keyhitbox']={
-            Game='Doors',
-            GameLink='https://www.roblox.com/games/6516141723/DOORS',
-            CharacteristicType='Torso / HumanoidRootPart',
-        },
-        ['rushnew']={
-            Game='Doors',
-            GameLink='https://www.roblox.com/games/6516141723/DOORS',
-            CharacteristicType='Torso / HumanoidRootPart',
-        },
-        ['rush']={
-            Game='Doors',
-            GameLink='https://www.roblox.com/games/6516141723/DOORS',
-            CharacteristicType='Torso / HumanoidRootPart',
-        },
-    }
-};
-
 return {
     Custom_Games = Custom_Games,
     Banned_Names = Banned_Names,
-    Known_Names = Known_Names
 }
