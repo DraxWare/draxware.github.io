@@ -8,10 +8,8 @@ end
 
 local Services = setmetatable({}, {
     __index = function(self, serviceName)
-
         local serviceInstance = cloneref(game:GetService(serviceName))
         self[serviceName] = serviceInstance
-
         return serviceInstance
     end
 })
@@ -33,14 +31,14 @@ Custom_Games={
         },
         Whitelisted_Parts={
             'PartName',
-        }
+        },
     },
     ['Murder Mystery 2']={
         Place_Ids={
             142823291,
             335132309,
             636649648,
-            73210641948512
+            73210641948512,
         },
         CustomParts={
             Head={},
@@ -51,7 +49,7 @@ Custom_Games={
             'Santa',
             'Parts',
             'EffectLoader',
-        }
+        },
     },
     ['Phantom Forces']={
         Place_Ids={
@@ -71,7 +69,7 @@ Custom_Games={
             'ANTI',
             'BROKER (ZOMBIE)',
             'Cosmetics',
-        }
+        },
     },
     ['The Wild West']={
         Place_Ids={
@@ -108,7 +106,7 @@ Custom_Games={
             'NPCTemplate',
             'Delores',
             'GunStoreNPCPuertoDorado',
-        }
+        },
     },
     ['Knife Simulator']={
         Place_Ids={
@@ -197,9 +195,9 @@ Custom_Games={
             'PlayerPassenger',
             'PoliceMan',
             'SWAT Suit',
-            'Collector'
-            }
-        },
+            'Collector',
+        }
+    },
     ['Mad City']={
         Place_Ids={
             1224212277,
@@ -261,7 +259,7 @@ Custom_Games={
             Torso={},
         },
         Whitelisted_Parts={
-            'Bar'
+            'Bar',
         }
     },
     ['Bad Business']={
@@ -282,7 +280,7 @@ Custom_Games={
     },
     ['Emergency Response']={
         Place_Ids={
-            2534724415
+            2534724415,
         },
         CustomParts={
             Head={},
@@ -319,7 +317,7 @@ Custom_Games={
     ['Aimblox']={
         Place_Ids={
             6808416928,
-            8255927517
+            8255927517,
         },
         CustomParts={
             Head={},
@@ -382,10 +380,10 @@ Custom_Games={
         },
         CustomParts={
             Head={
-                'engine'
+                'engine',
             },
             Torso={
-                'shark'
+                'shark',
             },
         },
         Whitelisted_Parts={
@@ -407,7 +405,7 @@ Custom_Games={
         },
         CustomParts={
             Head={
-                'eyes'
+                'eyes',
             },
             Torso={},
         },
@@ -466,10 +464,10 @@ Custom_Games={
         },
         CustomParts={
             Head={
-                'top'
+                'top',
             },
             Torso={
-                'bottom'
+                'bottom',
             },
         },
         Whitelisted_Parts={},
@@ -481,10 +479,10 @@ Custom_Games={
         },
         CustomParts={
             Head = {
-                'key'
-                'goldvisualholder'
-                'rushnew'
-                'rush'
+                'key',
+                'goldvisualholder',
+                'rushnew',
+                'rush',
             },
             Torso = {
                 'keyhitbox',
