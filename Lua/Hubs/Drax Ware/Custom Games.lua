@@ -497,6 +497,21 @@ Custom_Games={
         },
         Whitelisted_Parts={},
     },
+    ['Dragon Soul - Earth']={
+        Place_Ids={
+            16622617059,
+            14230662527,
+        },
+        CustomParts={
+            Head = {
+                'sphere',
+            },
+            Torso = {
+                'numbergeometry',
+            },
+        },
+        Whitelisted_Parts={},
+    },
 }
 
 Banned_Names={
