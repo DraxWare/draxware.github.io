@@ -5206,6 +5206,4 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 	return Tabs
 end
 
-getgenv().SecretUiLibrary = Library
-
 return Library;
