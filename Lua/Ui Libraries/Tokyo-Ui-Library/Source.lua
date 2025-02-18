@@ -8,12 +8,26 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-local function gs(a)
-    return game:GetService(a)
+local clonefunction = clonefunction or function(func)
+    return func
 end
 
+local cloneref = clonefunction(cloneref) or function(instance)
+    return instance
+end
+
+local gs = setmetatable({}, {
+    __index = function(self, serviceName)
+
+        local serviceInstance = cloneref(game:GetService(serviceName))
+        self[serviceName] = serviceInstance
+
+        return serviceInstance
+    end
+})
+
 -- // Variables
-local players, https, runservice, inputservice, tweenService, stats, actionservice = gs('Players'), gs('HttpService'), gs('RunService'), gs('UserInputService'), gs('TweenService'), gs('Stats'), gs('ContextActionService')
+local players, https, runservice, inputservice, tweenService, stats, actionservice = gs.Players, gs.HttpService, gs.RunService, gs.UserInputService, gs.TweenService, gs.Stats, gs.ContextActionService
 local localplayer = players.LocalPlayer
 local setByConfig = false
 local floor, ceil, huge, pi, clamp = math.floor, math.ceil, math.huge, math.pi, math.clamp
