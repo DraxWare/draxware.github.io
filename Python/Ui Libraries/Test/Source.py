@@ -176,7 +176,7 @@ class Section:
             var.set(e.keysym)
             btn.configure(text=f"{name}: {var.get()}")
             callback()
-        self.parent.bind_all("<Key>", on_press)
+        self.parent.bind("<Key>", on_press)
         btn.pack(anchor="w", pady=5)
         self.controls[name] = var
         return btn
