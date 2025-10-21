@@ -4138,7 +4138,6 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 				DropDownSectionSearch()
 
 				DropdownButton.MouseButton1Click:Connect(function()
-					wait(0.25)
 					if not Debounce then
 						if Opened then
 							Opened = false
