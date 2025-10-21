@@ -4162,19 +4162,19 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 							DropdownFiller.Visible = true
 							DropList.Visible = true
 							if #List <= 5 then
-								Utility:Tween(DropList, {Size = UDim2.new(0, 410, 0, DropListLayout.AbsoluteContentSize.Y)}, 0.25)
-								Utility:Tween(DropdownFiller, {Size = UDim2.new(0, 410, 0, DropListLayout.AbsoluteContentSize.Y - 6)}, 0.25)
-								Utility:Tween(DropList, {CanvasSize = UDim2.new(0, 400, 0, DropListLayout.AbsoluteContentSize.Y)}, 0.25)
-								Utility:Tween(Tab, {CanvasSize = Tab.CanvasSize + UDim2.new(0, 0, 0, DropListLayout.AbsoluteContentSize.Y)}, 0.25)
-								Utility:Tween(Section, {Size = Section.Size + UDim2.new(0, 0, 0, DropListLayout.AbsoluteContentSize.Y)}, 0.25)
+								Utility:Tween(DropList, {Size = UDim2.new(0, 410, 0, DropListLayout.AbsoluteContentSize.Y)}, DebounceAmount)
+								Utility:Tween(DropdownFiller, {Size = UDim2.new(0, 410, 0, DropListLayout.AbsoluteContentSize.Y - 6)}, DebounceAmount)
+								Utility:Tween(DropList, {CanvasSize = UDim2.new(0, 400, 0, DropListLayout.AbsoluteContentSize.Y)}, DebounceAmount)
+								Utility:Tween(Tab, {CanvasSize = Tab.CanvasSize + UDim2.new(0, 0, 0, DropListLayout.AbsoluteContentSize.Y)}, DebounceAmount)
+								Utility:Tween(Section, {Size = Section.Size + UDim2.new(0, 0, 0, DropListLayout.AbsoluteContentSize.Y)}, DebounceAmount)
 							else
-								Utility:Tween(DropList, {Size = UDim2.new(0, 410, 0, 150)}, 0.25)
-								Utility:Tween(DropList, {CanvasSize = UDim2.new(0, 400, 0, DropListLayout.AbsoluteContentSize.Y)}, 0.25)
-								Utility:Tween(DropdownFiller, {Size = UDim2.new(0, 410, 0, 144)}, 0.25)
-								Utility:Tween(Tab, {CanvasSize = Tab.CanvasSize + UDim2.new(0, 0, 0, 150)}, 0.25)
-								Utility:Tween(Section, {Size = Section.Size + UDim2.new(0, 0, 0, 150)}, 0.25)
+								Utility:Tween(DropList, {Size = UDim2.new(0, 410, 0, 150)}, DebounceAmount)
+								Utility:Tween(DropList, {CanvasSize = UDim2.new(0, 400, 0, DropListLayout.AbsoluteContentSize.Y)}, DebounceAmount)
+								Utility:Tween(DropdownFiller, {Size = UDim2.new(0, 410, 0, 144)}, DebounceAmount)
+								Utility:Tween(Tab, {CanvasSize = Tab.CanvasSize + UDim2.new(0, 0, 0, 150)}, DebounceAmount)
+								Utility:Tween(Section, {Size = Section.Size + UDim2.new(0, 0, 0, 150)}, DebounceAmount)
 							end
-							Utility:Tween(DropdownIcon, {Rotation = 270}, 0.25)
+							Utility:Tween(DropdownIcon, {Rotation = 270}, DebounceAmount)
 							Debounce = true
 							wait(DebounceAmount)
 							Debounce = false
