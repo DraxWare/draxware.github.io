@@ -343,6 +343,178 @@ Library:CreateSettingsTab(Window)
 # Example Script
 
 ```lua
-do
-end
+local Library = loadstring(http.request({
+    Url = 'https://raw.githubusercontent.com/DraxWare/draxware.github.io/refs/heads/main/Lua/Ui%20Libraries/Tokyo-Ui-Library/Source.lua',
+    Method = 'GET',
+}).Body)({
+    cheatname = 'Example Ware',
+})
+
+Library:init()
+
+local Window = Library:CreateWindow({ title = 'Hub Name' })
+local Tab = Window:CreateTab('Tab')
+local Updates = Window:CreateTab('Updates')
+local Section = Tab:CreateSection('Section')
+local Section2 =  Tab:CreateSection('Second', 2)
+local UpdatesSection = Updates:CreateSection('Updates')
+local Label = Section:CreateLabel('Label')
+Section:CreateButton('Button 1', function()
+    print('Button Pressed')
+end)
+Section:CreateButton('Hover Me', function()
+    print('Hover Me Button Pressed!')
+end,true,'This is an example of hovering')
+
+Section:CreateButton({
+    enabled = true,
+    text = 'Risky Button',
+    confirm = false,
+    risky = true,
+    callback = function()
+        print('Risky Button was pressed')
+    end,
+    flag = 'Special_Identifier',
+})
+Section:CreateButton({
+    enabled = true,
+    text = 'Confirm Button',
+    confirm = false,
+    risky = false,
+    callback = function()
+        print('Confirm Button was pressed')
+    end,
+    flag = 'Special_Identifier1',
+})
+Section:CreateButton({
+    enabled = true,
+    text = 'Risky Confirm Button',
+    confirm = false,
+    risky = false,
+    callback = function()
+        print('Risky Confirm Button was pressed')
+    end,
+    flag = 'Special_Identifier2',
+})
+Section:CreateButton({
+    enabled = false,
+    text = 'Disabled Button',
+    confirm = false,
+    risky = false,
+    callback = function()
+        print('Disabled Button was pressed')
+    end,
+    flag = 'Special_Identifier3',
+})
+local Slider = Section:CreateSlider(
+    'Slider',
+    1,
+    100,
+    50,
+    false,
+    Color3.fromRGB(0, 146, 214),
+    function(Value)
+        print(Value)
+    end
+)
+Section:CreateTextbox('Textbox', 'TextGoesHere', function(Value)
+    print(Value)
+end)
+local Keybind = Section:CreateKeybind('Keybind', 'F13', function()
+    print('Key Pressed')
+end)
+local Toggle = Section:CreateToggle(
+    'Toggle',
+    true,
+    Color3.fromRGB(0, 146, 214),
+    0.25,
+    function(Value)
+        print(Value)
+    end
+)
+Section:CreateDropdown(
+    'Dropdown',
+    { 'Bread', 'Kitten', 'ROBLOX', 'JohnDoe', '5' },
+    'Kitten',
+    false,
+    0.25,
+    function(Value)
+        print(Value)
+    end
+)
+Colorpicker = Section:CreateColorpicker(
+    'Colorpicker',
+    Color3.fromRGB(0, 146, 214),
+    0.25,
+    function(Value)
+        print(Value)
+    end
+)
+local Toggle1 = Section2:CreateToggle('Toggle with Color and keybind', true, Color3.fromRGB(0, 255, 0), 0.25, function(Value)
+    print(Value)
+end)
+local state = true
+Toggle1:Set(state)
+
+Toggle1:CreateKeybind('Keybind', 'T', function()
+    state = not state
+    Toggle1:Set(state)
+end)
+Toggle1:CreateColorpicker(
+    'Colorpicker',
+    Color3.fromRGB(0, 255, 100),
+    0.25,
+    function(Value)
+        print(Value)
+    end
+)
+local Toggle2 = Section2:CreateToggle('Toggle with Color and keybind', true, Color3.fromRGB(0, 255, 0), 0.25, function(Value)
+    print(Value)
+end)
+local state1 = true
+Toggle2:Set(state1)
+
+Toggle2:CreateKeybind('Keybind', 'G', function()
+    state1 = not state1
+    Toggle2:Set(state1)
+end)
+Toggle2:CreateColorpicker(
+    'Colorpicker',
+    Color3.fromRGB(0, 255, 214),
+    0.25,
+    function(Value)
+        print(Value)
+    end
+)
+
+Library:CreateNotification('Red Text', 5, Color3.new(1, 0, 0))
+
+local Drop = UpdatesSection:CreateDropdown(
+    'Dropdown',
+    {
+        'PlayerUndefined1',
+        'PlayerUndefined2',
+        'PlayerUndefined3',
+        'PlayerUndefined4',
+        'PlayerUndefined5',
+    },
+    'PlayerUndefined1',
+    true,
+    0.25,
+    function(Value)
+        print(Value)
+    end
+)
+
+UpdatesSection:CreateButton('Update Players', function()
+    spawn(function()
+        local InsertTable = {}
+        for i, v in next, game.Players:GetPlayers() do
+            table.insert(InsertTable, v.Name)
+        end
+        Drop:UpdateDropdown(InsertTable)
+    end)
+end)
+
+Library:CreateSettingsTab(Window)
 ```
