@@ -76,8 +76,8 @@ local library = {
     open = false;
     opening = false;
     hasInit = false;
-    cheatname = startupArgs.cheatname or 'Untitledcheat';
-    gamename = startupArgs.gamename or 'Universal';
+    cheatname = startupArgs.cheatname or 'Jon\'s Ui Library';
+    gamename = startupArgs.gamename or gs.MarketplaceService:GetProductInfo(Services.Workspace.Parent.PlaceId).Name or 'Universal';
     fileext = startupArgs.fileext or '.txt';
 }
 
