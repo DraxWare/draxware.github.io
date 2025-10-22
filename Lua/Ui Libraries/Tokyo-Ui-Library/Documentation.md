@@ -4,9 +4,25 @@ Take A Look At The [Library Source](Source.lua) Here
 
 Take A Look At The [Library Rawed Source](https://raw.githubusercontent.com/DraxWare/draxware.github.io/refs/heads/main/Lua/Ui%20Libraries/Tokyo-Ui-Library/Source.lua) Here
 
-## Getting The Library
+## Getting The Library - Manual Set
 ```lua
-local Library = loadstring(http.request({Url='https://raw.githubusercontent.com/DraxWare/draxware.github.io/refs/heads/main/Lua/Ui%20Libraries/Tokyo-Ui-Library/Source.lua',Method='GET'}).Body)();
+local Library = loadstring(http.request({
+    Url = 'https://raw.githubusercontent.com/DraxWare/draxware.github.io/refs/heads/main/Lua/Ui%20Libraries/Tokyo-Ui-Library/Source.lua',
+    Method = 'GET',
+}).Body)({
+    cheatname = 'Cheat Name',
+    gamename = 'A Roblox Game', --[[Dont use this and the ui will set it for you]]
+    fileext = '.txt', --[[Dont use this and the ui will set it for you]]
+})
+```
+## Getting The Library - Auto Set
+```lua
+local Library = loadstring(http.request({
+    Url = 'https://raw.githubusercontent.com/DraxWare/draxware.github.io/refs/heads/main/Lua/Ui%20Libraries/Tokyo-Ui-Library/Source.lua',
+    Method = 'GET',
+}).Body)({
+    cheatname = 'Cheat Name'
+})
 ```
 
 ## Initializing the library
