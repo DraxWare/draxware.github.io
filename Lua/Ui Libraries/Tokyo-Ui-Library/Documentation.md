@@ -43,7 +43,7 @@ local Window = Library:CreateWindow({title='Hub Name'})
 
 ## Creating Tabs
 ```lua
-local Tab = Window:CreateTab('Tab', true, 'rbxassetid://4483362458', Vector2.new(0, 0), Vector2.new(0, 0))
+local Tab = Window:CreateTab('Tab')
 ```
 
 | parameters   | Type              | Information    | In-Depth Description |
