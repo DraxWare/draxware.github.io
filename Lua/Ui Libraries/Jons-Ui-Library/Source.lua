@@ -3591,9 +3591,17 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
                                     Utility:Tween(Keybind, {Size = UDim2.new(0, TextSize.X + 10, 0, 25)}, 0.25)
                                 end
                                 Current = Input.UserInputType.Name;
-							end
-							if Input.UserInputType.Name == 'MouseButton2' then
+							elseif Input.UserInputType.Name == 'MouseButton2' then
 								AnimateText(Keybind, "Right Mouse")
+                                TextSize = TextService:GetTextSize("Right Mouse", 14, Enum.Font.Gotham, Vector2.new(410, 40))
+                                if TextSize.X < 25 then
+                                    Utility:Tween(Keybind, {Size = UDim2.new(0, 25, 0, 25)}, 0.25)
+                                else 
+                                    Utility:Tween(Keybind, {Size = UDim2.new(0, TextSize.X + 10, 0, 25)}, 0.25)
+                                end
+                                Current = Input.UserInputType.Name;
+							else
+								AnimateText(Keybind, tostring(Input.UserInputType.Name))
                                 TextSize = TextService:GetTextSize("Right Mouse", 14, Enum.Font.Gotham, Vector2.new(410, 40))
                                 if TextSize.X < 25 then
                                     Utility:Tween(Keybind, {Size = UDim2.new(0, 25, 0, 25)}, 0.25)
