@@ -38,6 +38,20 @@ Custom_Games={
             'PartName',
         },
     },
+	['Survive 99 Nights'] = {
+        Place_Ids = {
+            126509999114328
+        },
+		CustomParts = {
+            Head = {},
+            Torso = {},
+        },
+        Whitelisted_Parts = {
+            'old flashlight',
+            'lost child2',
+            'pelt trader',
+        },
+    },
     ['Prison Life'] = {
         Place_Ids = {
             155615604,
