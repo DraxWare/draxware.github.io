@@ -38,6 +38,18 @@ Custom_Games={
             'PartName',
         },
     },
+    ['Assassin!'] = {
+        Place_Ids = {
+            379614936,
+        },
+        CustomParts = {
+            Head = {},
+            Torso = {},
+        },
+        Whitelisted_Parts = {
+            'noob',
+        }
+    },
     ['Murder Mystery 2']={
         Place_Ids={
             142823291,
