@@ -38,6 +38,30 @@ Custom_Games={
             'PartName',
         },
     },
+    ['Prison Life'] = {
+        Place_Ids = {
+            155615604,
+        },
+	CustomParts = {
+            Head = {},
+            Torso = {},
+        },
+        Whitelisted_Parts = {
+            'noob',
+        }
+    },
+    ['Prison Life'] = {
+        Place_Ids = {
+            155615604,
+        },
+	    CustomParts = {
+            Head = {},
+            Torso = {},
+        },
+        Whitelisted_Parts = {
+            'noob',
+        }
+    },
     ['Assassin!'] = {
         Place_Ids = {
             379614936,
