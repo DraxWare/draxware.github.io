@@ -407,6 +407,7 @@ Custom_Games={
     ['Hunting Season']={
         Place_Ids={
             5286116071,
+            120073741652089,
         },
         CustomParts={
             Head={
