@@ -42,25 +42,13 @@ Custom_Games={
         Place_Ids = {
             155615604,
         },
-	CustomParts = {
+		CustomParts = {
             Head = {},
             Torso = {},
         },
         Whitelisted_Parts = {
             'noob',
-        }
-    },
-    ['Prison Life'] = {
-        Place_Ids = {
-            155615604,
         },
-	    CustomParts = {
-            Head = {},
-            Torso = {},
-        },
-        Whitelisted_Parts = {
-            'noob',
-        }
     },
     ['Assassin!'] = {
         Place_Ids = {
@@ -72,7 +60,7 @@ Custom_Games={
         },
         Whitelisted_Parts = {
             'noob',
-        }
+        },
     },
     ['Murder Mystery 2']={
         Place_Ids={
