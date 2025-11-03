@@ -413,7 +413,9 @@ Custom_Games={
             Head={
                 'eyes',
             },
-            Torso={},
+            Torso={
+                'rootpart',
+            },
         },
         Whitelisted_Parts={
             'Cashier',
