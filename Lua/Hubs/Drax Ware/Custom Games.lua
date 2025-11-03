@@ -411,10 +411,10 @@ Custom_Games={
         },
         CustomParts={
             Head={
-                'eyes',
+                'brain',
             },
             Torso={
-                'rootpart',
+                'heart',
             },
         },
         Whitelisted_Parts={
