@@ -76,7 +76,8 @@ if identifyexecutor and type(identifyexecutor) == "function" then
     elseif Executor == 'Wave' then
         CoreGui = Services.CoreGui
     elseif Executor == 'Solara' then
-		CoreGui = game.CoreGui
+		Services=setmetatable({},{__index=function(b,c)return game:GetService(c)end})
+		CoreGui = Services.CoreGui
 		warn('Solara Detected, You\'re running with a *Fixed* version of '..LibraryName..' to run on solara, may be detectable! consider switching to a different executor that supports more functions!')
     elseif Executor == 'Zenith' then
 		CoreGui = gethui()
