@@ -620,7 +620,7 @@ do
 			if not CoreGui:FindFirstChild(tostring(LibraryName)) then
 				Utility:Create('ScreenGui', {
 					Name = ''..tostring(LibraryName)..'',
-					Parent = setreadonly and CoreGui or Services.PlayerGui
+					Parent = (setreadonly and CoreGui) or CoreGui or Services.PlayerGui
 				})
 			else
 				Utility:Create('Frame', {
@@ -1462,7 +1462,7 @@ function Library:CreateWindow(HubName, GotImprovePerformance)
 
 	local Container = Utility:Create('ScreenGui', {
 		Name = UIName,
-		Parent = setreadonly and CoreGui or Services.PlayerGui
+		Parent = (setreadonly and CoreGui) or CoreGui or Services.PlayerGui
 	}, {
 		Utility:Create('Frame', {
 			Name = 'Main',
