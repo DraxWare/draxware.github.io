@@ -77,7 +77,7 @@ if identifyexecutor and type(identifyexecutor) == "function" then
         CoreGui = Services.CoreGui
     elseif Executor == 'Solara' then
 		CoreGui = game.CoreGui
-		warn('Solara Detected, You\'re running with a *Fixed* version of '..HubName..' to run on solara, may be detectable! consider switching to a different executor that supports more functions!')
+		warn('Solara Detected, You\'re running with a *Fixed* version of '..LibraryName..' to run on solara, may be detectable! consider switching to a different executor that supports more functions!')
     elseif Executor == 'Zenith' then
 		CoreGui = gethui()
 	else
